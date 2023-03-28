@@ -1,6 +1,7 @@
 import React from 'react';
+import 'flowbite';
 import { Routes, Route } from 'react-router-dom';
-import Admin from './views/Admin-dashboard/Admin';
+import Admin from './routes/Admin.jsx';
 import Dashboard from './views/Admin-dashboard/Dashboard/Dashboard';
 import Participants from './views/Admin-dashboard/Participants/Participants';
 import Login from './views/Login/Login';
