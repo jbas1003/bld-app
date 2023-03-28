@@ -13,6 +13,9 @@ module.exports = {
       LightPink: '#ffbfbf',
       Pink: '#ff8080',
       WhiteSmoke: '#f4f4f4',
+    },
+    fontFamily: {
+      alegreya: ['Alegreya', 'serif'],
     }
   },
   plugins: [
