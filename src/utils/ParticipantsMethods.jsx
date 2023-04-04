@@ -1,6 +1,6 @@
 import { serverRoutes } from "./constants";
 
-export function GetAllParticipants () {
+export async function GetAllParticipants () {
     var myHeaders = new Headers();
     myHeaders.append("Content-type", "application-json");
 
@@ -10,5 +10,5 @@ export function GetAllParticipants () {
         redirect: 'follow'
     };
 
-    return fetch(serverRoutes.participants, requestOptions);
+    return fetch(serverRoutes.participants, requestOptions)
 }
