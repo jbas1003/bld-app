@@ -1,6 +1,6 @@
 import { serverRoutes } from "./constants";
 
-export async function GetAllParticipants () {
+export function GetAllParticipants (callback) {
     var myHeaders = new Headers();
     myHeaders.append("Content-type", "application-json");
 
