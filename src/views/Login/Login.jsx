@@ -1,5 +1,4 @@
 import React from 'react';
-import bldLogo from '../../assets/OFFICIAL LOGO.png';
 
 const Login = () => {
   return (
