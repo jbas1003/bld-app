@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Datepicker from "tailwind-datepicker-react";
-import { GetAllParticipants } from '../../../../utils/ParticipantsMethods';
+import { AddParticipant, GetAllParticipants } from '../../../../utils/ParticipantsMethods';
 import AddParticipants from './Modals/AddParticipants';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
+import Result from './Modals/Result';
 
 const DTRegistration = () => {
     const [participants, setParticipants] = useState();
     const [status, setStatus] = useState();
+    const [errors, setErrors] = useState(true);
+    const [errorMessage, setErrorMessage] = useState();
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -19,6 +22,7 @@ const DTRegistration = () => {
     const [showPersonalInfo, setShowPersonalInfo] = useState();
     const [showAddressinfo, setShowAddressinfo] = useState();
     const [showWorkinfo, setShowWorkinfo] = useState();
+    const [showResult, setShowResult] = useState();
 
     const [firstName, setFirstName] = useState(null);
     const [middleName, setMiddleName] = useState(null);
@@ -52,6 +56,7 @@ const DTRegistration = () => {
                 setShowPersonalInfo(true);
                 setShowAddressinfo(false);
                 setShowWorkinfo(false);
+                setShowResult(false);
                 break;
             
             case "address":
@@ -60,19 +65,89 @@ const DTRegistration = () => {
                 setShowPersonalInfo(false);
                 setShowAddressinfo(true);
                 setShowWorkinfo(false);
+                setShowResult(false);
                 break;
             
-                case "work":
+            case "work":
                 setPreviousStep("address")
                 setCurrentStep("work");
                 setShowPersonalInfo(false);
                 setShowAddressinfo(false);
                 setShowWorkinfo(true);
+                setShowResult(false);
+                break;
+            
+            case "result":
+                setPreviousStep("work")
+                setCurrentStep("result");
+                setShowPersonalInfo(false);
+                setShowAddressinfo(false);
+                setShowWorkinfo(false);
+                setShowResult(true);
                 break;
         
             default:
                 break;
         }
+    }
+
+    const closeAdd = () => {
+        setFirstName(null);
+        setMiddleName(null);
+        setLastName(null);
+        setNickname(null);
+        setMobile(null);
+        setEmail(null);
+        setBirthday(null);
+        setGender(null);
+        setCivilStatus(null);
+        setSpouse(null);
+        setReligion(null);
+        setBaptized(null);
+        setconfirmed(null);
+        setMemberAddressLine1(null);
+        setMemberAddressLine2(null);
+        setMemberCity(null);
+        setOccupation(null);
+        setSpecialty(null);
+        setCompany(null);
+        setCompanyAddressLine1(null);
+        setCompanyAddressLine2(null);
+        setCompanyCity(null);
+
+        setShowAdd(false);
+    }
+
+    const addParticipants = () => {
+        AddParticipant(firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
+        .then(result => {return result.json()})
+        .then(result => console.log(result))
+        .catch(errors => console.log(errors))
+
+        // console.log(firstName)
+        // console.log(middleName)
+        // console.log(lastName)
+        // console.log(nickname)
+        // console.log(birthday)
+        // console.log(gender)
+        // console.log(civilStatus)
+        // console.log(spouse)
+        // console.log(religion)
+        // console.log(baptized)
+        // console.log(confirmed)
+        // console.log(memberAddressLine1)
+        // console.log(memberAddressLine2)
+        // console.log(memberCity)
+        // console.log(mobile)
+        // console.log(email)
+        // console.log(occupation)
+        // console.log(specialty)
+        // console.log(company)
+        // console.log(companyAddressLine1)
+        // console.log(companyAddressLine2)
+        // console.log(companyCity)
+
+        Stepper('result');
     }
 
     const getParticipants = async () => {
@@ -93,7 +168,7 @@ const DTRegistration = () => {
     function tableSearch() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("tableSearch");
+        input = document.getElementById("table-search");
         filter = input.value.toUpperCase();
         table = document.getElementById("employeeDTbl");
         tr = table.getElementsByTagName("tr");
@@ -124,6 +199,7 @@ const DTRegistration = () => {
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
                     </div>
+                    <input type="text" id="table-search" onKeyUp={() => tableSearch()} className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" />
                 </div>
 
                 <div>
@@ -233,21 +309,21 @@ const DTRegistration = () => {
                     <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'address' && previousStep === 'personal' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'work' ?
+                            : currentStep === 'work' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div class={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'address' && previousStep === 'personal' ?
                                 'bg-green-100'
-                            : currentStep === 'work' ?
+                            : currentStep === 'work' | currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'address' && previousStep === 'personal' ?
                                     'text-gray-500'
-                                : currentStep === 'work' ?
+                                : currentStep === 'work' | currentStep === 'result' ?
                                     'text-green-600'
                                     :'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -259,17 +335,23 @@ const DTRegistration = () => {
                     <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'work' && previousStep === 'address' ?
                             'text-green-100 after:border-green-100'
-                            : ''}
+                            : currentStep === 'result' ?
+                                'text-green-600 after:border-green-600'
+                                :'text-green-100 after:border-gray-100'}
                     `}>
                         <div class={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'work' && previousStep === 'address' ?
                                 'bg-green-100'
-                            : 'bg-gray-100 '}
+                            : currentStep === 'result' ?
+                                'bg-green-100'
+                                :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'work' && previousStep === 'address' ?
                                     'text-gray-500'
-                                : 'text-gray-500'}
+                                : currentStep === 'result' ?
+                                    'text-green-600'
+                                    : 'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path clipRule="evenodd" fillRule="evenodd" d="M7.5 5.25a3 3 0 013-3h3a3 3 0 013 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0112 15.75c-2.73 0-5.357-.442-7.814-1.259-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 017.5 5.455V5.25zm7.5 0v.09a49.488 49.488 0 00-6 0v-.09a1.5 1.5 0 011.5-1.5h3a1.5 1.5 0 011.5 1.5zm-3 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" />
                                 <path d="M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z" />
@@ -417,7 +499,8 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected value={'null'}>Choose Spouse</option>
+                                <option selected>Choose Spouse</option>
+                                <option value={null}>No Spouse</option>
                                 {
                                     status ?
                                         participants.map(items => (
@@ -447,23 +530,15 @@ const DTRegistration = () => {
                             <div class="flex">
                                 <div class="flex items-center mr-4">
                                     <input id="pi_baptism" type="radio" value="Yes" name="baptism-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setBaptized(e.target.value)}}
-                                        checked={
-                                            baptized === 'Yes' ?
-                                                true
-                                            :false
-                                        }
+                                        onChange={e => {setBaptized(true)}}
+                                        checked={baptized}
                                     />
                                     <label htmlFor="pi_baptism" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
                                 <div class="flex items-center mr-4">
                                     <input id="pi_baptism" type="radio" value="No" name="baptism-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setBaptized(e.target.value)}}
-                                        checked={
-                                            baptized === 'No' ?
-                                                true
-                                            :false
-                                        }
+                                        onChange={e => {setBaptized(false)}}
+                                        checked={!baptized}
                                     />
                                     <label htmlFor="pi_baptism" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
@@ -474,23 +549,15 @@ const DTRegistration = () => {
                             <div class="flex">
                                 <div class="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="Yes" name="confirmation-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setconfirmed(e.target.value)}}
-                                        checked={
-                                            confirmed === 'Yes' ?
-                                                true
-                                            :false
-                                        }
+                                        onChange={e => {setconfirmed(true)}}
+                                        checked={confirmed}
                                     />
                                     <label htmlFor="pi_confirmation" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
                                 <div class="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="No" name="confirmation-radio-group" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        onChange={e => {setconfirmed(e.target.value)}}
-                                        checked={
-                                            confirmed === 'No' ?
-                                                true
-                                            :false
-                                        }
+                                        onChange={e => {setconfirmed(false)}}
+                                        checked={!confirmed}
                                     />
                                     <label htmlFor="pi_confirmation" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
@@ -507,19 +574,40 @@ const DTRegistration = () => {
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_addressLine1" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_addressLine1" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setMemberAddressLine1(e.target.value)}}
+                                    value={
+                                        memberAddressLine1 !== null ?
+                                            memberAddressLine1
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_addressLine1" class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
                             </div>
                         </div>
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_addressLine2" class="block text-sm px-2.5 pb-2.5 pt-4 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_addressLine2" class="block text-sm px-2.5 pb-2.5 pt-4 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setMemberAddressLine2(e.target.value)}}
+                                    value={
+                                        memberAddressLine2 !== null ?
+                                            memberAddressLine2
+                                        :""
+                                    }    
+                                />
                                 <label htmlFor="fo_addressLine2" class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
                             </div>
                         </div>
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_city" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_city" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setMemberCity(e.target.value)}}
+                                    value={
+                                        memberCity !== null ?
+                                            memberCity
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_city" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
                             </div>
                         </div>
@@ -537,38 +625,80 @@ const DTRegistration = () => {
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_occupation" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_occupation" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setOccupation(e.target.value)}}
+                                    value={
+                                        occupation !== null ?
+                                            occupation
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_occupation" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
                             </div>
                         </div>
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_specialty" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_specialty" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setSpecialty(e.target.value)}}
+                                    value={
+                                        specialty!== null ?
+                                            specialty
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_specialty" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Specialty (ex. Skill/Course)</label>
                             </div>
                         </div>
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_company" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_company" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCompany(e.target.value)}}
+                                    value={
+                                        company !== null ?
+                                            company
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_company" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
                             </div>
                         </div>
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_companyAddressLine1" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_companyAddressLine1" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCompanyAddressLine1(e.target.value)}}
+                                    value={
+                                        companyAddressLine1 !== null ?
+                                            companyAddressLine1
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_companyAddressLine1" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
                             </div>
                         </div>
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_companyAddressLine2" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_companyAddressLine2" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCompanyAddressLine2(e.target.value)}}
+                                    value={
+                                        companyAddressLine2 !== null ?
+                                            companyAddressLine2
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_companyAddressLine2" class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (ex. Bldg #, Street, Brgy, Subdivision, District)</label>
                             </div>
                         </div>
 
                         <div>
                             <div class="relative">
-                                <input type="text" id="fo_companyCity" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                <input type="text" id="fo_companyCity" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCompanyCity(e.target.value)}}
+                                    value={
+                                        companyCity !== null ?
+                                            companyCity
+                                        :""
+                                    }
+                                />
                                 <label htmlFor="fo_companyCity" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
                             </div>
                         </div>
@@ -576,10 +706,39 @@ const DTRegistration = () => {
                     <button onClick={() => Stepper('address')} type="submit" class="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                         Go Back to: Address Info
                     </button>
-                    <button onClick={() => Stepper('work')} type="submit" class="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button onClick={addParticipants} type="submit" class="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Save
                     </button>
                 </WorkInfo>
+
+                <Result show={showResult}>
+                    {
+                        !errors ?
+                            <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
+                                <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
+                                    <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                                    </svg>
+                                    <label className='font-semibold text-3xl'>Success!</label>
+                                </div>
+                            </div>
+                        :
+                            <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-red-50">
+                                <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
+                                    <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                    </svg>
+                                    <label className='font-semibold text-3xl'>{errorMessage}</label>
+                                </div>
+                            </div>
+                    }
+                    <button onClick={() => Stepper('work')} type="submit" class="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                        Go Back to: Work Info
+                    </button>
+                    <button onClick={closeAdd} type="submit" class="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Close
+                    </button>
+                </Result>
 
             </AddParticipants>
         </div>
