@@ -6,6 +6,7 @@ import Admin from './routes/Admin.jsx';
 import Dashboard from './views/Admin-dashboard/Dashboard/Dashboard';
 import Participants from './views/Admin-dashboard/Participants/Participants';
 import Login from './views/Login/Login';
+import Config from './views/Admin-dashboard/Config/Config.jsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/admin' element={<Admin />}>
             <Route path='/admin/dashboard' index element={<Dashboard />}/>
             <Route path='/admin/participants' element={<Participants />}/>
+            <Route path='/admin/config' element={<Config />}/>
           </Route>
       </Routes>
     </>
