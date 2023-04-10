@@ -9,11 +9,11 @@ const SideNav = () => {
             <div className="h-full px-3 pb-4 overflow-y-auto bg-Red">
                 <ul className="space-y-2 font-medium">
                     <li>
-                        <Link to="/admin/dashboard" className="flex items-center p-2 text-WhiteSmoke rounded-lg dark:text-white hover:bg-DarkRed">
-                        <svg fill="none" className="flex-shrink-0 w-6 h-6 text-WhiteSmoke transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
-                        </svg>
+                        <Link to="/admin/dashboard" className="flex items-center p-2 text-WhiteSmoke rounded-lg dark:text-white hover:bg-DarkRed selection:bg-DarkRed">
+                            <svg fill="none" className="flex-shrink-0 w-6 h-6 text-WhiteSmoke transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z"></path>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z"></path>
+                            </svg>
                             <span className="ml-3 font-semibold text-WhiteSmoke">Dashboard</span>
                         </Link>
                     </li>
