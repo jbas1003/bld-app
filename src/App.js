@@ -17,7 +17,7 @@ function App() {
           </Route>
 
           <Route path='/admin' element={<Admin />}>
-            <Route path='/admin/dashboard' index element={<Dashboard />}/>
+            <Route index path='/admin/dashboard' element={<Dashboard />}/>
             <Route path='/admin/participants' element={<Participants />}/>
             <Route path='/admin/config' element={<Config />}/>
           </Route>
