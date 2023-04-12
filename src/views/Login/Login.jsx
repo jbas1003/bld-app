@@ -1,5 +1,4 @@
 import React from 'react';
-import bldLogo from '../../assets/OFFICIAL LOGO.png';
 
 const Login = () => {
   return (
@@ -17,12 +16,12 @@ const Login = () => {
           <form>
             <div className="relative mb-6">
                 <input type="text" id="fo_username" className="block px-2.5 pb-2.5 pt-4 w-full text-xl text-DarkRed bg-transparent rounded-lg border-1 border-DarkRed appearance-none focus:outline-none focus:ring-0 focus:border-Red peer" placeholder=" " />
-                <label htmlFor="fo_username" className="absolute text-xl font-semibold text-DarkRed duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-Red ppeer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"><em>Username</em></label>
+                <label htmlhtmlFor="fo_username" className="absolute text-xl font-semibold text-DarkRed duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-Red ppeer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"><em>Username</em></label>
             </div>
 
             <div className="relative mb-6">
               <input type="password" id="fo_password" className="block px-2.5 pb-2.5 pt-4 w-full text-xl text-DarkRed bg-transparent rounded-lg border-1 border-DarkRed appearance-none focus:outline-none focus:ring-0 focus:border-Red peer" placeholder=" " />
-              <label htmlFor="fo_password" className="absolute text-xl font-semibold text-DarkRed duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-Red ppeer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"><em>Password</em></label>
+              <label htmlhtmlFor="fo_password" className="absolute text-xl font-semibold text-DarkRed duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-transparent px-2 peer-focus:px-2 peer-focus:text-Red ppeer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"><em>Password</em></label>
           </div>
 
           <div className='flex justify-end'>
