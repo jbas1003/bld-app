@@ -4,4 +4,6 @@ export const serverRoutes = {
     participants: myApiURL + '/members',
     eventTypes: myApiURL + '/event_types',
     events: myApiURL + '/events',
+    memberStatus: myApiURL + '/member_status',
+    memberAccounts: myApiURL + '/member_accounts',
 }
