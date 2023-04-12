@@ -1,5 +1,15 @@
 import { serverRoutes } from "./constants";
 
+export function login (username, password) {
+    var myHeader = new Headers();
+    myHeader.append('Content-type', 'applicaction/json');
+
+    var raw = JSON.stringify({
+        "username": username,
+        "password": password
+    });
+}
+
 export function GetMemberAccounts () {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'application/json');
