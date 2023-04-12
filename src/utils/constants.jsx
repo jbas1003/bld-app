@@ -6,4 +6,5 @@ export const serverRoutes = {
     events: myApiURL + '/events',
     memberStatus: myApiURL + '/member_status',
     memberAccounts: myApiURL + '/member_accounts',
+    login: myApiURL + '/member_accounts/login',
 }
