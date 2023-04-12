@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import EventTypes from './EventTypes/EventTypes';
 import DTEventTypes from './EventTypes/DTEventTypes';
@@ -6,6 +6,10 @@ import EventTypeCategories from './EventTypeCategories/EventTypeCategories';
 import DTEventTypeCategories from './EventTypeCategories/DTEventTypeCategories';
 import Events from './Events/Events';
 import DTEvents from './Events/DTEvents';
+import MemberStatus from './MemberStatus/MemberStatus';
+import DTMemberStatus from './MemberStatus/DTMemberStatus';
+import MemberAccounts from './MemberAccounts/MemberAccounts';
+import DTMemberAccounts from './MemberAccounts/DTMemberAccounts';
 
 const Config = () => {
     const [currentTab, setCurrentTab] = useState();
@@ -13,6 +17,7 @@ const Config = () => {
     const [showEvents, setShowEvents] = useState();
     const [showMemberStatus, setShowMemberStatus] = useState();
     const [showEventTypeCategories, setShowEventTypeCategories] = useState();
+    const [showMemberAccounts, setShowMemberAccounts] = useState();
 
     const CurrentTab = (tab) => {
         setCurrentTab(tab);
@@ -23,6 +28,7 @@ const Config = () => {
               setShowEventTypes(false);
               setShowEvents(false);
               setShowMemberStatus(false);
+              setShowMemberAccounts(false);
               break;
 
             case "eventTypes":
@@ -31,6 +37,7 @@ const Config = () => {
                 setShowEvents(false);
                 setShowMemberStatus(false);
                 setShowEventTypeCategories(false);
+                setShowMemberAccounts(false);
                 break;
             
             case "events":
@@ -39,6 +46,7 @@ const Config = () => {
                 setShowEvents(true);
                 setShowMemberStatus(false);
                 setShowEventTypeCategories(false);
+                setShowMemberAccounts(false);
                 break;
 
             case "memberStatus":
@@ -47,7 +55,17 @@ const Config = () => {
                 setShowEvents(false);
                 setShowMemberStatus(true);
                 setShowEventTypeCategories(false);
+                setShowMemberAccounts(false);
                 break;
+
+                case "memberAccounts":
+                  setShowEventTypeCategories(false);
+                  setShowEventTypes(false);
+                  setShowEvents(false);
+                  setShowMemberStatus(false);
+                  setShowEventTypeCategories(false);
+                  setShowMemberAccounts(true);
+                  break;
 
             default:
                 break;
@@ -91,6 +109,15 @@ const Config = () => {
                       <label className='font-semibold'>Member Statuses</label>
                     </Link>
                 </li>
+                
+                <li className="mr-2">
+                    <Link onClick={() => CurrentTab("memberAccounts")} className={`inline-flex p-4 border-b-2 ${currentTab === 'memberAccounts' ? "text-Red border-Red rounded-t-lg active" : "border-transparent rounded-t-lg hover:text-Red hover:border-Red"} group`}>
+                      <svg fill="none" stroke="currentColor" className={`w-5 h-5 mr-2 ${currentTab === 'memberAccounts' ? "text-Red" : "text-gray-500 group-hover:text-Red"}`} strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                      </svg>
+                      <label className='font-semibold'>Member Accounts</label>
+                    </Link>
+                </li>
             </ul>
 
             <EventTypeCategories show={showEventTypeCategories}>
@@ -104,6 +131,14 @@ const Config = () => {
             <Events show={showEvents}>
               <DTEvents />
             </Events>
+
+            <MemberStatus show={showMemberStatus }>
+              <DTMemberStatus />
+            </MemberStatus>
+
+            <MemberAccounts show={showMemberAccounts}>
+                <DTMemberAccounts />
+            </MemberAccounts>
         </div>
 
     )
