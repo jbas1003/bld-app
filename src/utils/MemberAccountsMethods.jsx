@@ -8,6 +8,15 @@ export function login (username, password) {
         "username": username,
         "password": password
     });
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(serverRoutes.login, requestOptions);
 }
 
 export function GetMemberAccounts () {
