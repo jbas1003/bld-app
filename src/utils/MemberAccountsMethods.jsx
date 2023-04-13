@@ -1,6 +1,6 @@
 import { serverRoutes } from "./constants";
 
-export function login (username, password) {
+export function Login (username, password) {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'applicaction/json');
 
