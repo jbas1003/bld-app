@@ -2,7 +2,7 @@ import { serverRoutes } from "./constants";
 
 export function Login (username, password) {
     var myHeader = new Headers();
-    myHeader.append('Content-type', 'applicaction/json');
+    myHeader.append('Content-type', 'application/json()');
 
     var raw = JSON.stringify({
         "username": username,
