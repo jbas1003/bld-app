@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
             .then(async result => {
                 if (await result.status === 200) {
                     const loginData = {
+                        "__": result.body.member_id,
                         "first_name": result.body.first_name,
                         "middle_name": result.body.middle_name,
                         "last_name": result.body.last_name
