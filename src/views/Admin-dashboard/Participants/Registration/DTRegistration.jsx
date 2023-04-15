@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useAuthContext from '../../../../utils/AuthContext';
 import Datepicker from "tailwind-datepicker-react";
 import { AddParticipant, GetAllParticipants } from '../../../../utils/ParticipantsMethods';
 import AddParticipants from './Modals/AddParticipants';
@@ -8,17 +9,28 @@ import WorkInfo from './Modals/WorkInfo';
 import Result from './Modals/Result';
 import EditParticipant from './Modals/EditParticipant';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
+import { CreateAttendanceRecord, GetAttendance } from '../../../../utils/AttendanceMethod';
+import AttendanceWarning from './Modals/AttendanceWarning';
 
 const DTRegistration = () => {
+    const { loginResult } = useAuthContext()
+
     const [participants, setParticipants] = useState();
     const [status, setStatus] = useState();
     const [errors, setErrors] = useState(true);
     const [message, setMessage] = useState();
     const [isLoading, setIsLoading] = useState();
 
+    const [attendanceRecord, setAttendanceRecord] = useState();
+    const [attendanceMessage, setAttendanceMessage] = useState();
+    const [attendanceStatus, setAttendanceStatus] = useState();
+    const [attendance, setAttendance] = useState();
+    const [memberId, setMemberId] = useState();
+
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [showAttendanceWarning, setShowAttendanceWarning] = useState(false);
 
     const [currentStep, setCurrentStep] = useState();
     const [previousStep, setPreviousStep] = useState();
@@ -28,31 +40,37 @@ const DTRegistration = () => {
     const [showResult, setShowResult] = useState();
 
     const [participant, setParticipant] = useState(); 
-    const [firstName, setFirstName] = useState(null);
-    const [middleName, setMiddleName] = useState(null);
-    const [lastName, setLastName] = useState(null);
-    const [nickname, setNickname] = useState(null);
-    const [mobile, setMobile] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [birthday, setBirthday] = useState(null);
-    const [gender, setGender] = useState(null);
-    const [civilStatus, setCivilStatus] = useState(null);
+    const [firstName, setFirstName] = useState();
+    const [middleName, setMiddleName] = useState();
+    const [lastName, setLastName] = useState();
+    const [nickname, setNickname] = useState();
+    const [mobile, setMobile] = useState();
+    const [email, setEmail] = useState();
+    const [birthday, setBirthday] = useState();
+    const [gender, setGender] = useState();
+    const [civilStatus, setCivilStatus] = useState();
     const [spouse, setSpouse] = useState();
-    const [religion, setReligion] = useState(null);
-    const [baptized, setBaptized] = useState(null);
-    const [confirmed, setconfirmed] = useState(null);
-    const [memberAddressLine1, setMemberAddressLine1] = useState(null);
-    const [memberAddressLine2, setMemberAddressLine2] = useState(null);
-    const [memberCity, setMemberCity] = useState(null);
-    const [occupation, setOccupation] = useState(null);
-    const [specialty, setSpecialty] = useState(null);
-    const [company, setCompany] = useState(null);
-    const [companyAddressLine1, setCompanyAddressLine1] = useState(null);
-    const [companyAddressLine2, setCompanyAddressLine2] = useState(null);
-    const [companyCity, setCompanyCity] = useState(null);
+    const [religion, setReligion] = useState();
+    const [baptized, setBaptized] = useState();
+    const [confirmed, setconfirmed] = useState();
+    const [memberAddressLine1, setMemberAddressLine1] = useState();
+    const [memberAddressLine2, setMemberAddressLine2] = useState();
+    const [memberCity, setMemberCity] = useState();
+    const [occupation, setOccupation] = useState();
+    const [specialty, setSpecialty] = useState();
+    const [company, setCompany] = useState();
+    const [companyAddressLine1, setCompanyAddressLine1] = useState();
+    const [companyAddressLine2, setCompanyAddressLine2] = useState();
+    const [companyCity, setCompanyCity] = useState();
 
     const [eventData, setEventData] = useState();
     const [event, setEvent] = useState()
+
+    const changeEvent = (selectedEvent) => {
+        setEvent(selectedEvent);
+        getParticipants();
+        getAttendanceRecords(selectedEvent);
+    }
 
     const Stepper = (step) => {
 
@@ -100,6 +118,24 @@ const DTRegistration = () => {
     const showAddParticipant = () => {
         Stepper('personal')
         setShowAdd(true)
+    }
+
+    const attendanceWarning = (memberId, attendanceStatus, firstName, middleName, lastName) => {
+        setMemberId(memberId);
+        setAttendance(attendanceStatus);
+        setFirstName(firstName);
+        setMiddleName(middleName);
+        setLastName(lastName);
+        setShowAttendanceWarning(true);
+    }
+
+    const closeAttendanceWarning = () => {
+        setMemberId('');
+        setAttendance('');
+        setFirstName('');
+        setMiddleName('');
+        setLastName('');
+        setShowAttendanceWarning(false);
     }
 
     const closeAdd = () => {
@@ -226,7 +262,7 @@ const DTRegistration = () => {
 
     const addParticipants = () => {
         setIsLoading(true);
-        AddParticipant(firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
+        AddParticipant(loginResult.__, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
             .then(async result => {return await result.json()})
             .then(result => {
                 if (result.status === 200) {
@@ -242,6 +278,19 @@ const DTRegistration = () => {
 
         getParticipants();
         Stepper('result');
+    }
+
+    const createAttendance = () => {
+        CreateAttendanceRecord(loginResult.__, memberId, event, attendance)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    alert(`${firstName} ${middleName.charAt(0)}. ${lastName} was successfully tagged as ${attendance}`)
+                } else {
+                    alert(result.message);
+                }
+            })
+        closeAttendanceWarning();
     }
 
     const getParticipants = async () => {
@@ -272,12 +321,26 @@ const DTRegistration = () => {
           })
       }
 
+      const getAttendanceRecords = (event) => {
+            GetAttendance(event)
+                .then(async result => {return await result.json()})
+                .then(result => {
+                    if (result.status === 200) {
+                        setAttendanceStatus(true);
+                        setAttendanceRecord(result.body);
+                    } else {
+                        setAttendanceStatus(false);
+                        setAttendanceMessage(result.message);
+                    }
+                })
+      }
+
     function tableSearch() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("table-search");
         filter = input.value.toUpperCase();
-        table = document.getElementById("employeeDTbl");
+        table = document.getElementById("participantDTbl");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the        search query
@@ -313,7 +376,7 @@ const DTRegistration = () => {
                 <div>
                     <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Event</label>
                     <select id="default" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-                        onChange={e => {setEvent(e.target.value)}}
+                        onChange={e => {changeEvent(e.target.value)}}
                         value={
                         event !== null ?
                             event
@@ -347,7 +410,7 @@ const DTRegistration = () => {
                     </button>
                 </div>
             </div>
-            <table id='employeeDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table id='participantDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th className="px-6 py-3">
@@ -417,8 +480,30 @@ const DTRegistration = () => {
                                                 
                                         }
                                     </td>
-                                    <td>
-                                        
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {
+                                            attendanceStatus ?
+                                                attendanceRecord.map(record => (
+                                                    record.member_id == items.member_id & record.status !== "" ?
+                                                        record.status
+                                                    : 
+                                                    <>
+                                                        <select id="attendance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 p-2.5"
+                                                            onChange={(e) => {attendanceWarning(items.member_id, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            value={
+                                                                attendance !== "" | attendance !== null | attendance !== undefined ?
+                                                                    attendance
+                                                                :""   
+                                                            }
+                                                        >
+                                                            <option defaultValue={""}>Choose a tag</option>
+                                                            <option value="On-time">On-time</option>
+                                                            <option value="On-time">Late</option>
+                                                        </select>
+                                                    </>
+                                                ))
+                                            : null
+                                        }
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
                                         <button type="button"
@@ -1385,6 +1470,26 @@ const DTRegistration = () => {
                     </button>
                 </Result>
             </EditParticipant>
+
+            <AttendanceWarning show={showAttendanceWarning} setShow={closeAttendanceWarning}>
+                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                        <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
+                            <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                            <label className='font-semibold text-lg'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? null : middleName.charAt(0)}. {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                        <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
+                            <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                onClick={createAttendance}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+            </AttendanceWarning>
         </div>
     )
 }
