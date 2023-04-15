@@ -13,7 +13,7 @@ export function GetAllEvents () {
     return fetch(serverRoutes.events, requestOptions);
 }
 
-export function AddEvents (eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus) {
+export function AddEvents (eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus, userId) {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'application/json');
 
@@ -24,7 +24,7 @@ export function AddEvents (eventTitle, eventSubtitle, startDate, endDate, eventT
         "end_date": endDate,
         "status": eventStatus,
         "event_type_id": eventTypeId,
-        "created_by": 1
+        "created_by": userId
     });
 
     var requestOptions = {
@@ -33,7 +33,7 @@ export function AddEvents (eventTitle, eventSubtitle, startDate, endDate, eventT
         body: raw,
         redirect: 'follow'
     };
-
+    
     return fetch(serverRoutes.events, requestOptions);
 }
 
