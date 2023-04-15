@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import useAuthContext from '../../../../utils/AuthContext';
 import { GetAllEventTypes } from '../../../../utils/EventTypeMethods';
 import { AddEvents, DeleteEvent, GetAllEvents, UpdateEvents } from '../../../../utils/EventsMethods';
 import AddEvent from './Modals/AddEvent';
@@ -6,6 +7,8 @@ import EditEvent from './Modals/EditEvent';
 import DeleteEventWarning from './Modals/DeleteEventWarning';
 
 function DTEvents() {
+    const { loginResult } = useAuthContext();
+
     const [status, setStatus] = useState();
     const [events, setEvents] = useState();
     const [message, setMessage] = useState();
@@ -71,7 +74,7 @@ function DTEvents() {
 
     const addNewEvent = () => {
         
-        AddEvents(eventTitle, eventSubtitle, startDate, endDate, eventType, eventStatus)
+        AddEvents(eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus, loginResult.__)
             .then(async result => {return await result.json()})
             .then(async result => {
                 setIsLoading(true)
@@ -248,7 +251,6 @@ function DTEvents() {
                     {
                         status ?
                             events.map(items => (
-                                
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <p className='hover:cursor-pointer'>{items.event_name}</p>
