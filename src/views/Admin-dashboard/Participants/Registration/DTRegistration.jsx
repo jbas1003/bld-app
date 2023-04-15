@@ -261,8 +261,8 @@ const DTRegistration = () => {
     const getEvents = () => {
         GetAllEvents()
           .then(async result => {return await result.json()})
-          .then(async result => {
-            if (await result.status === 200) {
+          .then(result => {
+            if (result.status === 200) {
               setStatus(true);
               setEventData(result.body);
             } else {
@@ -323,12 +323,14 @@ const DTRegistration = () => {
                         <option defaultValue={" "}>Choose an event</option>
                         {
                             status ?
-                                eventData.map(event => (
-                                    event.status.toLowerCase() === 'active' ?
-                                        <option value={event.event_id}>{event.event_name}</option>
-                                    : null
+                                eventData !== null & eventData !== undefined ?
+                                    eventData.map(event => (
+                                        event.status.toLowerCase() === 'active' ?
+                                            <option value={event.event_id}>{event.event_name}</option>
+                                        : <option value={" "}>No active events found...</option>
                                     ))
-                            :null
+                                : <option>No events found...</option>
+                            : <option>No events found...</option>
                         }
                     </select>
                 </div>
@@ -364,6 +366,9 @@ const DTRegistration = () => {
                             Spouse
                         </th>
                         <th className="px-6 py-3">
+                            Attendance
+                        </th>
+                        <th className="px-6 py-3">
                             Action
                         </th>
                     </tr>
@@ -385,7 +390,7 @@ const DTRegistration = () => {
                             participants.map(items => (
                                 <tr>
                                     <td className="px-6 py-3">
-                                        {items.first_name} {items.last_name}
+                                        {items.first_name} {items.middle_name.charAt(0)}. {items.last_name}
                                     </td>
                                     <td className="px-6 py-3">
                                         {items.birthday}
@@ -406,11 +411,14 @@ const DTRegistration = () => {
                                             :
                                                 participants.map(getSpouse => (
                                                     getSpouse.member_id === items.spouse_member_id ?
-                                                        getSpouse.first_name + ' ' + getSpouse.last_name
+                                                        getSpouse.first_name + ' ' + getSpouse.middle_name.charAt(0) + ' ' + getSpouse.last_name
                                                     : null
                                                 ))
                                                 
                                         }
+                                    </td>
+                                    <td>
+                                        
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
                                         <button type="button"
