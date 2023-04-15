@@ -13,7 +13,7 @@ export function GetAllParticipants () {
     return fetch(serverRoutes.participants, requestOptions)
 }
 
-export function AddParticipant (firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
+export function AddParticipant (id, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -31,7 +31,7 @@ export function AddParticipant (firstName, middleName, lastName, nickname, mobil
         "baptism": baptized,
         "confirmation": confirmed,
         "member_status_id": 1,
-        "created_by": 1,
+        "created_by": id,
         "member_address_line1": memberAddressLine1,
         "member_address_line2": memberAddressLine2,
         "member_city": memberCity,
