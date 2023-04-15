@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import useAuthContext from '../../../../utils/AuthContext';
 import { AddNewEventTypes, DeleteEventType, GetAllEventTypes, UpdateEventType } from '../../../../utils/EventTypeMethods';
 import AddEventTypes from './Modals/AddEventTypes';
 import EditEventTypes from './Modals/EditEventTypes';
 import DeleteEventTypeWarning from './Modals/DeleteEventTypeWarning';
 
 const DTEventTypes = () => {
+    const { loginResult } = useAuthContext();
     const [isLoading, setIsLoading] = useState();
     const [eventType, setEventType] = useState();
     const [status, setStatus] = useState();
@@ -36,7 +38,7 @@ const DTEventTypes = () => {
 
     const addNewEventType = () => {
         setIsLoading(true);
-        AddNewEventTypes(eventTypeName, eventTypeCategory)
+        AddNewEventTypes(loginResult.__, eventTypeName, eventTypeCategory)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
