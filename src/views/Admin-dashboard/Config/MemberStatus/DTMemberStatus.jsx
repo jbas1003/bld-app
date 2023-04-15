@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import useAuthContext from '../../../../utils/AuthContext';
 import AddMemberStatus from './Modals/AddMemberStatus';
 import { AddNewMemberStatus, DeleteMemberStatus, GetMemberStatus, UpdateMemberStatus } from '../../../../utils/MemberStatusMethods';
 import EditMemberStatus from './Modals/EditMemberStatus';
 import DeleteMemberStatusWarning from './Modals/DeleteMemberStatusWarning';
 
 function DTMemberStatus() {
+    const { loginResult } = useAuthContext();
+
     const [memberStatusData, setMemberStatusData] = useState();
     const [message, setMessage] = useState();
     const [status, setStatus] = useState();
@@ -33,7 +36,7 @@ function DTMemberStatus() {
     }
 
     const addMemberstatus = () => {
-        AddNewMemberStatus(memberStatus)
+        AddNewMemberStatus(loginResult.__, memberStatus)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
