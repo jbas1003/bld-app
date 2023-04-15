@@ -13,13 +13,13 @@ export function GetMemberStatus () {
     return fetch(serverRoutes.memberStatus, requestOptions);
 }
 
-export function AddNewMemberStatus (memberStatus) {
+export function AddNewMemberStatus (id, memberStatus) {
     var myheader = new Headers();
     myheader.append('Content-type', 'application/json');
 
     var raw = JSON.stringify({
         "status": memberStatus,
-        "created_by": 1
+        "created_by": id
     });
 
     var requestOptions = {
