@@ -7,6 +7,7 @@ import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import Result from './Modals/Result';
 import EditParticipant from './Modals/EditParticipant';
+import { GetAllEvents } from '../../../../utils/EventsMethods';
 
 const DTRegistration = () => {
     const [participants, setParticipants] = useState();
@@ -49,6 +50,9 @@ const DTRegistration = () => {
     const [companyAddressLine1, setCompanyAddressLine1] = useState(null);
     const [companyAddressLine2, setCompanyAddressLine2] = useState(null);
     const [companyCity, setCompanyCity] = useState(null);
+
+    const [eventData, setEventData] = useState();
+    const [event, setEvent] = useState()
 
     const Stepper = (step) => {
 
@@ -254,6 +258,20 @@ const DTRegistration = () => {
         })
     }
 
+    const getEvents = () => {
+        GetAllEvents()
+          .then(async result => {return await result.json()})
+          .then(async result => {
+            if (await result.status === 200) {
+              setStatus(true);
+              setEventData(result.body);
+            } else {
+              setStatus(false);
+              alert('There are no events available. Please contact and request authorized personnel to create an event.');
+            }
+          })
+      }
+
     function tableSearch() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
@@ -278,6 +296,7 @@ const DTRegistration = () => {
 
     useEffect(() => {
         getParticipants();
+        getEvents();
     }, [])
 
     return (
@@ -289,6 +308,29 @@ const DTRegistration = () => {
                         <svg className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
                     </div>
                     <input type="text" id="table-search" onKeyUp={() => tableSearch()} className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" />
+                </div>
+
+                <div>
+                    <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Event</label>
+                    <select id="default" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                        onChange={e => {setEvent(e.target.value)}}
+                        value={
+                        event !== null ?
+                            event
+                        : alert('No Event was selected. Please select an event.')
+                        }
+                    >
+                        <option defaultValue={" "}>Choose an event</option>
+                        {
+                            status ?
+                                eventData.map(event => (
+                                    event.status.toLowerCase() === 'active' ?
+                                        <option value={event.event_id}>{event.event_name}</option>
+                                    : null
+                                    ))
+                            :null
+                        }
+                    </select>
                 </div>
 
                 <div>
