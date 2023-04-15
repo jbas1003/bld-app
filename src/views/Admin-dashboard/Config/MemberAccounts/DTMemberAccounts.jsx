@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import useAuthContext from '../../../../utils/AuthContext';
 import { CreateAccount, GetMemberAccounts } from '../../../../utils/MemberAccountsMethods';
 import { GetAllParticipants } from '../../../../utils/ParticipantsMethods';
 import CreateAccountModal from './Modals/CreateAccountModal';
 
 function DTMemberAccounts() {
+    const { loginResult } = useAuthContext();
+
     const [memberAccountsData, setMemberAccountsData] = useState();
     const [membersData, setMembersData] = useState()
     const [membersStatus, setMembersStatus] = useState();
@@ -57,7 +60,7 @@ function DTMemberAccounts() {
     }
 
     const createAccount = () => {
-        CreateAccount(memberId, username, password)
+        CreateAccount(loginResult.__, memberId, username, password)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
