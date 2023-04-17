@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
-import Datepicker from "tailwind-datepicker-react";
-import { AddParticipant, GetAllParticipants } from '../../../../utils/ParticipantsMethods';
+import { AddParticipant, GetAllParticipants, UpdateParticipant } from '../../../../utils/ParticipantsMethods';
 import AddParticipants from './Modals/AddParticipants';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
@@ -9,7 +8,7 @@ import WorkInfo from './Modals/WorkInfo';
 import Result from './Modals/Result';
 import EditParticipant from './Modals/EditParticipant';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
-import { CreateAttendanceRecord, GetAttendance } from '../../../../utils/AttendanceMethod';
+import { CreateAttendanceRecord, DeleteAttendanceRecord, GetAttendance } from '../../../../utils/AttendanceMethod';
 import AttendanceWarning from './Modals/AttendanceWarning';
 
 const DTRegistration = () => {
@@ -22,10 +21,10 @@ const DTRegistration = () => {
     const [isLoading, setIsLoading] = useState();
 
     const [attendanceRecord, setAttendanceRecord] = useState();
-    const [attendanceMessage, setAttendanceMessage] = useState();
     const [attendanceStatus, setAttendanceStatus] = useState();
     const [attendance, setAttendance] = useState();
     const [memberId, setMemberId] = useState();
+    const [attendanceMessage, setAttendanceMessage] = useState();
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
@@ -66,10 +65,9 @@ const DTRegistration = () => {
     const [eventData, setEventData] = useState();
     const [event, setEvent] = useState()
 
-    const changeEvent = (selectedEvent) => {
-        setEvent(selectedEvent);
-        getParticipants();
+    function changeEvent (selectedEvent) {
         getAttendanceRecords(selectedEvent);
+        setEvent(selectedEvent);
     }
 
     const Stepper = (step) => {
@@ -216,6 +214,8 @@ const DTRegistration = () => {
         setCompanyAddressLine1(companyAddressLine1);
         setCompanyAddressLine2(companyAddressLine2);
         setCompanyCity(companyCity);
+        
+        // console.log(`${step}, ${participant}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
 
         setShowEdit(true);
 
@@ -264,20 +264,37 @@ const DTRegistration = () => {
         setIsLoading(true);
         AddParticipant(loginResult.__, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
             .then(async result => {return await result.json()})
-            .then(result => {
-                if (result.status === 200) {
+            .then(async result => {
+                if (await result.status === 200) {
                     setErrors(false)
-                    setMessage(result.message)
+                    alert(result.message)
                 } else {
                     setErrors(true)
-                    setMessage(result.errors)
+                    alert(result.message)
                 }
                 setIsLoading(false)
             })
             .catch(errors => console.log(errors))
 
-        getParticipants();
+        // console.log(`${loginResult.__}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
+        
+        getAttendanceRecords();
         Stepper('result');
+        closeAdd();
+    }
+
+    const updateParticipant = () => {
+        UpdateParticipant(participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    alert(`${firstName} ${middleName.charAt(0)}. ${lastName}'s record has been successfully updated!`)
+                } else {
+                    alert(result.message)
+                }
+            })
+        getAttendanceRecords();
+        closeEdit();
     }
 
     const createAttendance = () => {
@@ -291,20 +308,20 @@ const DTRegistration = () => {
                 }
             })
         closeAttendanceWarning();
+        getAttendanceRecords(event);
     }
 
-    const getParticipants = async () => {
-        GetAllParticipants()
-        .then(async result => {return await result.json()})
-        .then(result => {
-            if (result.status === 200) {
-                setStatus(true)
-                setParticipants(result.body)
-            } else {
-                setStatus(false)
-                setParticipants(result.errors)
-            }
-        })
+    const resetAttendance = (attendance, firstName, middleName, lastName) => {
+        DeleteAttendanceRecord(attendance)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    alert(`${firstName} ${middleName.charAt(0)}. ${lastName}'s attendance record has been reset.`);
+                } else {
+                    alert(result.message);
+                }
+            })
+        getAttendanceRecords();
     }
 
     const getEvents = () => {
@@ -324,8 +341,8 @@ const DTRegistration = () => {
       const getAttendanceRecords = (event) => {
             GetAttendance(event)
                 .then(async result => {return await result.json()})
-                .then(result => {
-                    if (result.status === 200) {
+                .then(async result => {
+                    if (await result.status === 200) {
                         setAttendanceStatus(true);
                         setAttendanceRecord(result.body);
                     } else {
@@ -358,9 +375,9 @@ const DTRegistration = () => {
     }
 
     useEffect(() => {
-        getParticipants();
+        getAttendanceRecords(event);
         getEvents();
-    }, [])
+    }, [event])
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -376,7 +393,7 @@ const DTRegistration = () => {
                 <div>
                     <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Event</label>
                     <select id="default" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-                        onChange={e => {changeEvent(e.target.value)}}
+                        onChange={(e) => {changeEvent(e.target.value)}}
                         value={
                         event !== null ?
                             event
@@ -390,10 +407,10 @@ const DTRegistration = () => {
                                     eventData.map(event => (
                                         event.status.toLowerCase() === 'active' ?
                                             <option value={event.event_id}>{event.event_name}</option>
-                                        : <option value={" "}>No active events found...</option>
+                                        : null
                                     ))
                                 : <option>No events found...</option>
-                            : <option>No events found...</option>
+                            : null
                         }
                     </select>
                 </div>
@@ -438,19 +455,8 @@ const DTRegistration = () => {
                 </thead>
                 <tbody>
                     {
-                        isLoading ?
-                            <tr>
-                                <td colSpan={5} className='px-6 py-3 text-center'>
-                                    <svg aria-hidden="true" class="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                                    </svg>
-                                    <span class="sr-only">Loading...</span>
-                                </td>
-                            </tr>
-                        :
-                        status ?
-                            participants.map(items => (
+                        attendanceStatus === true ?
+                            attendanceRecord.map(items => (
                                 <tr>
                                     <td className="px-6 py-3">
                                         {items.first_name} {items.middle_name.charAt(0)}. {items.last_name}
@@ -472,7 +478,7 @@ const DTRegistration = () => {
                                                 : null
                                                 
                                             :
-                                                participants.map(getSpouse => (
+                                                attendanceRecord.map(getSpouse => (
                                                     getSpouse.member_id === items.spouse_member_id ?
                                                         getSpouse.first_name + ' ' + getSpouse.middle_name.charAt(0) + ' ' + getSpouse.last_name
                                                     : null
@@ -481,31 +487,47 @@ const DTRegistration = () => {
                                         }
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
-                                        {
-                                            attendanceStatus ?
-                                                attendanceRecord.map(record => (
-                                                    record.member_id == items.member_id & record.status !== "" ?
-                                                        record.status
-                                                    : 
-                                                    <>
-                                                        <select id="attendance" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 p-2.5"
-                                                            onChange={(e) => {attendanceWarning(items.member_id, e.target.value, items.first_name, items.middle_name, items.last_name)}}
-                                                            value={
-                                                                attendance !== "" | attendance !== null | attendance !== undefined ?
-                                                                    attendance
-                                                                :""   
-                                                            }
-                                                        >
-                                                            <option defaultValue={""}>Choose a tag</option>
-                                                            <option value="On-time">On-time</option>
-                                                            <option value="On-time">Late</option>
-                                                        </select>
-                                                    </>
-                                                ))
-                                            : null
+                                    {
+                                            items.status !== '' ?
+                                                items.status
+                                            :
+                                                event !== " " & event !== null & event !== undefined ?
+                                                    <select id="attendance" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-42 p-2.5"
+                                                        onChange={e => {attendanceWarning(items.member_id, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                        value={
+                                                            items.status !== '' | items.status !== null | items.status !== undefined ?
+                                                                items.status
+                                                            : ''
+                                                        }
+                                                    >
+                                                        <option defaultValue={''}>Choose a tag</option>
+                                                        <option value="On time">On time</option>
+                                                        <option value="Late">Late</option>
+                                                    </select>
+                                                : null
                                         }
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
+                                        <button type="button"
+                                                className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
+                                                onClick={() => editParticipant('personal', items.member_id, items.first_name, items.middle_name, items.last_name, items.nickname, items.mobile, items.email, items.birthday, items.gender, items.civil_status, items.spouse_member_id, items.religion, items.baptism, items.confirmation, items.address_line1, items.address_line2, items.city, items.occupation_name, items.specialty, items.company, items.work_address_line1, items.work_address_line2, items.work_city)}
+                                            >
+                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                </svg>
+                                            </button>
+                                        {
+                                            items.status !== '' & items.status !== null & items.status !== undefined ?
+                                                <button type="button"
+                                                className="text-orange-400 border border-orange-400 hover:bg-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
+                                                onClick={() => resetAttendance(items.attendance_id, items.first_name, items.middle_name, items.last_name)}
+                                                >
+                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
+                                                    </svg>
+                                                </button>
+                                            : null
+                                        }
                                         <button type="button"
                                             className="text-red-800 border border-red-800 hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
                                             // onClick={() => ShowDeleteWarning(items.id, items.first_name, items.last_name)}
@@ -514,24 +536,15 @@ const DTRegistration = () => {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                             </svg>
                                         </button>
-
-                                        <button type="button"
-                                            className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                            onClick={() => editParticipant('personal', items.member_id, items.first_name, items.middle_name, items.last_name, items.nickname, items.mobile, items.email, items.birthday, items.gender, items.civil_status, items.spouse_member_id, items.religion, items.baptism, items.confirmation, items.member_address_line1, items.member_address_line2, items.member_city, items.occupation, items.company, items.company_address_line1, items.company_address_line2, items.company_city)}
-                                        >
-                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                            </svg>
-                                        </button>
                                     </td>
                                 </tr>
                             ))
-                            :
-                            <tr>
-                                <th colSpan={5} className="px-6 py-3 text-center">
-                                    {participants}
-                                </th>
-                            </tr>
+                        :
+                        <tr>
+                            <th colSpan={5} className="px-6 py-3 text-center">
+                                {attendanceMessage}
+                            </th>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -718,7 +731,7 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose gender</option>
+                                <option defaultValue={" "}>Choose gender</option>
                                 <option value={"Female"}>Female</option>
                                 <option value={"Male"}>Male</option>
                             </select>
@@ -750,11 +763,11 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose Spouse</option>
-                                <option value={" "}>No Spouse</option>
+                                <option defaultValue={null}>Choose Spouse</option>
+                                <option value={null}>No Spouse</option>
                                 {
-                                    status ?
-                                        participants.map(items => (
+                                    attendanceStatus === true ?
+                                        attendanceRecord.map(items => (
                                                 items.civil_status !== 'Single' ?
                                                     <option value={items.member_id}>{items.first_name} {items.last_name}</option>
                                                 :null
@@ -780,18 +793,26 @@ const DTRegistration = () => {
                             <label htmlFor="pi_baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
                             <div className="flex">
                                 <div className="flex items-center mr-4">
-                                    <input id="pi_baptism" type="radio" value="Yes" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setBaptized(true)}}
-                                        checked={baptized}
+                                <input id="pi_baptism-yes" type="radio" value="Yes" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setBaptized(e.target.value)}}
+                                        checked={
+                                            baptized !== null & baptized === 'Yes' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
                                 <div className="flex items-center mr-4">
-                                    <input id="pi_baptism" type="radio" value="No" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setBaptized(false)}}
-                                        checked={!baptized}
+                                <input id="pi_baptism-no" type="radio" value="No" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setBaptized(e.target.value)}}
+                                        checked={
+                                            baptized !== null & baptized === 'No' ?
+                                                true
+                                            : null
+                                        }
                                     />
-                                    <label htmlFor="pi_baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                    <label htmlFor="pi_baptism-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
                             </div>
                         </div>
@@ -800,15 +821,23 @@ const DTRegistration = () => {
                             <div className="flex">
                                 <div className="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="Yes" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setconfirmed(true)}}
-                                        checked={confirmed}
+                                        onChange={e => {setconfirmed(e.target.value)}}
+                                        checked={
+                                            confirmed !== null & confirmed === 'Yes' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
                                 <div className="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="No" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        onChange={e => {setconfirmed(false)}}
-                                        checked={!confirmed}
+                                        onChange={e => {setconfirmed(e.target.value)}}
+                                        checked={
+                                            confirmed !== null & confirmed === 'No' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
@@ -920,7 +949,7 @@ const DTRegistration = () => {
                                     value={
                                         companyAddressLine1 !== null ?
                                             companyAddressLine1
-                                        :""
+                                        :null
                                     }
                                 />
                                 <label htmlFor="fo_companyAddressLine1" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
@@ -1186,7 +1215,7 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose gender</option>
+                                <option defaultValue={" "}>Choose gender</option>
                                 <option value={"Female"}>Female</option>
                                 <option value={"Male"}>Male</option>
                             </select>
@@ -1218,11 +1247,11 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose Spouse</option>
+                                <option defaultValue={" "}>Choose Spouse</option>
                                 <option value={" "}>No Spouse</option>
                                 {
-                                    status ?
-                                        participants.map(items => (
+                                    attendanceStatus === true ?
+                                        attendanceRecord.map(items => (
                                                 items.civil_status !== 'Single' ?
                                                     <option value={items.member_id}>{items.first_name} {items.last_name}</option>
                                                 :null
@@ -1248,35 +1277,51 @@ const DTRegistration = () => {
                             <label htmlFor="pi_baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
                             <div className="flex">
                                 <div className="flex items-center mr-4">
-                                    <input id="pi_baptism" type="radio" value="Yes" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setBaptized(true)}}
-                                        checked={baptized}
+                                    <input id="pi_baptism-yes" type="radio" value="Yes" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setBaptized(e.target.value)}}
+                                        checked={
+                                            baptized !== null & baptized === 'Yes' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
                                 <div className="flex items-center mr-4">
-                                    <input id="pi_baptism" type="radio" value="No" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setBaptized(false)}}
-                                        checked={!baptized}
+                                    <input id="pi_baptism-no" type="radio" value="No" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setBaptized(e.target.value)}}
+                                        checked={
+                                            baptized !== null & baptized === 'No' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="pi_confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
+                            <label htmlFor="pi_confirmation-yes" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
                             <div className="flex">
                                 <div className="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="Yes" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setconfirmed(true)}}
-                                        checked={confirmed}
+                                        onChange={e => {setconfirmed(e.target.value)}}
+                                        checked={
+                                            confirmed !== null & confirmed === 'Yes' ?
+                                                true
+                                            : null
+                                        }
                                     />
-                                    <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                                    <label htmlFor="pi_confirmation-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
                                 <div className="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="No" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        onChange={e => {setconfirmed(false)}}
-                                        checked={!confirmed}
+                                        onChange={e => {setconfirmed(e.target.value)}}
+                                        checked={
+                                            confirmed !== null & confirmed === 'No' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
@@ -1325,7 +1370,7 @@ const DTRegistration = () => {
                                         memberCity !== null ?
                                             memberCity
                                         :""
-                                    }
+                                    }  
                                 />
                                 <label htmlFor="fo_city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
                             </div>
@@ -1360,7 +1405,7 @@ const DTRegistration = () => {
                                 <input type="text" id="fo_specialty" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={e => {setSpecialty(e.target.value)}}
                                     value={
-                                        specialty!== null ?
+                                        specialty !== null ?
                                             specialty
                                         :""
                                     }
@@ -1425,7 +1470,7 @@ const DTRegistration = () => {
                     <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
                         Go Back to: Address Info
                     </button>
-                    <button onClick={addParticipants} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button onClick={updateParticipant} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Save
                     </button>
                 </WorkInfo>
