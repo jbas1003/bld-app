@@ -35,6 +35,24 @@ export function CreateAttendanceRecord (id, memberId, eventId, status) {
         body: raw,
         redirect: 'follow'
     };
-    console.log(raw);
-    // return fetch(serverRoutes.attendances, requestOptions);
+    
+    return fetch(serverRoutes.attendances, requestOptions);
+}
+
+export function DeleteAttendanceRecord (attendance) {
+    var myHeader = new Headers();
+    myHeader.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+        'attendance_id': attendance
+    });
+
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+    
+    return fetch(serverRoutes.attendances, requestOptions);
 }
