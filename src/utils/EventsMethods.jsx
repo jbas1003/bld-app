@@ -13,13 +13,14 @@ export function GetAllEvents () {
     return fetch(serverRoutes.events, requestOptions);
 }
 
-export function AddEvents (eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus, userId) {
+export function AddEvents (eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, userId) {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'application/json');
 
     var raw = JSON.stringify({
         "event_name": eventTitle,
         "event_subtitle": eventSubtitle,
+        "location": eventLocation,
         "start_date": startDate,
         "end_date": endDate,
         "status": eventStatus,
@@ -37,7 +38,7 @@ export function AddEvents (eventTitle, eventSubtitle, startDate, endDate, eventT
     return fetch(serverRoutes.events, requestOptions);
 }
 
-export function UpdateEvents (eventId, eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus) {
+export function UpdateEvents (eventId, eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus) {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'application/json');
 
@@ -45,6 +46,7 @@ export function UpdateEvents (eventId, eventTitle, eventSubtitle, startDate, end
         "event_id": eventId,
         "event_name": eventTitle,
         "event_subtitle": eventSubtitle,
+        "location": eventLocation,
         "start_date": startDate,
         "end_date": endDate,
         "status": eventStatus,
@@ -57,7 +59,7 @@ export function UpdateEvents (eventId, eventTitle, eventSubtitle, startDate, end
         body: raw,
         redirect: 'follow'
     };
-    
+    // console.log(`${eventId}, ${eventTitle}, ${eventSubtitle}, ${eventLocation}, ${startDate}, ${endDate}, ${eventTypeId}, ${eventStatus}`)
     return fetch(serverRoutes.events, requestOptions);
 }
 
