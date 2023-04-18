@@ -14,14 +14,14 @@ export function GetAllEventTypes () {
 }
 
 
-export function AddNewEventTypes (eventTypeName, eventTypeCategory) {
+export function AddNewEventTypes (id, eventTypeName, eventTypeCategory) {
     var myHeaders = new Headers();
-    myHeaders.append('Content-type', 'application/json');
+    myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
         "event_type_name": eventTypeName,
         "event_type_category": eventTypeCategory,
-        "created_by": 1
+        "created_by": id
     });
 
     var requestOptions = {
@@ -30,7 +30,7 @@ export function AddNewEventTypes (eventTypeName, eventTypeCategory) {
         body: raw,
         redirect: 'follow'
     }
-
+    // console.log(`${id}, ${eventTypeName}, ${eventTypeCategory}`)
     return fetch(serverRoutes.eventTypes, requestOptions);
 }
 

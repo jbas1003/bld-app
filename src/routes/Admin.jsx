@@ -1,10 +1,12 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import SideNav from '../statics/Side-nav/SideNav';
 import TopNav from '../statics/Top-nav/TopNav';
+import useAuthContext from '../utils/AuthContext';
 
 const Admin = () => {
-  return (
+  const { loginResult } = useAuthContext();
+  return loginResult ? (
     <>
         <TopNav />
         <SideNav />
@@ -15,6 +17,7 @@ const Admin = () => {
         </div>
     </>
   )
+  : <Navigate to="/login" />
 }
 
 export default Admin

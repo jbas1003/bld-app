@@ -13,12 +13,11 @@ export function GetAllParticipants () {
     return fetch(serverRoutes.participants, requestOptions)
 }
 
-export function AddParticipant (firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
+export function AddParticipant(id, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-        'event_name': "Singles Encounter 15",
         'first_name': firstName,
         "middle_name": middleName,
         "last_name": lastName,
@@ -31,7 +30,7 @@ export function AddParticipant (firstName, middleName, lastName, nickname, mobil
         "baptism": baptized,
         "confirmation": confirmed,
         "member_status_id": 1,
-        "created_by": 1,
+        "created_by": id,
         "member_address_line1": memberAddressLine1,
         "member_address_line2": memberAddressLine2,
         "member_city": memberCity,
@@ -42,16 +41,16 @@ export function AddParticipant (firstName, middleName, lastName, nickname, mobil
         "company": company,
         "company_address_line1": companyAddressLine1,
         "company_address_line2": companyAddressLine2,
-        "company_city": companyCity
+        "city": companyCity
     });
 
     var requestOptions = {
-        method: "POST",
+        method: 'POST',
         headers: myHeaders,
         body: raw,
-        redirect: "follow"
-    };
-
+        redirect: 'follow'
+      };
+    //   console.log(`${id}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
     return fetch(serverRoutes.participants, requestOptions)
 }
 
@@ -84,7 +83,7 @@ export function UpdateParticipant (participant, firstName, middleName, lastName,
         "company": company,
         "company_address_line1": companyAddressLine1,
         "company_address_line2": companyAddressLine2,
-        "company_city": companyCity
+        "city": companyCity
     });
 
     var requestOptions = {
@@ -93,6 +92,6 @@ export function UpdateParticipant (participant, firstName, middleName, lastName,
         body: raw,
         redirect: "follow"
     };
-
+    // console.log(`${participant}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
     return fetch(serverRoutes.participants, requestOptions)
 }

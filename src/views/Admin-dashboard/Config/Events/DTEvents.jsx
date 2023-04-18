@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import useAuthContext from '../../../../utils/AuthContext';
 import { GetAllEventTypes } from '../../../../utils/EventTypeMethods';
 import { AddEvents, DeleteEvent, GetAllEvents, UpdateEvents } from '../../../../utils/EventsMethods';
 import AddEvent from './Modals/AddEvent';
@@ -6,6 +7,8 @@ import EditEvent from './Modals/EditEvent';
 import DeleteEventWarning from './Modals/DeleteEventWarning';
 
 function DTEvents() {
+    const { loginResult } = useAuthContext();
+
     const [status, setStatus] = useState();
     const [events, setEvents] = useState();
     const [message, setMessage] = useState();
@@ -13,6 +16,7 @@ function DTEvents() {
     const [eventId, setEventId] = useState();
     const [eventTitle, setEventTitle] = useState();
     const [eventSubtitle, setEventSubtitle] = useState();
+    const [eventLocation, setEventLocation] = useState();
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
     const [eventType, setEventType] = useState();
@@ -71,7 +75,7 @@ function DTEvents() {
 
     const addNewEvent = () => {
         
-        AddEvents(eventTitle, eventSubtitle, startDate, endDate, eventType, eventStatus)
+        AddEvents(eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, loginResult.__)
             .then(async result => {return await result.json()})
             .then(async result => {
                 setIsLoading(true)
@@ -89,7 +93,7 @@ function DTEvents() {
     }
 
     const updateEvent = () => {
-        UpdateEvents(eventId, eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus)
+        UpdateEvents(eventId, eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -120,10 +124,11 @@ function DTEvents() {
         getEvents();
     }
 
-    const editEvent = (eventId, eventTitle, eventSubtitle, startDate, endDate, eventTypeId, eventStatus) => {
+    const editEvent = (eventId, eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus) => {
         setEventId(eventId);
         setEventTitle(eventTitle);
         setEventSubtitle(eventSubtitle);
+        setEventLocation(eventLocation);
         setStartDate(startDate);
         setEndDate(endDate);
         setEventTypeId(eventTypeId);
@@ -142,6 +147,7 @@ function DTEvents() {
     const closeAdd = () => {
         setEventTitle('');
         setEventSubtitle('');
+        setEventLocation('');
         setStartDate('');
         setEndDate('');
         setEventTypeId('');
@@ -154,6 +160,7 @@ function DTEvents() {
         setEventId('')
         setEventTitle('');
         setEventSubtitle('');
+        setEventLocation('');
         setStartDate('');
         setEndDate('');
         setEventTypeId('');
@@ -196,7 +203,7 @@ function DTEvents() {
     }, [])
 
     return (
-        <div className="mt-10 relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative shadow-md sm:rounded-lg">
             <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
@@ -218,88 +225,95 @@ function DTEvents() {
                     </button>
                 </div>
             </div>
-            <table id='eventTypeDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3">
-                            Event Title
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Event Subtitle
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Event Start Date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Event End Date
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Event Type
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Event Status
-                        </th>
-                        <th scope="col" className="px-6 py-3">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        status ?
-                            events.map(items => (
-                                
-                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <p className='hover:cursor-pointer'>{items.event_name}</p>
-                                        </th>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <p className='hover:cursor-pointer'>{items.event_subtitle}</p>
-                                        </th>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <p className='hover:cursor-pointer'>{items.start_date}</p>
-                                        </th>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <p className='hover:cursor-pointer'>{items.end_date}</p>
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            <p className='hover:cursor-pointer'>{items.event_type_name}</p>
-                                        </td>
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <p className='hover:cursor-pointer'>{items.status}</p>
-                                        </th>
-                                        <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
-                                            <button type="button"
-                                                className="text-red-800 border border-red-800 hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
-                                                onClick={() => deleteEventWarning(items.event_id, items.event_name)}
-                                            >
-                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                </svg>
-                                            </button>
+            <div className='overflow-x-auto'>
+                <table id='eventTypeDTbl' className="text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3">
+                                Event Title
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Event Subtitle
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Event Location
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Event Start Date
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Event End Date
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Event Type
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Event Status
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            status ?
+                                events.map(items => (
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.event_name}</p>
+                                            </th>
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.event_subtitle}</p>
+                                            </th>
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.location}</p>
+                                            </th>
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.start_date}</p>
+                                            </th>
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.end_date}</p>
+                                            </th>
+                                            <td className="px-6 py-4">
+                                                <p className='hover:cursor-pointer'>{items.event_type_name}</p>
+                                            </td>
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.status}</p>
+                                            </th>
+                                            <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
+                                                <button type="button"
+                                                    className="text-red-800 border border-red-800 hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
+                                                    onClick={() => deleteEventWarning(items.event_id, items.event_name)}
+                                                >
+                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                    </svg>
+                                                </button>
 
-                                            <button type="button"
-                                                className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                onClick={() => editEvent(items.event_id, items.event_name, items.event_subtitle, items.start_date, items.end_date, items.event_type_id, items.status)}
-                                            >
-                                                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                </svg>
-                                            </button>
+                                                <button type="button"
+                                                    className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
+                                                    onClick={() => editEvent(items.event_id, items.event_name, items.event_subtitle, items.location, items.start_date, items.end_date, items.event_type_id, items.status)}
+                                                >
+                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                    </svg>
+                                                </button>
+                                        </td>
+                                        </tr>
+                                
+                                ))
+                            :
+                                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td colSpan={8}  className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        {message}
                                     </td>
-                                    </tr>
-                            
-                            ))
-                        :
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td colSpan={3}  className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
-                                    {message}
-                                </td>
-                            </tr>
-                            
-                    }
-                </tbody>
-            </table>
+                                </tr>
+                                
+                        }
+                    </tbody>
+                </table>
+            </div>
 
             <AddEvent show={showAdd} setShow={() => setShowAdd(false)}>
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -327,6 +341,19 @@ function DTEvents() {
                                 }
                             />
                             <label htmlFor="fo_startDate" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Subtitle</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="relative">
+                            <input type="text" id="fo_eventLocation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                onChange={e => {setEventLocation(e.target.value)}}
+                                value={
+                                    eventLocation !== null ?
+                                        eventLocation
+                                    :""
+                                }
+                            />
+                            <label htmlFor="fo_startDate" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Location</label>
                         </div>
                     </div>
                     <div>
@@ -365,7 +392,7 @@ function DTEvents() {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose Event Type</option>
+                                <option defaultValue={" "}>Choose Event Type</option>
                                 {
                                     eventTypeStatus ?
                                         eventTypeData.map(items => (
@@ -390,7 +417,7 @@ function DTEvents() {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose Event Status</option>
+                                <option defaultValue={" "}>Choose Event Status</option>
                                 <option value={"Active"}>Active</option>
                                 <option value={"Inactive"}>Inactive</option>
                             </select>
@@ -435,6 +462,19 @@ function DTEvents() {
                     </div>
                     <div>
                         <div className="relative">
+                            <input type="text" id="fo_eventLocation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                onChange={e => {setEventLocation(e.target.value)}}
+                                value={
+                                    eventLocation !== null ?
+                                        eventLocation
+                                    :""
+                                }
+                            />
+                            <label htmlFor="fo_startDate" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Location</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="relative">
                             <input type="date" id="fo_startDate" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
                                 onChange={e => {setStartDate(e.target.value)}}
                                 value={
@@ -469,7 +509,7 @@ function DTEvents() {
                                         :""
                                     }
                             >
-                                <option selected value={" "}>Choose Event Type</option>
+                                <option defaultValue={" "}>Choose Event Type</option>
                                 {
                                     eventTypeStatus ?
                                         eventTypeData.map(items => (
