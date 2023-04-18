@@ -18,6 +18,25 @@ export function GetAttendance(id) {
     return fetch(serverRoutes.showAttendances, requestOptions);
 }
 
+export function GetAttendanceList(event, eventDate) {
+    var myHeader = new Headers();
+    myHeader.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+        'event_category': event,
+        'event_date': eventDate
+    });
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(serverRoutes.attendanceList, requestOptions);
+}
+
 export function CreateAttendanceRecord (id, memberId, eventId, status) {
     var myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
