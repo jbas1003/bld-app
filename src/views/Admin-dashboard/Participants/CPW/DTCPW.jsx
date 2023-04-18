@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { GetAllEvents } from '../../../../utils/EventsMethods';
+import { GetAttendanceList } from '../../../../utils/AttendanceMethod';
 
 const DTCPW = () => {
+    // const [eventData, setEventData] = useState();
+    // const [eventStatus, setEventStatus] = useState();
+
+    const [attendanceData, setAttendanceData] = useState();
+    const [attendanceStatus, setAttendanceStatus] = useState();
+
+    const event = 'CPW';
+    const [eventDate, setEventDate] = useState();
 
     function tableSearch() {
         // Declare variables
@@ -23,6 +33,24 @@ const DTCPW = () => {
             }
         }
     }
+
+    const getAttendanceList = (eventDate) => {
+        GetAttendanceList(event, eventDate)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (result.status === 200) {
+                    setAttendanceStatus(true);
+                    setAttendanceData(result.body);
+                } else {
+                    setAttendanceStatus(false);
+                    setAttendanceData(result.message);
+                }
+            })
+    }
+
+    useEffect(() => {
+        getAttendanceList(eventDate);
+    }, [eventDate])
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
@@ -38,28 +66,18 @@ const DTCPW = () => {
             </div>
 
             <div>
-                <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select CPW Date</label>
-                <input id='fo_birthday' type="date" className="block w-60 mt-6 px-2.5 pb-2.5 pt-4 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
-                    // onChange={e => {setBirthday(e.target.value)}}
-                    // value={
-                    //     birthday !== null ?
-                    //         birthday
-                    //     :""
-                    // }
+                <label htmlFor="default" className="block -mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Select CPW Date</label>
+                <input id='fo_eventDate' type="date" className="block w-60 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
+                    onChange={e => {setEventDate(e.target.value)}}
+                    value={
+                        eventDate !== null ?
+                            eventDate
+                        :""
+                    }
                 />
             </div>
 
-            <div>
-                <button type="button"
-                    className="flex items-center text-white bg-green-800 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                    // onClick={showAddParticipant}
-                >
-                <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Add New Participant</span>
-                </button>
-            </div>
+            <div></div>
         </div>
         <table id='CPWDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -76,27 +94,44 @@ const DTCPW = () => {
                     <th className="px-6 py-3">
                         Civil Status
                     </th>
-                    
+                    <th className="px-6 py-3">
+                        Event
+                    </th>
                     <th className="px-6 py-3">
                         Attendance Status
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td className="px-6 py-3">
-                        {/* {items.first_name} {items.middle_name.charAt(0)}. {items.last_name} */}
-                    </td>
-                    <td className="px-6 py-3">
-                        {/* {items.birthday} */}
-                    </td>
-                    <td className="px-6 py-3">
-                        {/* {items.gender} */}
-                    </td>
-                    <td className="px-6 py-3">
-                        {/* {items.civil_status} */}
-                    </td>
-                </tr>
+                {
+                    attendanceStatus ?
+                        attendanceData.map(data => (
+                            <tr>
+                                <td className="px-6 py-3">
+                                    {data.first_name} {data.middle_name.charAt(0)}. {data.last_name}
+                                </td>
+                                <td className="px-6 py-3">
+                                    {data.birthday}
+                                </td>
+                                <td className="px-6 py-3">
+                                    {data.gender}
+                                </td>
+                                <td className="px-6 py-3">
+                                    {data.civil_status}
+                                </td>
+                                <td className="px-6 py-3">
+                                    {data.event_subtitle}
+                                </td>
+                                <td className="px-6 py-3">
+                                    {data.status}
+                                </td>
+                            </tr>
+                        ))
+                    :
+                    <tr>
+                        <th colSpan={5} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
+                    </tr>
+                }
             </tbody>
         </table>
                 </div>
