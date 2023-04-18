@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { GetAllEvents } from '../../../../utils/EventsMethods';
 import { GetAttendanceList } from '../../../../utils/AttendanceMethod';
 
 const DTCPW = () => {
