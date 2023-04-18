@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import DTRegistration from './Registration/DTRegistration';
 import Registration from './Registration/Registration';
-import Rooms from './Rooms/Rooms';
-import DTRooms from './Rooms/DTRooms';
 import Tribes from './Tribes/Tribes';
 import DTTribes from './Tribes/DTTribes';
 import Nations from './Nations/Nations';
 import DTNations from './Nations/DTNations';
+import CPW from './CPW/CPW';
+import DTCPW from './CPW/DTCPW';
 
 const Participants = () => {
 
   const [currentTab, setCurrentTab] = useState();
   const [showRegistration, setShowRegistration] = useState();
-  const [showRooms, setShowRooms] = useState();
+  const [showCPW, setShowCPW] = useState();
   const [showTribes, setShowTribes] = useState();
   const [showNations, setShowNations] = useState();
 
@@ -24,28 +24,28 @@ const Participants = () => {
     switch (tab) {
         case "registration":
             setShowRegistration(true);
-            setShowRooms(false);
+            setShowCPW(false);
             setShowTribes(false);
             setShowNations(false);
             break;
         
-        case "rooms":
+        case "cpw":
             setShowRegistration(false);
-            setShowRooms(true);
+            setShowCPW(true);
             setShowTribes(false);
             setShowNations(false);
             break;
 
         case "tribes":
           setShowRegistration(false);
-          setShowRooms(false);
+          setShowCPW(false);
           setShowTribes(true);
           setShowNations(false);
           break;
 
         case "nations":
             setShowRegistration(false);
-            setShowRooms(false);
+            setShowCPW(false);
             setShowTribes(false);
             setShowNations(true);
             break;
@@ -70,11 +70,11 @@ const Participants = () => {
                     </Link>
                 </li>
                 <li className="mr-2">
-                    <Link onClick={() => CurrentTab("rooms")} className={`inline-flex p-4 border-b-2 ${currentTab === 'rooms' ? "text-Red border-Red rounded-t-lg active" : "border-transparent rounded-t-lg hover:text-Red hover:border-Red"} group`}>
-                      <svg fill="none" stroke="currentColor" className={`w-5 h-5 mr-2 ${currentTab === 'rooms' ? "text-Red" : "text-gray-500 group-hover:text-Red"}`} strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"></path>
+                    <Link onClick={() => CurrentTab("cpw")} className={`inline-flex p-4 border-b-2 ${currentTab === 'cpw' ? "text-Red border-Red rounded-t-lg active" : "border-transparent rounded-t-lg hover:text-Red hover:border-Red"} group`}>
+                      <svg fill="none" stroke="currentColor" className={`w-5 h-5 mr-2 ${currentTab === 'cpw' ? "text-Red" : "text-gray-500 group-hover:text-Red"}`} strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
                       </svg>
-                      <label className='font-semibold'>Rooms</label>
+                      <label className='font-semibold'>CPW Attendance</label>
                     </Link>
                 </li>
                 <li className="mr-2">
@@ -100,9 +100,9 @@ const Participants = () => {
           <DTRegistration />
         </Registration>
 
-        <Rooms show={showRooms}>
-          <DTRooms />
-        </Rooms>
+        <CPW show={showCPW}>
+          <DTCPW />
+        </CPW>
 
         <Tribes show={showTribes}>
           <DTTribes />
