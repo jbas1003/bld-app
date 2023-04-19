@@ -203,7 +203,7 @@ function DTEvents() {
     }, [])
 
     return (
-        <div className="relative shadow-md sm:rounded-lg">
+        <div className="relative shadow-md sm:rounded-lg h-">
             <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
@@ -225,7 +225,7 @@ function DTEvents() {
                     </button>
                 </div>
             </div>
-            <div className='overflow-x-auto'>
+            <div className='overflow-x-auto overflow-scroll h-full'>
                 <table id='eventTypeDTbl' className="text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
