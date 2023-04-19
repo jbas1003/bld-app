@@ -40,7 +40,7 @@ export function CreateAccount (id, memberId, username, password) {
         "member_id": memberId,
         "username": username,
         "password": password,
-        "created_by": 1,
+        "created_by": id
     });
 
     var requestOptions = {
