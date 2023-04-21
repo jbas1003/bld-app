@@ -47,9 +47,9 @@ function DTMemberAccounts() {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    alert(`Successfully created an account for ${firstName} ${middleName.charAt(0)}. ${lastName}.`)
+                    alert(`Successfully created an account for ${firstName} ${lastName}.`)
                 } else {
-                    alert(`There was a problem when creating an account for ${firstName} ${middleName.charAt(0)}. ${lastName}. Please contact system administrator.`)
+                    alert(`There was a problem when creating an account for ${firstName} ${lastName}. Please contact system administrator.`)
                 }
             })
         
@@ -127,7 +127,7 @@ function DTMemberAccounts() {
                                     
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <p className='hover:cursor-pointer'>{items.first_name} {items.middle_name.charAt(0)}. {items.last_name}</p>
+                                                <p className='hover:cursor-pointer'>{items.first_name} {items.last_name}</p>
                                             </th>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{
@@ -158,20 +158,11 @@ function DTMemberAccounts() {
                                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                                                     </svg>
                                                                 </button>
-                                                                
-                                                                <button type="button"
-                                                                    className="text-red-800 border border-red-800 hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
-                                                                    // onClick={() => showDelete(items.memberStatus_id, items.status)}
-                                                                >
-                                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                                    </svg>
-                                                                </button>
                                                             </>
                                                         :
                                                         <button type="button"
                                                             className="text-yellow-400 border border-yellow-400 hover:bg-yellow-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-                                                            onClick={() => showCreate(items.member_id, items.first_name, items.middle_name.charAt(0), items.last_name)}
+                                                            onClick={() => showCreate(items.member_id, items.first_name, items.last_name)}
                                                         >
                                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
@@ -180,7 +171,7 @@ function DTMemberAccounts() {
                                                     :
                                                         <button type="button"
                                                             className="text-yellow-400 border border-yellow-400 hover:bg-yellow-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-                                                            onClick={() => showCreate(items.member_id, items.first_name, items.middle_name.charAt(0), items.last_name)}
+                                                            onClick={() => showCreate(items.member_id, items.first_name, items.last_name)}
                                                         >
                                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
