@@ -18,13 +18,14 @@ export function GetAttendance(id) {
     return fetch(serverRoutes.showAttendances, requestOptions);
 }
 
-export function GetAttendanceList(event, eventDate) {
+export function GetAttendanceList(event, eventDate, eventId) {
     var myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
         'event_category': event,
-        'event_date': eventDate
+        'event_date': eventDate,
+        'event_id': eventId
     });
 
     var requestOptions = {
