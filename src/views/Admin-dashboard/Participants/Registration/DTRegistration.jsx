@@ -431,25 +431,25 @@ const DTRegistration = () => {
                 <table id='participantDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[20%]">
                                 Participant
                             </th>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[15%]">
                                 Birthday (YYYY-MM-DD)
                             </th>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[10%]">
                                 Gender
                             </th>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[10%]">
                                 Civil Status
                             </th>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[20%]">
                                 Spouse
                             </th>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[15%]">
                                 Attendance
                             </th>
-                            <th className="px-6 py-3">
+                            <th className="px-7 py-3 whitespace-nowrap w-[10%]">
                                 Action
                             </th>
                         </tr>
@@ -459,19 +459,19 @@ const DTRegistration = () => {
                             attendanceStatus === true ?
                                 attendanceRecord.map(items => (
                                     <tr>
-                                        <td className="px-7 py-3">
+                                        <td className="px-7 py-3 whitespace-nowrap w-[20%]">
                                             {items.first_name} {items.last_name}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="px-7 py-3 whitespace-nowrap w-[15%]">
                                             {items.birthday}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="px-7 py-3 whitespace-nowrap w-[10%]">
                                             {items.gender}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="px-7 py-3 whitespace-nowrap w-[10%]">
                                             {items.civil_status}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="px-7 py-3 whitespace-nowrap w-[20%]">
                                             {
                                                 items.spouse_member_id === null ?
                                                     items.civil_status === 'Married' | items.civil_status === 'Single Parent' ?
@@ -487,7 +487,7 @@ const DTRegistration = () => {
                                                     
                                             }
                                         </td>
-                                        <td className="px-7 py-4 whitespace-nowrap">
+                                        <td className="px-7 py-4 whitespace-nowrap w-[15%]">
                                         {
                                                 items.status !== '' ?
                                                     items.status
@@ -508,7 +508,7 @@ const DTRegistration = () => {
                                                     : null
                                             }
                                         </td>
-                                        <td className="px-7 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
+                                        <td className="px-7 py-4 whitespace-nowrap w-[10%]" style={{ cursor: "pointer"}}>
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
                                                     onClick={() => editParticipant('personal', items.member_id, items.first_name, items.middle_name, items.last_name, items.nickname, items.mobile, items.email, items.birthday, items.gender, items.civil_status, items.spouse_member_id, items.religion, items.baptism, items.confirmation, items.address_line1, items.address_line2, items.city, items.occupation_name, items.specialty, items.company, items.work_address_line1, items.work_address_line2, items.work_city)}
