@@ -125,22 +125,22 @@ const DTWSC = () => {
         <table id='CPWDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th className="px-6 py-3">
+                    <th className="px-6 py-3 whitespace-nowrap w-[30%]">
                         Name
                     </th>
-                    <th className="px-6 py-3">
+                    <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                         Birthday (YYYY-MM-DD)
                     </th>
-                    <th className="px-6 py-3">
+                    <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                         Gender
                     </th>
-                    <th className="px-6 py-3">
+                    <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                         Civil Status
                     </th>
-                    <th className="px-6 py-3">
+                    <th className="px-6 py-3 whitespace-nowrap w-[30%]">
                         Event
                     </th>
-                    <th className="px-6 py-3">
+                    <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                         Attendance Status
                     </th>
                 </tr>
@@ -150,22 +150,22 @@ const DTWSC = () => {
                     attendanceStatus ?
                         attendanceData.map(data => (
                             <tr>
-                                <td className="px-6 py-3">
-                                    {data.first_name} {data.middle_name.charAt(0)}. {data.last_name}
+                                <td className="px-6 py-3 whitespace-nowrap w-[30%]">
+                                    {data.first_name} {data.last_name}
                                 </td>
-                                <td className="px-6 py-3">
+                                <td className="px-6 py-3 whitespace-nowrap w-[10%]">
                                     {data.birthday}
                                 </td>
-                                <td className="px-6 py-3">
+                                <td className="px-6 py-3 whitespace-nowrap w-[10%]">
                                     {data.gender}
                                 </td>
-                                <td className="px-6 py-3">
+                                <td className="px-6 py-3 whitespace-nowrap w-[10%]">
                                     {data.civil_status}
                                 </td>
-                                <td className="px-6 py-3">
+                                <td className="px-6 py-3 whitespace-nowrap w-[30%]">
                                     {data.event_subtitle}
                                 </td>
-                                <td className="px-6 py-3">
+                                <td className="px-6 py-3 whitespace-nowrap w-[10%]">
                                     {data.status}
                                 </td>
                             </tr>
