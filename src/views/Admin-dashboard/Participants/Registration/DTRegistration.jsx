@@ -288,7 +288,7 @@ const DTRegistration = () => {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : null} ${lastName}'s record has been successfully updated!`)
+                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s record has been successfully updated!`)
                 } else {
                     alert(result.message)
                 }
@@ -302,7 +302,7 @@ const DTRegistration = () => {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : null} ${lastName} was successfully tagged as ${attendance}`)
+                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName} was successfully tagged as ${attendance}`)
                 } else {
                     alert(result.message);
                 }
@@ -316,7 +316,7 @@ const DTRegistration = () => {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : null} ${lastName}'s attendance record has been reset.`);
+                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s attendance record has been reset.`);
                 } else {
                     alert(result.message);
                 }
@@ -460,7 +460,7 @@ const DTRegistration = () => {
                                 attendanceRecord.map(items => (
                                     <tr>
                                         <td className="px-7 py-3">
-                                            {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : null} {items.last_name}
+                                            {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
                                         </td>
                                         <td className="px-7 py-3">
                                             {items.birthday}
@@ -481,7 +481,7 @@ const DTRegistration = () => {
                                                 :
                                                     attendanceRecord.map(getSpouse => (
                                                         getSpouse.member_id === items.spouse_member_id ?
-                                                            getSpouse.first_name + ' ' + (getSpouse.middle_name !== null & getSpouse.middle_name !== undefined & getSpouse.middle_name !== "" ? getSpouse.middle_name.charAt(0) : null) + ' ' + getSpouse.last_name
+                                                            getSpouse.first_name + ' ' + (getSpouse.middle_name !== null & getSpouse.middle_name !== undefined & getSpouse.middle_name !== "" ? getSpouse.middle_name.charAt(0) : "") + ' ' + getSpouse.last_name
                                                         : null
                                                     ))
                                                     
@@ -1516,7 +1516,7 @@ const DTRegistration = () => {
                             <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                             </svg>
-                            <label className='font-semibold text-lg'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? null : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
+                            <label className='font-semibold text-lg'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? "" : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
                         </div>
                     </div>
                     <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
