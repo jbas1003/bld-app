@@ -100,7 +100,7 @@ const DTWSC = () => {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.status.toLowerCase() === 'active'& event.event_type_category === 4 ?
+                                        event.status.toLowerCase() === 'active'& event.event_type_category === 9 ?
                                             <option value={event.event_id}>{event.event_subtitle}</option>
                                         : null
                                     ))
