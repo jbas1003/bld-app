@@ -80,11 +80,11 @@ function DTEvents() {
             .then(async result => {
                 setIsLoading(true)
                 if (await result.status === 200) {
-                    alert(result.message);
+                    alert(`${result.message}`);
                 } else if (await result.status === 422) {
-                    alert(result.message);
+                    alert(`${result.message}`);
                 } else {
-                    alert(result.message);
+                    alert(`${result.message}`);
                 }
                 setIsLoading(false)
             });
