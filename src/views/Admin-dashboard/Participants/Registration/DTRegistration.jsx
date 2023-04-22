@@ -267,14 +267,13 @@ const DTRegistration = () => {
             .then(async result => {
                 if (await result.status === 200) {
                     setErrors(false)
-                    alert(result.message)
+                    alert(`${result.message}`)
                 } else {
                     setErrors(true)
-                    alert(result.message)
+                    alert(`${result.message}`)
                 }
                 setIsLoading(false)
             })
-            .catch(errors => console.log(errors))
 
         // console.log(`${loginResult.__}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
         
