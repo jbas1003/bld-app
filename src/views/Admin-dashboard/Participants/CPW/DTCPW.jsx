@@ -108,7 +108,7 @@ const DTCPW = () => {
                             attendanceData.map(data => (
                                 <tr>
                                     <td className="px-6 py-3">
-                                        {data.first_name} {data.middle_name.charAt(0)}. {data.last_name}
+                                        {data.first_name} {data.middle_name !== null & data.middle_name !== undefined & data.middle_name !== "" ? data.middle_name.charAt(0) : null}. {data.last_name}
                                     </td>
                                     <td className="px-6 py-3">
                                         {data.birthday}
