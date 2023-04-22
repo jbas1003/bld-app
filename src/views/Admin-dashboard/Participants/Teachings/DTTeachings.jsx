@@ -173,7 +173,7 @@ const DTWSC = () => {
                                 ))
                             :
                             <tr>
-                                <th colSpan={5} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
+                                <th colSpan={6} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
                             </tr>
                         }
                     </tbody>
