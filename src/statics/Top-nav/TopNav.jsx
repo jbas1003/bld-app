@@ -33,7 +33,7 @@ const TopNav = () => {
                             <div className="z-50 border border-solid border-gray-200 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="dropdown-user">
                                 <div className="px-4 py-3 bg-Red" role="none">
                                     <p className="text-sm font-semibold text-WhiteSmoke" role="none">
-                                        {loginResult.first_name} {loginResult.middle_name.charAt(0)}. {loginResult.last_name}
+                                        {loginResult.first_name} {loginResult.middle_name !== null & loginResult.middle_name !== undefined & loginResult.middle_name !== "" ? loginResult.middle_name.charAt(0) + ". " : null} {loginResult.last_name}
                                     </p>
                                 </div>
                                 <ul className="py-1" role="none">
