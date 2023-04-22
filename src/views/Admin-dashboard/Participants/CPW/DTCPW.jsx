@@ -78,61 +78,63 @@ const DTCPW = () => {
 
             <div></div>
         </div>
-        <table id='CPWDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th className="px-6 py-3">
-                        Name
-                    </th>
-                    <th className="px-6 py-3">
-                        Birthday (YYYY-MM-DD)
-                    </th>
-                    <th className="px-6 py-3">
-                        Gender
-                    </th>
-                    <th className="px-6 py-3">
-                        Civil Status
-                    </th>
-                    <th className="px-6 py-3">
-                        Event
-                    </th>
-                    <th className="px-6 py-3">
-                        Attendance Status
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    attendanceStatus ?
-                        attendanceData.map(data => (
-                            <tr>
-                                <td className="px-6 py-3">
-                                    {data.first_name} {data.middle_name.charAt(0)}. {data.last_name}
-                                </td>
-                                <td className="px-6 py-3">
-                                    {data.birthday}
-                                </td>
-                                <td className="px-6 py-3">
-                                    {data.gender}
-                                </td>
-                                <td className="px-6 py-3">
-                                    {data.civil_status}
-                                </td>
-                                <td className="px-6 py-3">
-                                    {data.event_subtitle}
-                                </td>
-                                <td className="px-6 py-3">
-                                    {data.status}
-                                </td>
-                            </tr>
-                        ))
-                    :
+        <div className='overflow-x-auto overflow-scroll max-h-[600px]'>
+            <table id='CPWDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th colSpan={5} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
+                        <th className="px-6 py-3">
+                            Name
+                        </th>
+                        <th className="px-6 py-3">
+                            Birthday (YYYY-MM-DD)
+                        </th>
+                        <th className="px-6 py-3">
+                            Gender
+                        </th>
+                        <th className="px-6 py-3">
+                            Civil Status
+                        </th>
+                        <th className="px-6 py-3">
+                            Event
+                        </th>
+                        <th className="px-6 py-3">
+                            Attendance Status
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {
+                        attendanceStatus ?
+                            attendanceData.map(data => (
+                                <tr>
+                                    <td className="px-6 py-3">
+                                        {data.first_name} {data.middle_name.charAt(0)}. {data.last_name}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {data.birthday}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {data.gender}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {data.civil_status}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {data.event_subtitle}
+                                    </td>
+                                    <td className="px-6 py-3">
+                                        {data.status}
+                                    </td>
+                                </tr>
+                            ))
+                        :
+                        <tr>
+                            <th colSpan={5} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
                 </div>
     )
 }
