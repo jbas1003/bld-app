@@ -739,7 +739,7 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected>Choose Civil Status</option>
+                                <option value={null}>Choose Civil Status</option>
                                 <option value={"Single"}>Single</option>
                                 <option value={"Married"}>Married</option>
                                 <option value={"Widow/Widower"}>Widow/Widower</option>
@@ -1223,7 +1223,7 @@ const DTRegistration = () => {
                                         :""
                                     }
                             >
-                                <option selected>Choose Civil Status</option>
+                                <option value={null}>Choose Civil Status</option>
                                 <option value={"Single"}>Single</option>
                                 <option value={"Married"}>Married</option>
                                 <option value={"Widow/Widower"}>Widow/Widower</option>
