@@ -169,10 +169,10 @@ function DTMemberStatus() {
                     <table id='memberStatusDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-3 whitespace-nowrap w-[85%]">
                                     Member Status
                                 </th>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-2 py-3 whitespace-nowrap w-[15%]">
                                     Actions
                                 </th>
                             </tr>
@@ -183,10 +183,10 @@ function DTMemberStatus() {
                                     memberStatusData.map(items => (
                                         
                                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <p className='hover:cursor-pointer'>{items.status}</p>
                                                 </th>
-                                                <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
+                                                <td className="px-2 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
                                                     <button type="button"
                                                         className="text-red-800 border border-red-800 hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
                                                         onClick={() => showDelete(items.memberStatus_id, items.status)}
@@ -210,7 +210,7 @@ function DTMemberStatus() {
                                     ))
                                 :
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                        <td colSpan={2}  className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                        <td colSpan={2}  className="px-2 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                                             {message}
                                         </td>
                                     </tr>
