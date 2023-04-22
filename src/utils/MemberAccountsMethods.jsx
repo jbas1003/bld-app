@@ -2,7 +2,7 @@ import { serverRoutes } from "./constants";
 
 export function Login (username, password) {
     var myHeader = new Headers();
-    myHeader.append('Content-type', 'application/json()');
+    myHeader.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
         "username": username,
@@ -15,7 +15,7 @@ export function Login (username, password) {
         body: raw,
         redirect: 'follow'
     };
-
+    
     return fetch(serverRoutes.login, requestOptions);
 }
 

@@ -5,8 +5,7 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [loginResult, setLoginResult] = useState();
-    const [loginMessage, setLoginMessage] = useState();
-
+    let loginMessage;
     const memberLogin = (username, password) => {
         
         Login(username, password)
@@ -23,7 +22,7 @@ export const AuthProvider = ({ children }) => {
                     window.sessionStorage.setItem('___', JSON.stringify(loginData));
                     setLoginResult(JSON.parse(window.sessionStorage.getItem("___")));
                 } else {
-                    setLoginMessage(result.message);
+                    alert(result.message);
                 }
             });
     }
@@ -31,7 +30,6 @@ export const AuthProvider = ({ children }) => {
     const memberLogout = () => {
         window.sessionStorage.clear();
         setLoginResult('');
-        setLoginMessage('');
     }
 
     useEffect(() => {
