@@ -82,22 +82,22 @@ const DTCPW = () => {
             <table id='CPWDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3 whitespace-nowrap w-[25%]">
                             Name
                         </th>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3 whitespace-nowrap w-[15%]">
                             Birthday (YYYY-MM-DD)
                         </th>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                             Gender
                         </th>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                             Civil Status
                         </th>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3 whitespace-nowrap w-[30%]">
                             Event
                         </th>
-                        <th className="px-6 py-3">
+                        <th className="px-6 py-3 whitespace-nowrap w-[10%]">
                             Attendance Status
                         </th>
                     </tr>
@@ -129,7 +129,7 @@ const DTCPW = () => {
                             ))
                         :
                         <tr>
-                            <th colSpan={5} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
+                            <th colSpan={6} className="px-6 py-3 text-center">{attendanceData} Probably because the event does not exist or is not active. Or maybe the event has not arrived yet.</th>
                         </tr>
                     }
                 </tbody>
