@@ -128,7 +128,7 @@ function DTMemberAccounts() {
                                         
                                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                                 <th scope="row" className="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    <p className='hover:cursor-pointer'>{items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) : null}. {items.last_name}</p>
+                                                    <p className='hover:cursor-pointer'>{items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : null} {items.last_name}</p>
                                                 </th>
                                                 <th scope="row" className="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <p className='hover:cursor-pointer'>{
