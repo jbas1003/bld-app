@@ -229,28 +229,28 @@ function DTEvents() {
                 <table id='eventTypeDTbl' className="text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[25%]">
                                 Event Title
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event Subtitle
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event Location
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event Start Date
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event End Date
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[15%]">
                                 Event Type
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event Status
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Actions
                             </th>
                         </tr>
@@ -260,28 +260,28 @@ function DTEvents() {
                             status ?
                                 events.map(items => (
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.event_name}</p>
                                             </th>
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.event_subtitle}</p>
                                             </th>
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.location}</p>
                                             </th>
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.start_date}</p>
                                             </th>
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.end_date}</p>
                                             </th>
-                                            <td className="px-6 py-4">
+                                            <td className="px-8 py-4">
                                                 <p className='hover:cursor-pointer'>{items.event_type_name}</p>
                                             </td>
-                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.status}</p>
                                             </th>
-                                            <td className="px-6 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
+                                            <td className="px-8 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
                                                 <button type="button"
                                                     className="text-red-800 border border-red-800 hover:bg-red-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
                                                     onClick={() => deleteEventWarning(items.event_id, items.event_name)}
@@ -305,7 +305,7 @@ function DTEvents() {
                                 ))
                             :
                                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td colSpan={8}  className="px-6 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td colSpan={8}  className="px-8 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
                                         {message}
                                     </td>
                                 </tr>
