@@ -1,16 +1,21 @@
 import { serverRoutes } from "./constants";
 
-export function GetAllEvents () {
+export function GetAllEvents (event) {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'application/json');
 
+    var raw = JSON.stringify({
+        'event_category': event
+    });
+
     var requestOptions = {
-        method: 'GET',
+        method: 'POST',
         headers: myHeader,
+        body: raw,
         redirect: 'follow'
     };
 
-    return fetch(serverRoutes.events, requestOptions);
+    return fetch(serverRoutes.getEvents, requestOptions);
 }
 
 export function AddEvents (eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, userId) {

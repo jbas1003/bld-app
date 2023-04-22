@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DTRooms = () => {
+const DTTeachings = () => {
   return (
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <div className="pb-4 bg-white dark:bg-gray-900">
@@ -184,4 +184,4 @@ const DTRooms = () => {
   )
 }
 
-export default DTRooms;
+export default DTTeachings;

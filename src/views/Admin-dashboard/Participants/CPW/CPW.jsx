@@ -1,8 +1,8 @@
 import React from 'react';
 
-function Rooms({ children, show}) {
+function CPW({ children, show}) {
   const content = show && (<>{ children }</>);
   return content;
 }
 
-export default Rooms;
+export default CPW;

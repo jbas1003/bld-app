@@ -5,7 +5,7 @@ import useAuthContext from '../../utils/AuthContext';
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { memberLogin, loginResult } = useAuthContext();
+  const { memberLogin, loginResult, loginMessage } = useAuthContext();
 
   function HandleLogin (myEvent) {
     myEvent.preventDefault();

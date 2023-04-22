@@ -2,7 +2,7 @@ import { serverRoutes } from "./constants";
 
 export function Login (username, password) {
     var myHeader = new Headers();
-    myHeader.append('Content-type', 'application/json()');
+    myHeader.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
         "username": username,
@@ -15,7 +15,7 @@ export function Login (username, password) {
         body: raw,
         redirect: 'follow'
     };
-
+    
     return fetch(serverRoutes.login, requestOptions);
 }
 
@@ -34,20 +34,20 @@ export function GetMemberAccounts () {
 
 export function CreateAccount (id, memberId, username, password) {
     var myHeader = new Headers();
-    myHeader.append('Content-type', 'application/json()');
+    myHeader.append('Content-type', 'application/json');
 
     var raw = JSON.stringify({
         "member_id": memberId,
         "username": username,
         "password": password,
-        "created_by": 1,
+        "created_by": id
     });
 
     var requestOptions = {
         method: 'POST',
-        'headers': myHeader,
-        'body': raw,
-        'redirect': 'follow'
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
     };
 
     return fetch(serverRoutes.memberAccounts, requestOptions);
