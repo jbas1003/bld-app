@@ -20,7 +20,7 @@ export function GetAllEvents (event) {
 
 export function AddEvents (eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, userId) {
     var myHeader = new Headers();
-    myHeader.append('Content-type', 'application/json');
+    myHeader.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
         "event_name": eventTitle,
