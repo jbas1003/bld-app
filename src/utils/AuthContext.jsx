@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
                     window.sessionStorage.setItem('___', JSON.stringify(loginData));
                     setLoginResult(JSON.parse(window.sessionStorage.getItem("___")));
                 } else {
-                    alert(result.message);
+                    alert(JSON.stringify(result));
                 }
             });
     }
