@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 
 function DTRegistration() {
 
-    const [contactList, setContactList] = useState([{name: '', mobile: '', email: ''}]);
+    const [contactList, setContactList] = useState([{name: '', mobile: '', email: '', relationship: ''}]);
+    const [name, setName] = useState();
+    const [mobile, setMobile] = useState();
+    const [email, setEmail] = useState();
+    const [relationship, setRelationship] = useState();
 
     function tableSearch() {
         // Declare variables
@@ -34,13 +38,16 @@ function DTRegistration() {
     }
 
     const handleadd = () => {
-        setContactList([...contactList, { name: '', mobile: '', email: ''}]);
+        setContactList([...contactList, { name: '', mobile: '', email: '', relationship: ''}]);
+        console.log(contactList);
     }
 
     const handleremove = index => {
         const contacts = [...contactList];
         contacts.splice(index, 1);
         setContactList(contacts);
+        console.log(contactList);
+        console.log(index);
     }
 
     return (
@@ -100,27 +107,37 @@ function DTRegistration() {
                 </table>
             </div> */}
 
-            <div className="grid gap-4 mb-4 sm:grid-cols-4">
+            <div className="grid gap-4 mb-4 sm:grid-cols-5">
                 {
                     contactList.map((x, i) => (
                         <>
                             <div className="relative">
-                                <input type="text" id="fo_name" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={ e => handleContactChange(e,i) }
+                                    value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
                                 />
                                 <label for="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
                             </div>
                             <div className="relative">
-                                <input type="text" id="fo_mobile" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={ e => handleContactChange(e,i) }
+                                    value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
                                 />
                                 <label for="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
                             </div>
                             <div className="relative">
-                                <input type="text" id="fo_email" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={ e => handleContactChange(e,i) }
+                                    value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
                                 />
                                 <label for="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                            </div>
+                            <div className="relative">
+                                <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={ e => handleContactChange(e,i) }
+                                    value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
+                                />
+                                <label for="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
                             </div>
                             <div className="relative">
                                 {
