@@ -1,0 +1,45 @@
+import { serverRoutes } from "./constants";
+
+export function AddParticipant (firstName, middleName, lastName,
+    nickname, participantMobile, participantEmail, birthday, gender,
+    civilStatus, religion, baptized, confirmed, memberAddressLine1,
+    memberAddressLine2, memberCity, occupation, specialty, company,
+    companyAddressLine1, companyAddressLine2, companyCity, contactList) {
+
+        const myHeader = new Headers();
+        myHeader.append('Content-Type', 'application/json');
+
+        const raw = JSON.stringify({
+            first_name: firstName,
+            middle_name: middleName,
+            last_name: lastName,
+            nickname: nickname,
+            member_mobile: participantMobile,
+            member_email: participantEmail,
+            birthday: birthday,
+            gender: gender,
+            civil_status: civilStatus,
+            religion: religion,
+            baptized: baptized,
+            confirmed: confirmed,
+            member_addressLine1: memberAddressLine1,
+            member_addressLine2: memberAddressLine2,
+            member_city: memberCity,
+            occupation: occupation,
+            specialty: specialty,
+            company: company,
+            company_addressLine1: companyAddressLine1,
+            company_addressLine2: companyAddressLine2,
+            company_city: companyCity,
+            emergency_contacts: contactList
+        });
+
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeader,
+            body: raw,
+            redirect: 'follow'
+        }
+
+        console.log(JSON.parse(raw));
+}
