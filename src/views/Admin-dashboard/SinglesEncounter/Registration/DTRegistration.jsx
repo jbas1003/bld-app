@@ -6,6 +6,7 @@ import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import EmergencyContacts from './Modals/EmergencyContacts';
 import Result from './Modals/Result';
+import { AddParticipant } from '../../../../utils/SinglesEncounterMethods';
 
 function DTRegistration() {
 
@@ -72,62 +73,65 @@ function DTRegistration() {
 
     // END: Work info Constants
 
-    const Stepper = (step) => {
+    // START: Stepper function
+        const Stepper = (step) => {
 
-        switch (step) {
-            case "personal":
-                setCurrentStep("personal");
-                setShowPersonalInfo(true);
-                setShowAddressinfo(false);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(false);
-                setShowResult(false);
-                break;
-            
-            case "address":
-                setPreviousStep("personal")
-                setCurrentStep("address");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(true);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(false);
-                setShowResult(false);
-                break;
-            
-            case "work":
-                setPreviousStep("address")
-                setCurrentStep("work");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(false);
-                setShowWorkinfo(true);
-                setShowEmergencyContact(false);
-                setShowResult(false);
-                break;
-            
-                case "emergency":
-                    setPreviousStep("work")
-                    setCurrentStep("emergency");
+            switch (step) {
+                case "personal":
+                    setCurrentStep("personal");
+                    setShowPersonalInfo(true);
+                    setShowAddressinfo(false);
+                    setShowWorkinfo(false);
+                    setShowEmergencyContact(false);
+                    setShowResult(false);
+                    break;
+                
+                case "address":
+                    setPreviousStep("personal")
+                    setCurrentStep("address");
+                    setShowPersonalInfo(false);
+                    setShowAddressinfo(true);
+                    setShowWorkinfo(false);
+                    setShowEmergencyContact(false);
+                    setShowResult(false);
+                    break;
+                
+                case "work":
+                    setPreviousStep("address")
+                    setCurrentStep("work");
+                    setShowPersonalInfo(false);
+                    setShowAddressinfo(false);
+                    setShowWorkinfo(true);
+                    setShowEmergencyContact(false);
+                    setShowResult(false);
+                    break;
+                
+                    case "emergency":
+                        setPreviousStep("work")
+                        setCurrentStep("emergency");
+                        setShowPersonalInfo(false);
+                        setShowAddressinfo(false);
+                        setShowWorkinfo(false);
+                        setShowEmergencyContact(true);
+                        setShowResult(false);
+                        break;
+                
+                case "result":
+                    setPreviousStep("emergency")
+                    setCurrentStep("result");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
                     setShowWorkinfo(false);
-                    setShowEmergencyContact(true);
-                    setShowResult(false);
+                    setShowEmergencyContact(false);
+                    setShowResult(true);
                     break;
             
-            case "result":
-                setPreviousStep("emergency")
-                setCurrentStep("result");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(false);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(false);
-                setShowResult(true);
-                break;
-        
-            default:
-                break;
+                default:
+                    break;
+            }
         }
-    }
+    
+    // END: Stepper function
 
     const showAddParticipant = () => {
         Stepper('personal')
@@ -172,6 +176,26 @@ function DTRegistration() {
         contactList.splice(index,1);
         setContactList([...contactList]);
     }
+
+    // START: API Functions
+
+    function addParticipant () {
+        AddParticipant(firstName, middleName, lastName,
+            nickname, participantMobile, participantEmail, birthday, gender,
+            civilStatus, religion, baptized, confirmed, memberAddressLine1,
+            memberAddressLine2, memberCity, occupation, specialty, company,
+            companyAddressLine1, companyAddressLine2, companyCity, contactList)
+            // .then(async result => { return await result.json})
+            // .then(async result => {
+            //     if (result.status === 200) {
+
+            //     } else {
+
+            //     }
+            // });
+    }
+
+    // END: API Functions
 
     return (
         
@@ -740,7 +764,7 @@ function DTRegistration() {
                                     </div>
                                     <div className="relative">
                                         {
-                                            contactList.length-1 !== i &&
+                                            contactList.length !== i &&
                                                 <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                 onClick={ () => handleremove(i) }
                                                 >
@@ -771,7 +795,7 @@ function DTRegistration() {
                     </button>
                     <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                         // onClick={addParticipant}
-                        onClick={() => Stepper('result')}
+                        onClick={addParticipant}
                     >
                         Save
                     </button>
