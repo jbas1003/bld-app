@@ -5,7 +5,6 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [loginResult, setLoginResult] = useState();
-    let loginMessage;
     const memberLogin = (username, password) => {
         
         Login(username, password)
@@ -22,7 +21,7 @@ export const AuthProvider = ({ children }) => {
                     window.sessionStorage.setItem('___', JSON.stringify(loginData));
                     setLoginResult(JSON.parse(window.sessionStorage.getItem("___")));
                 } else {
-                    alert(JSON.stringify(result));
+                    alert(`${JSON.stringify(result)}`);
                 }
             });
     }
@@ -36,7 +35,7 @@ export const AuthProvider = ({ children }) => {
         setLoginResult(JSON.parse(window.sessionStorage.getItem("___")));
     }, [])
 
-    return <AuthContext.Provider value={{ memberLogin, memberLogout, loginResult, loginMessage }}>
+    return <AuthContext.Provider value={{ memberLogin, memberLogout, loginResult }}>
         { children }
     </AuthContext.Provider>
 }
