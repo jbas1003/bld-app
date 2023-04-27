@@ -1,6 +1,6 @@
 import { serverRoutes } from "./constants";
 
-export function AddParticipant (firstName, middleName, lastName,
+export function AddParticipant (id, firstName, middleName, lastName,
     nickname, participantMobile, participantEmail, birthday, gender,
     civilStatus, religion, baptized, confirmed, memberAddressLine1,
     memberAddressLine2, memberCity, occupation, specialty, company,
@@ -22,6 +22,7 @@ export function AddParticipant (firstName, middleName, lastName,
             religion: religion,
             baptized: baptized,
             confirmed: confirmed,
+            member_status_id: 1,
             member_addressLine1: memberAddressLine1,
             member_addressLine2: memberAddressLine2,
             member_city: memberCity,
@@ -31,7 +32,8 @@ export function AddParticipant (firstName, middleName, lastName,
             company_addressLine1: companyAddressLine1,
             company_addressLine2: companyAddressLine2,
             company_city: companyCity,
-            emergency_contacts: contactList
+            emergency_contacts: contactList,
+            created_by: id
         });
 
         const requestOptions = {
