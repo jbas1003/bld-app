@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import useAuthContext from '../../../../utils/AuthContext';
 import { Link } from 'react-router-dom';
 import AddSEParticipant from './Modals/AddSEParticipant';
 import PersonalInfo from './Modals/PersonalInfo';
@@ -11,6 +12,7 @@ import { AddParticipant } from '../../../../utils/SinglesEncounterMethods';
 function DTRegistration() {
     // START: Utils Constants
 
+        const { loginResult } = useAuthContext();
         const [addStatus, setAddStatus] = useState();
         const [participants, setParticipants] = useState();
 
@@ -18,7 +20,7 @@ function DTRegistration() {
 
     // START: Emergency Contacts Constatns
 
-        const [contactList, setContactList] = useState([{name: '', mobile: '', email: '', relationship: ''}]);
+        const [contactList, setContactList] = useState([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
    
     // END: Emergency Contacts Constants
 
@@ -174,7 +176,7 @@ function DTRegistration() {
     }
 
     const handleadd = () => {
-        setContactList([...contactList, { name: '', mobile: '', email: '', relationship: ''}]);
+        setContactList([...contactList, { name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
         console.log(contactList);
     }
 
@@ -185,22 +187,22 @@ function DTRegistration() {
 
     // START: API Functions
 
-    function addParticipant () {
-        AddParticipant(firstName, middleName, lastName,
+    const addParticipant = () => {
+        AddParticipant(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
             memberAddressLine2, memberCity, occupation, specialty, company,
             companyAddressLine1, companyAddressLine2, companyCity, contactList)
-            // .then(async result => { return await result.json})
-            // .then(async result => {
-            //     if (await result.status === 200) {
-            //         setAddStatus(true);
-            //         setParticipants(result.body);
-            //         console.log(`${JSON.stringify(result.body)}`);
-            //     } else {
-
-            //     }
-            // });
+            .then(async result => { return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    setAddStatus(true);
+                    setParticipants(result.message);
+                    console.log(`${JSON.stringify(result.message)}`);
+                } else {
+                    console.log(`${result.message}`);
+                }
+            });
     }
 
     // END: API Functions
