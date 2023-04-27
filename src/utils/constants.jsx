@@ -11,4 +11,5 @@ export const serverRoutes = {
     attendanceList: myApiURL + '/attendance_list',
     showAttendances: myApiURL + '/show_attendances',
     login: myApiURL + '/member_accounts/login',
+    se: myApiURL + '/SE',
 }
