@@ -9,6 +9,12 @@ import Result from './Modals/Result';
 import { AddParticipant } from '../../../../utils/SinglesEncounterMethods';
 
 function DTRegistration() {
+    // START: Utils Constants
+
+        const [addStatus, setAddStatus] = useState();
+        const [participants, setParticipants] = useState();
+
+    // END: Utils Constants
 
     // START: Emergency Contacts Constatns
 
@@ -187,8 +193,10 @@ function DTRegistration() {
             companyAddressLine1, companyAddressLine2, companyCity, contactList)
             // .then(async result => { return await result.json})
             // .then(async result => {
-            //     if (result.status === 200) {
-
+            //     if (await result.status === 200) {
+            //         setAddStatus(true);
+            //         setParticipants(result.body);
+            //         console.log(`${JSON.stringify(result.body)}`);
             //     } else {
 
             //     }
@@ -764,7 +772,7 @@ function DTRegistration() {
                                     </div>
                                     <div className="relative">
                                         {
-                                            contactList.length !== i &&
+                                            contactList.length > 1 &&
                                                 <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                 onClick={ () => handleremove(i) }
                                                 >
