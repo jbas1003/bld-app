@@ -35,11 +35,11 @@ export function AddParticipant (firstName, middleName, lastName,
         });
 
         const requestOptions = {
-            method: 'GET',
+            method: 'POST',
             headers: myHeader,
             body: raw,
             redirect: 'follow'
         }
-
-        console.log(JSON.parse(raw));
+        
+        return fetch(serverRoutes.se, requestOptions);
 }
