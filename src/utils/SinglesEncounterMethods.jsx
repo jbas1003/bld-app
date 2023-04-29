@@ -33,7 +33,9 @@ export function AddParticipant (id, firstName, middleName, lastName,
             company_addressLine2: companyAddressLine2,
             company_city: companyCity,
             emergency_contacts: contactList,
-            created_by: id
+            created_by: id,
+            event_id: 6,
+            status: null
         });
 
         const requestOptions = {
