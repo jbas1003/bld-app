@@ -198,7 +198,7 @@ function DTRegistration() {
                 if (await result.status === 200) {
                     setAddStatus(true);
                     setParticipants(result.message);
-                    console.log(`${JSON.stringify(result.message)}`);
+                    console.log(`${result.message}`);
                 } else {
                     console.log(`${result.message}`);
                 }
