@@ -14,7 +14,7 @@ export function GetSE (event) {
         body: raw,
         redirect: 'follow'
     };
-    console.log(raw);
+    
     return fetch(serverRoutes.getSE, requestOptions);
 }
 
