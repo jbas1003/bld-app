@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
 import { Link } from 'react-router-dom';
 import AddSEParticipant from './Modals/AddSEParticipant';
@@ -7,7 +7,8 @@ import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import EmergencyContacts from './Modals/EmergencyContacts';
 import Result from './Modals/Result';
-import { AddParticipant } from '../../../../utils/SinglesEncounterMethods';
+import { AddParticipant, GetSE } from '../../../../utils/SinglesEncounterMethods';
+import { GetAllEvents } from '../../../../utils/EventsMethods';
 
 function DTRegistration() {
     // START: Utils Constants
@@ -15,6 +16,16 @@ function DTRegistration() {
         const { loginResult } = useAuthContext();
         const [addStatus, setAddStatus] = useState();
         const [participants, setParticipants] = useState();
+
+        const event_type = 'Singles Encounter';
+
+        const [eventStatus, setEventStatus] = useState();
+        const [eventData, setEventData] = useState();
+        const [event, setEvent] = useState();
+
+        const [SEData, setSEData] = useState();
+        const [SEStatus, setSEStatus] = useState();
+        const [SEMessage, setSEMessage] = useState();
 
     // END: Utils Constants
 
@@ -80,6 +91,15 @@ function DTRegistration() {
         const [companyCity, setCompanyCity] = useState();
 
     // END: Work info Constants
+
+    // START: Change Event function
+
+        function changeEvent (selectedEvent) {
+            getSE(selectedEvent);
+            setEvent(selectedEvent);
+        }
+
+    // END: Change Event function
 
     // START: Stepper function
         const Stepper = (step) => {
@@ -205,7 +225,40 @@ function DTRegistration() {
             });
     }
 
+    const getEvents = () => {
+        GetAllEvents()
+          .then(async result => {return await result.json()})
+          .then(result => {
+            if (result.status === 200) {
+                setEventStatus(true);
+                setEventData(result.body);
+            } else {
+                setEventStatus(false);
+              alert('There are no events available. Please contact and request authorized personnel to create an event.');
+            }
+          })
+      }
+
+      const getSE = (event) => {
+        GetSE(event)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    setSEStatus(true);
+                    setSEData(result.body);
+                } else {
+                    setSEStatus(false);
+                    setSEMessage(result.message);
+                }
+            })
+      }
+
     // END: API Functions
+
+    useEffect(() => {
+        getEvents();
+        getSE(event)
+    }, [event])
 
     return (
         
@@ -222,8 +275,33 @@ function DTRegistration() {
                 </div>
 
                 <div>
+                    <label htmlFor="default" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Event</label>
+                    <select id="default" className="w-72 bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                        onChange={(e) => {changeEvent(e.target.value)}}
+                        value={
+                        event !== null ?
+                            event
+                        : alert('No Event was selected. Please select an event.')
+                        }
+                    >
+                        <option value={" "}>Choose an event</option>
+                        {
+                            eventStatus ?
+                                eventData !== null & eventData !== undefined ?
+                                    eventData.map(event => (
+                                        event.status.toLowerCase() === 'active' & event.event_type_id === 13 ?
+                                            <option value={event.event_id}>{event.event_name}</option>
+                                        : null
+                                    ))
+                                : <option>No events found...</option>
+                            : null
+                        }
+                    </select>
+                </div>
+
+                <div>
                     <button type="button"
-                        className="flex items-center text-white bg-green-800 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                        className="flex items-center text-white bg-green-800 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-700 font-medium rounded-full text-sm px-6 py-2.5 text-center mr-2 mb-2"
                         onClick={showAddParticipant}
                     >
                     <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -237,41 +315,54 @@ function DTRegistration() {
                 <table id='SEDTRegistration' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" className="px-5 py-3">
-                                Product name
+                            <th scope="col" className="px-6 py-3">
+                                Participant
                             </th>
-                            <th scope="col" className="px-5 py-3">
-                                Color
+                            <th scope="col" className="px-6 py-3">
+                                Nickname
                             </th>
-                            <th scope="col" className="px-5 py-3">
-                                Category
+                            <th scope="col" className="px-6 py-3">
+                                Gender
                             </th>
-                            <th scope="col" className="px-5 py-3">
-                                Price
+                            <th scope="col" className="px-6 py-3">
+                                Birthday
                             </th>
-                            <th scope="col" className="px-5 py-3">
+                            
+                            <th scope="col" className="px-6 py-3">
+                                Status
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" className="px-5 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                Apple MacBook Pro 17"
-                            </th>
-                            <td className="px-5 py-4">
-                                Silver
-                            </td>
-                            <td className="px-5 py-4">
-                                Laptop
-                            </td>
-                            <td className="px-5 py-4">
-                                $2999
-                            </td>
-                            <td className="px-5 py-4">
-                                <Link to="..test" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
-                            </td>
-                        </tr>
+                        {
+                            SEStatus === true ?
+                                SEData.map(items => (
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
+                                        </th>
+                                        <td className="px-6 py-4">
+                                            {items.nickname}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {items.gender}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {items.birthday}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {items.status}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <Link to="..test" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                                        </td>
+                                    </tr>
+                                ))
+                            : null
+                        }
                     </tbody>
                 </table>
             </div>
@@ -590,7 +681,7 @@ function DTRegistration() {
                             </div>
                         </div>
                     </div>
-                    <button type="submit" onClick={() => {Stepper('address')}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button type="submit" onClick={() => {Stepper('address')}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Address Info
                     </button>
                 </PersonalInfo>
@@ -638,10 +729,10 @@ function DTRegistration() {
                             </div>
                         </div>
                     </div>
-                    <button onClick={() => Stepper('personal')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                    <button onClick={() => Stepper('personal')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
                         Go Back to: Personal Info
                     </button>
-                    <button onClick={() => Stepper('work')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button onClick={() => Stepper('work')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Work Info
                     </button>
                 </AddressInfo>
@@ -729,10 +820,10 @@ function DTRegistration() {
                             </div>
                         </div>
                     </div>
-                    <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                    <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
                         Go Back to: Address Info
                     </button>
-                    <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Emergency Contacts
                     </button>
                 </WorkInfo>
@@ -800,10 +891,10 @@ function DTRegistration() {
                             ))
                         }
                     </div>
-                    <button onClick={() => Stepper('work')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                    <button onClick={() => Stepper('work')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
                         Go Back to: Address Info
                     </button>
-                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
                         // onClick={addParticipant}
                         onClick={addParticipant}
                     >
@@ -844,7 +935,7 @@ function DTRegistration() {
                                 </div>
                     } */}
                     <div className='flex justify-end'>
-                        <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             // onClick={closeAdd}
                         >
                             Close
