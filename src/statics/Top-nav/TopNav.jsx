@@ -25,9 +25,9 @@ const TopNav = () => {
                     <div className="flex items-center">
                         <div className="flex items-center ml-3">
                             <div>
-                                <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-Pink" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-Pink" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                     <span className="sr-only">Open user menu</span>
-                                    <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="userPhoto"/>
+                                    <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="userPhoto"/>
                                 </button>
                             </div>
                             <div className="z-50 border border-solid border-gray-200 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="dropdown-user">
