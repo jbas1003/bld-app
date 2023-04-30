@@ -1,5 +1,4 @@
 import 'flowbite';
-import 'flowbite-datepicker';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Admin from './routes/Admin.jsx';
