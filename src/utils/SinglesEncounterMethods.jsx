@@ -1,5 +1,23 @@
 import { serverRoutes } from "./constants";
 
+export function GetSE (event) {
+    const myHeader = new Headers();
+    myHeader.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+        event: event
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+    console.log(raw);
+    return fetch(serverRoutes.getSE, requestOptions);
+}
+
 export function AddParticipant (id, firstName, middleName, lastName,
     nickname, participantMobile, participantEmail, birthday, gender,
     civilStatus, religion, baptized, confirmed, memberAddressLine1,
