@@ -234,7 +234,7 @@ function DTRegistration() {
                 setEventData(result.body);
             } else {
                 setEventStatus(false);
-              alert('There are no events available. Please contact and request authorized personnel to create an event.');
+                alert('There are no events available. Please contact and request authorized personnel to create an event.');
             }
           })
       }
