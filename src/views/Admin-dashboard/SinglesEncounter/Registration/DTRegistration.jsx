@@ -158,6 +158,14 @@ function DTRegistration() {
         setShowAdd(true)
     }
 
+    const showEditParticipant = (firstName, middleName, lastName, nickname, participantMobile,
+                                participantEmail, birthday, gender, civilStatus, religion,
+                                baptized, confirmed, memberAddressLine1, memberAddressLine2,
+                                memberCity, occupation, specialty, company, companyAddressLine1,
+                                companyAddressLine2, companyCity, ) => {
+
+    }
+
     function tableSearch() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
