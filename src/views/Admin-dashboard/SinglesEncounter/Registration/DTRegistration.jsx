@@ -158,12 +158,88 @@ function DTRegistration() {
         setShowAdd(true)
     }
 
-    const showEditParticipant = (firstName, middleName, lastName, nickname, participantMobile,
+    const showEditParticipant = (step, firstName, middleName, lastName, nickname, participantMobile,
                                 participantEmail, birthday, gender, civilStatus, religion,
                                 baptized, confirmed, memberAddressLine1, memberAddressLine2,
                                 memberCity, occupation, specialty, company, companyAddressLine1,
-                                companyAddressLine2, companyCity, ) => {
+                                companyAddressLine2, companyCity, emergency_contacts) => {
 
+        setFirstName(firstName);
+        setMiddleName(middleName);
+        setLastName(lastName);
+        setNickname(nickname);
+        setParticipantMobile(participantMobile);
+        setParticipantEmail(participantEmail);
+        setBirthday(birthday);
+        setGender(gender);
+        setCivilStatus(civilStatus);
+        setReligion(religion);
+        setBaptized(baptized);
+        setConfirmed(confirmed);
+        setMemberAddressLine1(memberAddressLine1);
+        setMemberAddressLine2(memberAddressLine2);
+        setMemberCity(memberCity);
+        setOccupation(occupation);
+        setSpecialty(specialty);
+        setCompany(company);
+        setCompanyAddressLine1(companyAddressLine1);
+        setCompanyAddressLine2(companyAddressLine2);
+        setCompanyCity(companyCity);
+        setContactList(emergency_contacts);
+        
+        switch (step) {
+            case "personal":
+                setCurrentStep("personal");
+                setShowPersonalInfo(true);
+                setShowAddressinfo(false);
+                setShowWorkinfo(false);
+                setShowEmergencyContact(false);
+                setShowResult(false);
+                break;
+            
+            case "address":
+                setPreviousStep("personal")
+                setCurrentStep("address");
+                setShowPersonalInfo(false);
+                setShowAddressinfo(true);
+                setShowWorkinfo(false);
+                setShowEmergencyContact(false);
+                setShowResult(false);
+                break;
+            
+            case "work":
+                setPreviousStep("address")
+                setCurrentStep("work");
+                setShowPersonalInfo(false);
+                setShowAddressinfo(false);
+                setShowWorkinfo(true);
+                setShowEmergencyContact(false);
+                setShowResult(false);
+                break;
+            
+                case "emergency":
+                    setPreviousStep("work")
+                    setCurrentStep("emergency");
+                    setShowPersonalInfo(false);
+                    setShowAddressinfo(false);
+                    setShowWorkinfo(false);
+                    setShowEmergencyContact(true);
+                    setShowResult(false);
+                    break;
+            
+            case "result":
+                setPreviousStep("emergency")
+                setCurrentStep("result");
+                setShowPersonalInfo(false);
+                setShowAddressinfo(false);
+                setShowWorkinfo(false);
+                setShowEmergencyContact(false);
+                setShowResult(true);
+                break;
+        
+            default:
+                break;
+        }
     }
 
     function tableSearch() {
@@ -377,7 +453,15 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    // onClick={() => editParticipant('personal', items.member_id, items.first_name, items.middle_name, items.last_name, items.nickname, items.mobile, items.email, items.birthday, items.gender, items.civil_status, items.spouse_member_id, items.religion, items.baptism, items.confirmation, items.address_line1, items.address_line2, items.city, items.occupation_name, items.specialty, items.company, items.work_address_line1, items.work_address_line2, items.work_city)}
+                                                    onClick={() => showEditParticipant('personal', items.first_name, items.middle_name,
+                                                                                        items.last_name, items.nickname, items.mobile,
+                                                                                        items.email, items.birthday, items.gender,
+                                                                                        items.civil_status, items.religion,
+                                                                                        items.baptism, items.confirmation,
+                                                                                        items.address_line1, items.address_line2,
+                                                                                        items.city, items.occupation_name, items.specialty,
+                                                                                        items.company, items.work_address_line1,
+                                                                                        items.work_address_line2, items.work_city, items.emergency_contacts)}
                                                 >
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
