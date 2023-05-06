@@ -240,6 +240,8 @@ function DTRegistration() {
             default:
                 break;
         }
+
+        setShowEdit(true);
     }
 
     function tableSearch() {
@@ -405,7 +407,7 @@ function DTRegistration() {
                             </th>
                             
                             <th scope="col" className="px-6 py-3">
-                                Status
+                                Attendance Status
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Action
@@ -432,14 +434,14 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             {
                                                 event !== "" & event !== null & event !== undefined ?
-                                                    items.status !== "" & items.status !== null & items.status !== undefined ?
-                                                        items.status
+                                                    items.attendance_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
+                                                        items.attendance_status
                                                     :
                                                         <select id="attendance" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-42 p-2.5"
                                                             // onChange={e => {attendanceWarning(items.member_id, e.target.value, items.first_name, items.middle_name, items.last_name)}}
                                                             value={
-                                                                items.status !== '' & items.status !== null & items.status !== undefined ?
-                                                                    items.status
+                                                                items.attendance_status !== '' & items.attendance_status !== null & items.attendance_status !== undefined ?
+                                                                    items.attendance_status
                                                                 : ''
                                                             }
                                                         >
@@ -460,8 +462,8 @@ function DTRegistration() {
                                                                                         items.baptism, items.confirmation,
                                                                                         items.address_line1, items.address_line2,
                                                                                         items.city, items.occupation_name, items.specialty,
-                                                                                        items.company, items.work_address_line1,
-                                                                                        items.work_address_line2, items.work_city, items.emergency_contacts)}
+                                                                                        items.company, items.work_addressLine1,
+                                                                                        items.work_addressLine2, items.work_city, items.emergency_contacts)}
                                                 >
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
