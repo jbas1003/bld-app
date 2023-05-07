@@ -10,6 +10,7 @@ import Result from './Modals/Result';
 import { AddParticipant, GetSE } from '../../../../utils/SinglesEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditSEParticipant from './Modals/EditSEParticipant';
+import SEAttendanceWarning from './Modals/SEAttendanceWarning';
 
 function DTRegistration() {
     // START: Utils Constants
@@ -52,12 +53,15 @@ function DTRegistration() {
 
         const [showAdd, setShowAdd] = useState();
         const [showEdit, setShowEdit] = useState();
+        const [showAttendanceWarning, setShowAttendanceWarning] = useState();
         const [showDeleteWarning, setShowDeleteWarning] = useState();
 
     // END: Modal Constants
 
     // START: Personal Info Constants
 
+        const [memberId, setMemberId] = useState();
+        const [seId, setSEId] = useState();
         const [firstName, setFirstName] = useState();
         const [middleName, setMiddleName] = useState();
         const [lastName, setLastName] = useState();
@@ -70,6 +74,7 @@ function DTRegistration() {
         const [religion, setReligion] = useState();
         const [baptized, setBaptized] = useState();
         const [confirmed, setConfirmed] = useState();
+        const [attendance, setAttendance] = useState();
 
 
     // END: Personal Info Constants
@@ -156,6 +161,16 @@ function DTRegistration() {
     const showAddParticipant = () => {
         Stepper('personal')
         setShowAdd(true)
+    }
+
+    const attendanceWarning = (memberId, seId, attendanceStatus, firstName, middleName, lastName) => {
+        setMemberId(memberId);
+        setSEId(seId);
+        setAttendance(attendanceStatus);
+        setFirstName(firstName);
+        setMiddleName(middleName);
+        setLastName(lastName);
+        setShowAttendanceWarning(true);
     }
 
     const showEditParticipant = (step, firstName, middleName, lastName, nickname, participantMobile,
@@ -438,7 +453,7 @@ function DTRegistration() {
                                                         items.attendance_status
                                                     :
                                                         <select id="attendance" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-42 p-2.5"
-                                                            // onChange={e => {attendanceWarning(items.member_id, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
                                                             value={
                                                                 items.attendance_status !== '' & items.attendance_status !== null & items.attendance_status !== undefined ?
                                                                     items.attendance_status
@@ -1371,12 +1386,12 @@ function DTRegistration() {
                                 </div>
                                 <div className="flex items-center mr-4">
                                     <input id="pi_confirmation" type="radio" value="No" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        // onChange={e => {setconfirmed(e.target.value)}}
-                                        // checked={
-                                        //     confirmed !== null & confirmed === 'No' ?
-                                        //         true
-                                        //     : null
-                                        // }
+                                        onChange={e => {setConfirmed(e.target.value)}}
+                                        checked={
+                                            confirmed !== null & confirmed === 'No' ?
+                                                true
+                                            : null
+                                        }
                                     />
                                     <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
@@ -1645,6 +1660,26 @@ function DTRegistration() {
                     </div>
                 </Result>
             </EditSEParticipant>
+
+            <SEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
+                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                        <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
+                            <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                            </svg>
+                            <label className='font-semibold text-lg'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? "" : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                        <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
+                            <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                // onClick={createAttendance}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+            </SEAttendanceWarning>
         </div>
     )
 }
