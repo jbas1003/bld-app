@@ -7,7 +7,7 @@ import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import EmergencyContacts from './Modals/EmergencyContacts';
 import Result from './Modals/Result';
-import { AddParticipant, GetSE } from '../../../../utils/SinglesEncounterMethods';
+import { AddParticipant, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditSEParticipant from './Modals/EditSEParticipant';
 import SEAttendanceWarning from './Modals/SEAttendanceWarning';
@@ -17,6 +17,7 @@ function DTRegistration() {
 
         const { loginResult } = useAuthContext();
         const [addStatus, setAddStatus] = useState();
+        const [updateStatus, setUpdateStatus] = useState();
         const [participants, setParticipants] = useState();
 
         const event_type = 'Singles Encounter';
@@ -28,6 +29,8 @@ function DTRegistration() {
         const [SEData, setSEData] = useState();
         const [SEStatus, setSEStatus] = useState();
         const [SEMessage, setSEMessage] = useState();
+
+        const [isLoading, setIsLoading] = useState();
 
     // END: Utils Constants
 
@@ -173,12 +176,14 @@ function DTRegistration() {
         setShowAttendanceWarning(true);
     }
 
-    const showEditParticipant = (step, firstName, middleName, lastName, nickname, participantMobile,
+    const showEditParticipant = (step, memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
                                 participantEmail, birthday, gender, civilStatus, religion,
                                 baptized, confirmed, memberAddressLine1, memberAddressLine2,
                                 memberCity, occupation, specialty, company, companyAddressLine1,
                                 companyAddressLine2, companyCity, emergency_contacts) => {
-
+        
+        setMemberId(memberId);
+        setSEId(seId);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
@@ -200,7 +205,9 @@ function DTRegistration() {
         setCompanyAddressLine1(companyAddressLine1);
         setCompanyAddressLine2(companyAddressLine2);
         setCompanyCity(companyCity);
-        setContactList(emergency_contacts);
+        if (emergency_contacts.length > 0) {
+            setContactList(emergency_contacts);
+        }
         
         switch (step) {
             case "personal":
@@ -259,6 +266,35 @@ function DTRegistration() {
         setShowEdit(true);
     }
 
+    const closeEdit = () => {
+        setMemberId('');
+        setSEId('');
+        setFirstName('');
+        setMiddleName('');
+        setLastName('');
+        setNickname('');
+        setParticipantMobile('');
+        setParticipantEmail('');
+        setBirthday('');
+        setGender('');
+        setCivilStatus('');
+        setReligion('');
+        setBaptized('');
+        setConfirmed('');
+        setMemberAddressLine1('');
+        setMemberAddressLine2('');
+        setMemberCity('');
+        setOccupation('');
+        setSpecialty('');
+        setCompany('');
+        setCompanyAddressLine1('');
+        setCompanyAddressLine2('');
+        setCompanyCity('');
+        setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+
+        setShowEdit(false);
+    }
+
     function tableSearch() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
@@ -301,6 +337,7 @@ function DTRegistration() {
     // START: API Functions
 
     const addParticipant = () => {
+        setIsLoading(true);
         AddParticipant(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
@@ -311,11 +348,39 @@ function DTRegistration() {
                 if (await result.status === 200) {
                     setAddStatus(true);
                     setParticipants(result.message);
-                    console.log(`${result.message}`);
+                    setSEMessage(result.message);
                 } else {
-                    console.log(`${result.message}`);
+                    setAddStatus(false);
+                    setSEMessage(result.message);
                 }
+
+                setIsLoading(false)
             });
+    }
+
+    const updateParticipant = () => {
+        setIsLoading(true);
+        UpdateParticipant(loginResult.__, memberId, seId, firstName, middleName,
+                            lastName, nickname, participantMobile, participantEmail,
+                            birthday, gender, civilStatus, religion, baptized,
+                            confirmed, memberAddressLine1, memberAddressLine2,
+                            memberCity, occupation, specialty, company,
+                            companyAddressLine1, companyAddressLine2, companyCity,
+                            contactList)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    setUpdateStatus(true);
+                    alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s record has been successfully updated!`);
+                } else {
+                    setUpdateStatus(false);
+                    alert(result);
+                }
+
+                setIsLoading(false);
+            });
+        
+        closeEdit();
     }
 
     const getEvents = () => {
@@ -470,7 +535,8 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    onClick={() => showEditParticipant('personal', items.first_name, items.middle_name,
+                                                    onClick={() => showEditParticipant('personal', items.member_id, items.seId,
+                                                                                        items.first_name, items.middle_name,
                                                                                         items.last_name, items.nickname, items.mobile,
                                                                                         items.email, items.birthday, items.gender,
                                                                                         items.civil_status, items.religion,
@@ -979,7 +1045,7 @@ function DTRegistration() {
                                             onChange={ e => handleContactChange(e,i)}
                                             value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
                                         />
-                                        <label for="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
                                     </div>
                                     <div className="relative">
                                         <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
@@ -987,21 +1053,21 @@ function DTRegistration() {
 
                                             value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
                                         />
-                                        <label for="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                        <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
                                     </div>
                                     <div className="relative">
                                         <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                             onChange={ e => handleContactChange(e,i) }
                                             value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
                                         />
-                                        <label for="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
                                     </div>
                                     <div className="relative">
                                         <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                             onChange={ e => handleContactChange(e,i) }
                                             value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
                                         />
-                                        <label for="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
                                     </div>
                                     <div className="relative">
                                         {
@@ -1043,25 +1109,25 @@ function DTRegistration() {
                 </EmergencyContacts>
 
                 <Result show={showResult}>
-                    {/* {
+                    {
                         isLoading ?
-                        <div class="text-center">
+                        <div className="text-center">
                             <div role="status">
-                                <svg aria-hidden="true" class="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg aria-hidden="true" className="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
                                     <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
                                 </svg>
-                                <span class="sr-only">Loading...</span>
+                                <span className="sr-only">Loading...</span>
                             </div>
                         </div>
                         :
-                            !errors ?
+                            addStatus ?
                                 <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
                                         <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
                                     </div>
                                 </div>
                             :
@@ -1070,10 +1136,10 @@ function DTRegistration() {
                                         <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
                                     </div>
                                 </div>
-                    } */}
+                    }
                     <div className='flex justify-end'>
                         <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             // onClick={closeAdd}
@@ -1084,7 +1150,7 @@ function DTRegistration() {
                 </Result>
             </AddSEParticipant>
 
-            <EditSEParticipant show={showEdit} setShow={setShowEdit}>
+            <EditSEParticipant show={showEdit} setShow={closeEdit}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1182,7 +1248,7 @@ function DTRegistration() {
                             </svg>
                         </div>
                     </li>
-                    <li className='flex w-full items-center'>
+                    {/* <li className='flex w-full items-center'>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'result' && previousStep === 'emergency' ?
                                 'bg-green-100'
@@ -1198,7 +1264,7 @@ function DTRegistration() {
                                 <path clipRule="evenodd" fillRule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" />
                             </svg>
                         </div>
-                    </li>
+                    </li> */}
                 </ol>
                 
                 <PersonalInfo show={showPersonalInfo}>
@@ -1556,7 +1622,7 @@ function DTRegistration() {
                                             onChange={ e => handleContactChange(e,i)}
                                             value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
                                         />
-                                        <label for="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
                                     </div>
                                     <div className="relative">
                                         <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
@@ -1564,21 +1630,21 @@ function DTRegistration() {
 
                                             value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
                                         />
-                                        <label for="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                        <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
                                     </div>
                                     <div className="relative">
                                         <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                             onChange={ e => handleContactChange(e,i) }
                                             value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
                                         />
-                                        <label for="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
                                     </div>
                                     <div className="relative">
                                         <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                             onChange={ e => handleContactChange(e,i) }
                                             value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
                                         />
-                                        <label for="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
                                     </div>
                                     <div className="relative">
                                         {
@@ -1612,33 +1678,32 @@ function DTRegistration() {
                         Go Back to: Address Info
                     </button>
                     <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
-                        // onClick={addParticipant}
-                        onClick={addParticipant}
+                       onClick={updateParticipant}
                     >
                         Save
                     </button>
                 </EmergencyContacts>
 
-                <Result show={showResult}>
-                    {/* {
+                {/* <Result show={showResult}>
+                    {
                         isLoading ?
-                        <div class="text-center">
+                        <div className="text-center">
                             <div role="status">
-                                <svg aria-hidden="true" class="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg aria-hidden="true" className="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
                                     <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
                                 </svg>
-                                <span class="sr-only">Loading...</span>
+                                <span className="sr-only">Loading...</span>
                             </div>
                         </div>
                         :
-                            !errors ?
+                            updateStatus ?
                                 <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
                                         <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
                                     </div>
                                 </div>
                             :
@@ -1647,18 +1712,18 @@ function DTRegistration() {
                                         <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
                                     </div>
                                 </div>
-                    } */}
+                    }
                     <div className='flex justify-end'>
                         <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            // onClick={closeAdd}
+                            onClick={closeEdit}
                         >
                             Close
                         </button>
                     </div>
-                </Result>
+                </Result> */}
             </EditSEParticipant>
 
             <SEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
