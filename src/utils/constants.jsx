@@ -13,4 +13,5 @@ export const serverRoutes = {
     login: myApiURL + '/member_accounts/login',
     se: myApiURL + '/SE',
     getSE: myApiURL + '/show_SE',
+    updateSE: myApiURL + '/update_SE',
 }
