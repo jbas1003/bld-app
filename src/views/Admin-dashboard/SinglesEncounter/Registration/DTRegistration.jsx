@@ -326,7 +326,6 @@ function DTRegistration() {
 
     const handleadd = () => {
         setContactList([...contactList, { name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
-        console.log(contactList);
     }
 
     const handleremove = (index) => {
@@ -374,7 +373,7 @@ function DTRegistration() {
                     alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s record has been successfully updated!`);
                 } else {
                     setUpdateStatus(false);
-                    alert(result);
+                    alert(result.message);
                 }
 
                 setIsLoading(false);
