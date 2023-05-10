@@ -110,6 +110,6 @@ export function UpdateParticipant (userId, memberId, seId, firstName, middleName
         body: raw,
         redirect: 'follow'
     }
-    // console.log(JSON.parse(raw));
+    
     return fetch(serverRoutes.updateSE, requestOptions);
 }
