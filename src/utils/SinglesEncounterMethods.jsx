@@ -88,8 +88,8 @@ export function UpdateParticipant (userId, memberId, seId, firstName, middleName
         gender: gender,
         civil_status: civil_status,
         religion: religion,
-        baptism: baptism,
-        confirmation: confirmation,
+        baptized: baptism,
+        confirmed: confirmation,
         member_addressLine1: member_addressLine1,
         member_addressLine2: member_addressLine2,
         member_city: member_city,
@@ -110,6 +110,6 @@ export function UpdateParticipant (userId, memberId, seId, firstName, middleName
         body: raw,
         redirect: 'follow'
     }
-    
+    // console.log(JSON.parse(raw));
     return fetch(serverRoutes.updateSE, requestOptions);
 }
