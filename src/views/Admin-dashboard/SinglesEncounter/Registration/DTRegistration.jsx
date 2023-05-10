@@ -347,14 +347,17 @@ function DTRegistration() {
                 if (await result.status === 200) {
                     setAddStatus(true);
                     setParticipants(result.message);
-                    setSEMessage(result.message);
+                    alert(result.message);
                 } else {
                     setAddStatus(false);
-                    setSEMessage(result.message);
+                    alert(result.message);
                 }
 
                 setIsLoading(false)
             });
+        getSE();
+        Stepper('result');
+        setShowAdd(false)
     }
 
     const updateParticipant = () => {
@@ -380,6 +383,7 @@ function DTRegistration() {
             });
         
         closeEdit();
+        getSE();
     }
 
     const getEvents = () => {
@@ -670,7 +674,7 @@ function DTRegistration() {
                             </svg>
                         </div>
                     </li>
-                    <li className='flex w-full items-center'>
+                    {/* <li className='flex w-full items-center'>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'result' && previousStep === 'emergency' ?
                                 'bg-green-100'
@@ -686,7 +690,7 @@ function DTRegistration() {
                                 <path clipRule="evenodd" fillRule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" />
                             </svg>
                         </div>
-                    </li>
+                    </li> */}
                 </ol>
                 
                 <PersonalInfo show={showPersonalInfo}>
@@ -1107,7 +1111,7 @@ function DTRegistration() {
                     </button>
                 </EmergencyContacts>
 
-                <Result show={showResult}>
+                {/* <Result show={showResult}>
                     {
                         isLoading ?
                         <div className="text-center">
@@ -1146,7 +1150,7 @@ function DTRegistration() {
                             Close
                         </button>
                     </div>
-                </Result>
+                </Result> */}
             </AddSEParticipant>
 
             <EditSEParticipant show={showEdit} setShow={closeEdit}>
