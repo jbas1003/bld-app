@@ -22,7 +22,7 @@ export function AddParticipant (id, firstName, middleName, lastName,
     nickname, participantMobile, participantEmail, birthday, gender,
     civilStatus, religion, baptized, confirmed, memberAddressLine1,
     memberAddressLine2, memberCity, occupation, specialty, company,
-    companyAddressLine1, companyAddressLine2, companyCity, contactList) {
+    companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList) {
 
         const myHeader = new Headers();
         myHeader.append('Content-Type', 'application/json');
@@ -51,6 +51,7 @@ export function AddParticipant (id, firstName, middleName, lastName,
             company_addressLine2: companyAddressLine2,
             company_city: companyCity,
             emergency_contacts: contactList,
+            inviter: inviteList,
             created_by: id,
             event_id: 6,
             status: null
@@ -66,13 +67,13 @@ export function AddParticipant (id, firstName, middleName, lastName,
         return fetch(serverRoutes.se, requestOptions);
 }
 
-export function UpdateParticipant (userId, memberId, seId, firstName, middleName,
+export function UpdateParticipant (userId, memberId, firstName, middleName,
                                     lastName, nickname, memberMobile, memberEmail,
                                     birthday, gender, civil_status, religion, baptism,
                                     confirmation, member_addressLine1, member_addressLine2,
                                     member_city, occupation, specialty, company,
                                     work_addressLine1, work_addressLine2, work_city,
-                                    emergency_contacts) {
+                                    emergency_contacts, inviters) {
     
     const myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
@@ -101,7 +102,8 @@ export function UpdateParticipant (userId, memberId, seId, firstName, middleName
         company_addressLine1: work_addressLine1,
         company_addressLine2: work_addressLine2,
         city: work_city,
-        emergency_contacts: emergency_contacts
+        emergency_contacts: emergency_contacts,
+        inviters: inviters
     });
 
     const requestOptions = {
@@ -110,6 +112,6 @@ export function UpdateParticipant (userId, memberId, seId, firstName, middleName
         body: raw,
         redirect: 'follow'
     }
-    
+
     return fetch(serverRoutes.updateSE, requestOptions);
 }
