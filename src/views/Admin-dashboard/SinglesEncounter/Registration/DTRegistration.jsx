@@ -152,8 +152,8 @@ function DTRegistration() {
                     break;
             
                 case "invite":
-                    setPreviousStep("work")
-                    setCurrentStep("emergency");
+                    setPreviousStep("emergency")
+                    setCurrentStep("invite");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
                     setShowWorkinfo(false);
@@ -163,7 +163,7 @@ function DTRegistration() {
                     break;
                 
                 case "result":
-                    setPreviousStep("emergency")
+                    setPreviousStep("invite")
                     setCurrentStep("result");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
@@ -195,11 +195,11 @@ function DTRegistration() {
         setShowAttendanceWarning(true);
     }
 
-    const showEditParticipant = (step, memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
+    const showEditParticipant = (memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
                                 participantEmail, birthday, gender, civilStatus, religion,
                                 baptized, confirmed, memberAddressLine1, memberAddressLine2,
                                 memberCity, occupation, specialty, company, companyAddressLine1,
-                                companyAddressLine2, companyCity, emergency_contacts) => {
+                                companyAddressLine2, companyCity, emergency_contacts, inviters) => {
         
         setMemberId(memberId);
         setSEId(seId);
@@ -224,79 +224,17 @@ function DTRegistration() {
         setCompanyAddressLine1(companyAddressLine1);
         setCompanyAddressLine2(companyAddressLine2);
         setCompanyCity(companyCity);
+        
         if (emergency_contacts.length > 0) {
             setContactList(emergency_contacts);
         }
-        
-        switch (step) {
-            case "personal":
-                    setCurrentStep("personal");
-                    setShowPersonalInfo(true);
-                    setShowAddressinfo(false);
-                    setShowWorkinfo(false);
-                    setShowEmergencyContact(false);
-                    setShowInvite(false)
-                    setShowResult(false);
-                    break;
-                
-            case "address":
-                setPreviousStep("personal")
-                setCurrentStep("address");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(true);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(false);
-                setShowInvite(false)
-                setShowResult(false);
-                break;
-            
-            case "work":
-                setPreviousStep("address")
-                setCurrentStep("work");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(false);
-                setShowWorkinfo(true);
-                setShowEmergencyContact(false);
-                setShowInvite(false)
-                setShowResult(false);
-                break;
-            
-            case "emergency":
-                setPreviousStep("work")
-                setCurrentStep("emergency");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(false);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(true);
-                setShowInvite(false)
-                setShowResult(false);
-                break;
-        
-            case "invite":
-                setPreviousStep("work")
-                setCurrentStep("emergency");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(false);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(false);
-                setShowInvite(true)
-                setShowResult(false);
-                break;
-            
-            case "result":
-                setPreviousStep("emergency")
-                setCurrentStep("result");
-                setShowPersonalInfo(false);
-                setShowAddressinfo(false);
-                setShowWorkinfo(false);
-                setShowEmergencyContact(false);
-                setShowInvite(false)
-                setShowResult(true);
-                break;
-        
-            default:
-                break;
+
+        if (inviters.length > 0) {
+            setInviteList(inviters);
         }
+
+        // console.log(inviters);
+        Stepper('personal');
 
         setShowEdit(true);
     }
@@ -326,6 +264,7 @@ function DTRegistration() {
         setCompanyAddressLine2('');
         setCompanyCity('');
         setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+        setInviteList([{name: '', relationship: '', created_by: loginResult.__}])
 
         setShowEdit(false);
     }
@@ -400,7 +339,7 @@ function DTRegistration() {
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
             memberAddressLine2, memberCity, occupation, specialty, company,
-            companyAddressLine1, companyAddressLine2, companyCity, contactList)
+            companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -421,13 +360,13 @@ function DTRegistration() {
 
     const updateParticipant = () => {
         setIsLoading(true);
-        UpdateParticipant(loginResult.__, memberId, seId, firstName, middleName,
+        UpdateParticipant(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
                             birthday, gender, civilStatus, religion, baptized,
                             confirmed, memberAddressLine1, memberAddressLine2,
                             memberCity, occupation, specialty, company,
                             companyAddressLine1, companyAddressLine2, companyCity,
-                            contactList)
+                            contactList, inviteList)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -597,7 +536,7 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    onClick={() => showEditParticipant('personal', items.member_id, items.seId,
+                                                    onClick={() => showEditParticipant(items.member_id, items.seId,
                                                                                         items.first_name, items.middle_name,
                                                                                         items.last_name, items.nickname, items.mobile,
                                                                                         items.email, items.birthday, items.gender,
@@ -606,7 +545,8 @@ function DTRegistration() {
                                                                                         items.address_line1, items.address_line2,
                                                                                         items.city, items.occupation_name, items.specialty,
                                                                                         items.company, items.work_addressLine1,
-                                                                                        items.work_addressLine2, items.work_city, items.emergency_contacts)}
+                                                                                        items.work_addressLine2, items.work_city, items.emergency_contacts,
+                                                                                        items.inviters)}
                                                 >
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
@@ -659,21 +599,21 @@ function DTRegistration() {
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'address' && previousStep === 'personal' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'address' && previousStep === 'personal' ?
                                 'bg-green-100'
-                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'address' && previousStep === 'personal' ?
                                     'text-gray-500'
-                                : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'result' ?
+                                : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                     'text-green-600'
                                     :'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -685,21 +625,21 @@ function DTRegistration() {
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'work' && previousStep === 'address' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'work' && previousStep === 'address' ?
                                 'bg-green-100'
-                            : currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'emergency' | currentStep === 'invite' |  currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'work' && previousStep === 'address' ?
                                     'text-gray-500'
-                                : currentStep === 'emergency' | currentStep === 'result' ?
+                                : currentStep === 'emergency' | currentStep === 'invite' |  currentStep === 'result' ?
                                     'text-green-600'
                                     : 'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -711,21 +651,21 @@ function DTRegistration() {
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'emergency' && previousStep === 'work' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'result' ?
+                            : currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'emergency' && previousStep === 'work' ?
                                 'bg-green-100'
-                            : currentStep === 'result' ?
+                            : currentStep === 'invite' | currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'emergency' && previousStep === 'work' ?
                                     'text-gray-500'
-                                : currentStep === 'result' ?
+                                : currentStep === 'invite' | currentStep === 'result' ?
                                     'text-green-600'
                                     : 'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -1126,63 +1066,65 @@ function DTRegistration() {
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
-                            contactList.map((x, i) => (
-                                <>
-                                    <div className="relative">
-                                        <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i)}
-                                            value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
-                                        />
-                                        <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
+                            contactList.length > 0 ?
+                                contactList.map((x, i) => (
+                                    <>
+                                        <div className="relative">
+                                            <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i)}
+                                                value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
+                                            />
+                                            <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i) }
 
-                                            value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
-                                        />
-                                        <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
-                                            value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
-                                        />
-                                        <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
-                                            value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
-                                        />
-                                        <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
-                                    </div>
-                                    <div className="relative">
-                                        {
-                                            contactList.length > 1 &&
-                                                <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                onClick={ () => handleremove(i) }
-                                                >
-                                                    <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                    </svg>
-                                                    <span className="sr-only">Remove Contact</span>
-                                                </button>
-                                        }
-                                        {
-                                            contactList.length-1 === i &&
-                                                <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                onClick={ handleadd }
-                                                >
-                                                    <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                    <span className="sr-only">Add Contact</span>
-                                                </button>
-                                        }
-                                    </div>
-                                </>
-                            ))
+                                                value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
+                                            />
+                                            <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i) }
+                                                value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
+                                            />
+                                            <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i) }
+                                                value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
+                                            />
+                                            <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                contactList.length > 1 &&
+                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ () => handleremove(i) }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                        <span className="sr-only">Remove Contact</span>
+                                                    </button>
+                                            }
+                                            {
+                                                contactList.length-1 === i &&
+                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ handleadd }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                        <span className="sr-only">Add Contact</span>
+                                                    </button>
+                                            }
+                                        </div>
+                                    </>
+                                ))
+                            : null
                         }
                     </div>
                     <button onClick={() => Stepper('work')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
@@ -1199,63 +1141,65 @@ function DTRegistration() {
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
-                            inviteList.map((x, i) => (
-                                <>
-                                    <div className="relative">
-                                        <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i)}
-                                            value={ inviteList[i].name !== "" & inviteList[i].name !== null & inviteList[i].name !== undefined ? inviteList[i].name : ""}
-                                        />
-                                        <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
+                            inviteList.length > 0 ?
+                                inviteList.map((x, i) => (
+                                    <>
+                                        <div className="relative">
+                                            <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i)}
+                                                value={ inviteList[i].name !== "" & inviteList[i].name !== null & inviteList[i].name !== undefined ? inviteList[i].name : ""}
+                                            />
+                                            <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
 
-                                            value={ inviteList[i].mobile !== "" & inviteList[i].mobile !== null & inviteList[i].mobile !== undefined ? inviteList[i].mobile : ""}
-                                        />
-                                        <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
-                                            value={ inviteList[i].email !== "" & inviteList[i].email !== null & inviteList[i].email !== undefined ? inviteList[i].email : ""}
-                                        />
-                                        <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
-                                            value={ inviteList[i].relationship !== "" & inviteList[i].relationship !== null & inviteList[i].relationship !== undefined ? inviteList[i].relationship : ""}
-                                        />
-                                        <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
-                                    </div>
-                                    <div className="relative">
-                                        {
-                                            inviteList.length > 1 &&
-                                                <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                onClick={ () => handleremove(i) }
-                                                >
-                                                    <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                    </svg>
-                                                    <span className="sr-only">Remove Contact</span>
-                                                </button>
-                                        }
-                                        {
-                                            inviteList.length-1 === i &&
-                                                <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                onClick={ handleadd }
-                                                >
-                                                    <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                    <span className="sr-only">Add Contact</span>
-                                                </button>
-                                        }
-                                    </div>
-                                </>
-                            ))
+                                                value={ inviteList[i].mobile !== "" & inviteList[i].mobile !== null & inviteList[i].mobile !== undefined ? inviteList[i].mobile : ""}
+                                            />
+                                            <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
+                                                value={ inviteList[i].email !== "" & inviteList[i].email !== null & inviteList[i].email !== undefined ? inviteList[i].email : ""}
+                                            />
+                                            <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
+                                                value={ inviteList[i].relationship !== "" & inviteList[i].relationship !== null & inviteList[i].relationship !== undefined ? inviteList[i].relationship : ""}
+                                            />
+                                            <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                inviteList.length > 1 &&
+                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ () => handleInveterRemove(i) }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                        <span className="sr-only">Remove Contact</span>
+                                                    </button>
+                                            }
+                                            {
+                                                inviteList.length-1 === i &&
+                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ handleInviterAdd }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                        <span className="sr-only">Add Contact</span>
+                                                    </button>
+                                            }
+                                        </div>
+                                    </>
+                                ))
+                            : null
                         }
                     </div>
                     <button onClick={() => Stepper('emergency')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
@@ -1312,7 +1256,7 @@ function DTRegistration() {
 
             <EditSEParticipant show={showEdit} setShow={closeEdit}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
-                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
                             'text-green-100 after:border-green-100'
                             : 'text-green-600 after:border-green-600'}
@@ -1334,21 +1278,21 @@ function DTRegistration() {
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'address' && previousStep === 'personal' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'address' && previousStep === 'personal' ?
                                 'bg-green-100'
-                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'address' && previousStep === 'personal' ?
                                     'text-gray-500'
-                                : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'result' ?
+                                : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                     'text-green-600'
                                     :'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1360,21 +1304,21 @@ function DTRegistration() {
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'work' && previousStep === 'address' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'work' && previousStep === 'address' ?
                                 'bg-green-100'
-                            : currentStep === 'emergency' | currentStep === 'result' ?
+                            : currentStep === 'emergency' | currentStep === 'invite' |  currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'work' && previousStep === 'address' ?
                                     'text-gray-500'
-                                : currentStep === 'emergency' | currentStep === 'result' ?
+                                : currentStep === 'emergency' | currentStep === 'invite' |  currentStep === 'result' ?
                                     'text-green-600'
                                     : 'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1386,25 +1330,51 @@ function DTRegistration() {
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'emergency' && previousStep === 'work' ?
                             'text-green-100 after:border-green-100'
-                            : currentStep === 'result' ?
+                            : currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'emergency' && previousStep === 'work' ?
                                 'bg-green-100'
-                            : currentStep === 'result' ?
+                            : currentStep === 'invite' | currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
                                 ${ currentStep === 'emergency' && previousStep === 'work' ?
                                     'text-gray-500'
-                                : currentStep === 'result' ?
+                                : currentStep === 'invite' | currentStep === 'result' ?
                                     'text-green-600'
                                     : 'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path clipRule="evenodd" fillRule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" />
+                            </svg>
+                        </div>
+                    </li>
+                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                        ${ currentStep === 'invite' && previousStep === 'emergency' ?
+                            'text-green-100 after:border-green-100'
+                            : currentStep === 'result' ?
+                                'text-green-600 after:border-green-600'
+                                :'text-green-100 after:border-gray-100'}
+                    `}>
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
+                            ${ currentStep === 'invite' && previousStep === 'emergency' ?
+                                'bg-green-100'
+                            : currentStep === 'result' ?
+                                'bg-green-100'
+                                :'bg-gray-100'}
+                        `}>
+                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
+                                ${ currentStep === 'invite' && previousStep === 'emergency' ?
+                                    'text-gray-500'
+                                : currentStep === 'result' ?
+                                    'text-green-600'
+                                    : 'text-gray-500'}
+                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+                                <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
                             </svg>
                         </div>
                     </li>
@@ -1775,74 +1745,136 @@ function DTRegistration() {
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
-                            contactList.map((x, i) => (
-                                <>
-                                    <div className="relative">
-                                        <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i)}
-                                            value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
-                                        />
-                                        <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
+                            contactList.length > 0 ?
+                                contactList.map((x, i) => (
+                                    <>
+                                        <div className="relative">
+                                            <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i)}
+                                                value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
+                                            />
+                                            <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i) }
 
-                                            value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
-                                        />
-                                        <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
-                                            value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
-                                        />
-                                        <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
-                                    </div>
-                                    <div className="relative">
-                                        <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                            onChange={ e => handleContactChange(e,i) }
-                                            value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
-                                        />
-                                        <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
-                                    </div>
-                                    <div className="relative">
-                                        {
-                                            contactList.length > 1 &&
-                                                <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                onClick={ () => handleremove(i) }
-                                                >
-                                                    <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                    </svg>
-                                                    <span className="sr-only">Remove Contact</span>
-                                                </button>
-                                        }
-                                        {
-                                            contactList.length-1 === i &&
-                                                <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                onClick={ handleadd }
-                                                >
-                                                    <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                    </svg>
-                                                    <span className="sr-only">Add Contact</span>
-                                                </button>
-                                        }
-                                    </div>
-                                </>
-                            ))
+                                                value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
+                                            />
+                                            <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i) }
+                                                value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
+                                            />
+                                            <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleContactChange(e,i) }
+                                                value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
+                                            />
+                                            <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                contactList.length > 1 &&
+                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ () => handleremove(i) }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                        <span className="sr-only">Remove Contact</span>
+                                                    </button>
+                                            }
+                                            {
+                                                contactList.length-1 === i &&
+                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ handleadd }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                        <span className="sr-only">Add Contact</span>
+                                                    </button>
+                                            }
+                                        </div>
+                                    </>
+                                ))
+                            : null
                         }
                     </div>
                     <button onClick={() => Stepper('work')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Address Info
+                        Go Back to: Work Info
                     </button>
                     <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
-                       onClick={updateParticipant}
+                       onClick={() => Stepper('invite')}
+                    >
+                        Next Step: Inviter Info
+                    </button>
+                </EmergencyContacts>
+
+                <Inviter show={showInvite}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
+                    <div className="w-full grid gap-2 mb-4 sm:grid-cols-3">
+                        {
+                            inviteList.length > 0 ?
+                                inviteList.map((x, i) => (
+                                    <>
+                                        <div className="relative">
+                                            <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i)}
+                                                value={ inviteList[i].name !== "" & inviteList[i].name !== null & inviteList[i].name !== undefined ? inviteList[i].name : ""}
+                                            />
+                                            <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
+                                                value={ inviteList[i].relationship !== "" & inviteList[i].relationship !== null & inviteList[i].relationship !== undefined ? inviteList[i].relationship : ""}
+                                            />
+                                            <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                inviteList.length > 1 &&
+                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ () => handleInveterRemove(i) }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                        <span className="sr-only">Remove Contact</span>
+                                                    </button>
+                                            }
+                                            {
+                                                inviteList.length-1 === i &&
+                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ handleInviterAdd }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                        <span className="sr-only">Add Contact</span>
+                                                    </button>
+                                            }
+                                        </div>
+                                    </>
+                                ))
+                            : null
+                        }
+                    </div>
+                    <button onClick={() => Stepper('emergency')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
+                        Go Back to: Emergency Contacts
+                    </button>
+                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
+                        onClick={updateParticipant}
                     >
                         Save
                     </button>
-                </EmergencyContacts>
+                </Inviter>
 
                 {/* <Result show={showResult}>
                     {
