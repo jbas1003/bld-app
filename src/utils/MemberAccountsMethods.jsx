@@ -58,7 +58,7 @@ export function ResetAccount (memberId) {
     myHeader.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
-        "member_id": memberId,
+        "memberAccount_id": memberId,
     });
 
     var requestOptions = {
@@ -67,6 +67,6 @@ export function ResetAccount (memberId) {
         body: raw,
         redirect: 'follow'
     };
-
+    // console.log(raw);
     return fetch(serverRoutes.memberAccounts, requestOptions);
 }
