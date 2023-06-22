@@ -25,7 +25,7 @@ function DTRegistration() {
 
         const [eventStatus, setEventStatus] = useState();
         const [eventData, setEventData] = useState();
-        const [event, setEvent] = useState();
+        const [event, setEvent] = useState('');
 
         const [SEData, setSEData] = useState();
         const [SEStatus, setSEStatus] = useState();
@@ -185,6 +185,36 @@ function DTRegistration() {
         setShowAdd(true)
     }
 
+    const closeAddParticipant = () => {
+        setMemberId('');
+        setSEId('');
+        setFirstName('');
+        setMiddleName('');
+        setLastName('');
+        setNickname('');
+        setParticipantMobile('');
+        setParticipantEmail('');
+        setBirthday('');
+        setGender('');
+        setCivilStatus('');
+        setReligion('');
+        setBaptized('');
+        setConfirmed('');
+        setMemberAddressLine1('');
+        setMemberAddressLine2('');
+        setMemberCity('');
+        setOccupation('');
+        setSpecialty('');
+        setCompany('');
+        setCompanyAddressLine1('');
+        setCompanyAddressLine2('');
+        setCompanyCity('');
+        setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+        setInviteList([{name: '', relationship: '', created_by: loginResult.__}]);
+        
+        setShowAdd(false)
+    }
+
     const attendanceWarning = (memberId, seId, attendanceStatus, firstName, middleName, lastName) => {
         setMemberId(memberId);
         setSEId(seId);
@@ -339,7 +369,7 @@ function DTRegistration() {
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
             memberAddressLine2, memberCity, occupation, specialty, company,
-            companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList)
+            companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList, event)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -355,7 +385,7 @@ function DTRegistration() {
             });
         getSE();
         Stepper('result');
-        setShowAdd(false)
+        closeAddParticipant();
     }
 
     const updateParticipant = () => {
@@ -518,18 +548,16 @@ function DTRegistration() {
                                                     items.attendance_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
                                                         items.attendance_status
                                                     :
-                                                        <select id="attendance" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-42 p-2.5"
-                                                            onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
-                                                            value={
-                                                                items.attendance_status !== '' & items.attendance_status !== null & items.attendance_status !== undefined ?
-                                                                    items.attendance_status
-                                                                : ''
-                                                            }
-                                                        >
-                                                            <option value={''}>Choose a tag</option>
-                                                            <option value="On time">On time</option>
-                                                            <option value="Late">Late</option>
-                                                        </select>
+                                                        <div class="flex items-center">
+                                                            <input id="link-checkbox" type="checkbox" value="Yes" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                                                                onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                                // value={
+                                                                //     items.attendance_status !== '' & items.attendance_status !== null & items.attendance_status !== undefined ?
+                                                                //         items.attendance_status
+                                                                //     : ''
+                                                                // }
+                                                            />
+                                                        </div>
                                                 : 'Please select an event first.'
                                             }
                                         </td>
