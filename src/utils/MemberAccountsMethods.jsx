@@ -67,6 +67,6 @@ export function ResetAccount (memberId) {
         body: raw,
         redirect: 'follow'
     };
-    // console.log(raw);
+    
     return fetch(serverRoutes.memberAccounts, requestOptions);
 }
