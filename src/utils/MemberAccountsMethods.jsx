@@ -52,3 +52,21 @@ export function CreateAccount (id, memberId, username, password) {
     
     return fetch(serverRoutes.memberAccounts, requestOptions);
 }
+
+export function ResetAccount (memberId) {
+    var myHeader = new Headers();
+    myHeader.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+        "member_id": memberId,
+    });
+
+    var requestOptions = {
+        method: 'DELETE',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(serverRoutes.memberAccounts, requestOptions);
+}
