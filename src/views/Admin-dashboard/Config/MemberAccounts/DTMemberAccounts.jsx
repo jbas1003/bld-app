@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
-import { CreateAccount, GetMemberAccounts } from '../../../../utils/MemberAccountsMethods';
+import { CreateAccount, GetMemberAccounts, ResetAccount } from '../../../../utils/MemberAccountsMethods';
 import { GetAllParticipants } from '../../../../utils/ParticipantsMethods';
 import CreateAccountModal from './Modals/CreateAccountModal';
 import AccountResetWarning from './Modals/AccountResetWarning';
@@ -19,6 +19,7 @@ function DTMemberAccounts() {
     const [showEdit, setShowEdit] = useState();
     const [showReset, setShowReset] = useState();
 
+    const [memberAccountId, setMemberAccountId] = useState();
     const [memberId, setMemberId] = useState();
     const [firstName, setFirstName] = useState();
     const [middleName, setMiddleName] = useState();
@@ -62,15 +63,15 @@ function DTMemberAccounts() {
         setShowCreateAccount(false);
     }
 
-    const showResetWarning = (memberId, firstName, lastName) => {
-        setMemberId(memberId);
+    const showResetWarning = (memberAccountId, firstName, lastName) => {
+        setMemberAccountId(memberAccountId);
         setFirstName(firstName);
         setLastName(lastName);
         setShowReset(true);
     }
 
-    const closeResetWarning = () {
-        setMemberId('');
+    const closeResetWarning = () => {
+        setMemberAccountId('');
         setFirstName('');
         setLastName('');
         setShowReset(false);
@@ -104,6 +105,21 @@ function DTMemberAccounts() {
         setMiddleName(middleName);
         setLastName(lastName);
         setShowCreateAccount(true);
+    }
+
+    const resetAccount = () => {
+        ResetAccount(memberAccountId)
+            .then(async result => {return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    alert(result.message);
+                } else {
+                    alert(`Server Error: ${result.message}`);
+                }
+            })
+        
+        getMemberAccounts();
+        closeResetWarning();
     }
 
     useEffect(() => {
@@ -160,20 +176,20 @@ function DTMemberAccounts() {
                                                                 <>
                                                                     <button type="button"
                                                                         className="text-orange-400 border border-orange-400 hover:bg-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-                                                                        onClick={() => showResetWarning(items.member_id, items.first_name, items.last_name)}
+                                                                        onClick={() => showResetWarning(items.memberAccount_id, items.first_name, items.last_name)}
                                                                     >
                                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
                                                                         </svg>
                                                                     </button>
-                                                                    <button type="button"
+                                                                    {/* <button type="button"
                                                                         className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
                                                                         // onClick={() => editMemberstatus(items.memberStatus_id, items.status)}
                                                                     >
                                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
                                                                         </svg>
-                                                                    </button>
+                                                                    </button> */}
                                                                 </>
                                                             :
                                                             <button type="button"
@@ -277,7 +293,7 @@ function DTMemberAccounts() {
                     </div>
                 </EditMemberStatus> */}
 
-                <AccountResetWarning show={showReset} setShow={() => setShowReset(false)}>
+                <AccountResetWarning show={showReset} setShow={closeResetWarning}>
                     <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -289,7 +305,7 @@ function DTMemberAccounts() {
                     <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                // onClick={deleteMemberStatus}
+                                onClick={resetAccount}
                             >
                                 Yes
                             </button>
