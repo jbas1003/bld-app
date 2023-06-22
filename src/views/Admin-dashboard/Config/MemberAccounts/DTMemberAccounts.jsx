@@ -3,6 +3,7 @@ import useAuthContext from '../../../../utils/AuthContext';
 import { CreateAccount, GetMemberAccounts } from '../../../../utils/MemberAccountsMethods';
 import { GetAllParticipants } from '../../../../utils/ParticipantsMethods';
 import CreateAccountModal from './Modals/CreateAccountModal';
+import AccountResetWarning from './Modals/AccountResetWarning';
 
 function DTMemberAccounts() {
     const { loginResult } = useAuthContext();
@@ -16,7 +17,7 @@ function DTMemberAccounts() {
 
     const [showCreateAccount, setShowCreateAccount] = useState();
     const [showEdit, setShowEdit] = useState();
-    const [showDelete, setShowDelete] = useState();
+    const [showReset, setShowReset] = useState();
 
     const [memberId, setMemberId] = useState();
     const [firstName, setFirstName] = useState();
@@ -59,6 +60,20 @@ function DTMemberAccounts() {
         setLastName('');
         getMemberAccounts();
         setShowCreateAccount(false);
+    }
+
+    const showResetWarning = (memberId, firstName, lastName) => {
+        setMemberId(memberId);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setShowReset(true);
+    }
+
+    const closeResetWarning = () {
+        setMemberId('');
+        setFirstName('');
+        setLastName('');
+        setShowReset(false);
     }
 
     function tableSearch() {
@@ -145,7 +160,7 @@ function DTMemberAccounts() {
                                                                 <>
                                                                     <button type="button"
                                                                         className="text-orange-400 border border-orange-400 hover:bg-orange-400 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-                                                                        // onClick={() => editMemberstatus(items.memberStatus_id, items.status)}
+                                                                        onClick={() => showResetWarning(items.member_id, items.first_name, items.last_name)}
                                                                     >
                                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                                             <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
@@ -262,25 +277,25 @@ function DTMemberAccounts() {
                     </div>
                 </EditMemberStatus> */}
 
-                {/* <DeleteMemberStatusWarning show={showDeleteWarning} setShow={closeDeleteWarning}>
+                <AccountResetWarning show={showReset} setShow={() => setShowReset(false)}>
                     <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                             </svg>
-                            <label className='font-semibold text-lg'>Are you sure you want to delete <strong><em>"{memberStatus}"</em></strong>?</label>
+                            <label className='font-semibold text-lg'>Are you sure you want to reset <strong><em>"{firstName} {lastName}'s"</em></strong> account?</label>
                         </div>
                     </div>
                     <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                onClick={deleteMemberStatus}
+                                // onClick={deleteMemberStatus}
                             >
                                 Yes
                             </button>
                         </div>
                     </div>
-                </DeleteMemberStatusWarning> */}
+                </AccountResetWarning>
                                     
             </div>
     )
