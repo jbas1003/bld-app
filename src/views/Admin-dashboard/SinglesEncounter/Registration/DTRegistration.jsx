@@ -448,7 +448,7 @@ function DTRegistration() {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Singles Encounter (SE)" ?
+                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Singles Encounter" ?
                                             <option value={event.event_id}>{event.event_name}</option>
                                         : null
                                     ))
