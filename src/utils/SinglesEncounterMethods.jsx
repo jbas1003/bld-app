@@ -22,7 +22,7 @@ export function AddParticipant (id, firstName, middleName, lastName,
     nickname, participantMobile, participantEmail, birthday, gender,
     civilStatus, religion, baptized, confirmed, memberAddressLine1,
     memberAddressLine2, memberCity, occupation, specialty, company,
-    companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList) {
+    companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList, event) {
 
         const myHeader = new Headers();
         myHeader.append('Content-Type', 'application/json');
@@ -53,7 +53,7 @@ export function AddParticipant (id, firstName, middleName, lastName,
             emergency_contacts: contactList,
             inviter: inviteList,
             created_by: id,
-            event_id: 6,
+            event_id: event,
             status: null
         });
 
@@ -63,7 +63,7 @@ export function AddParticipant (id, firstName, middleName, lastName,
             body: raw,
             redirect: 'follow'
         }
-        
+        // console.log(event);
         return fetch(serverRoutes.se, requestOptions);
 }
 
