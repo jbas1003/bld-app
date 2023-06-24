@@ -115,3 +115,24 @@ export function UpdateParticipant (userId, memberId, firstName, middleName,
 
     return fetch(serverRoutes.updateSE, requestOptions);
 }
+
+export function CreateSEAttendance(userId, memberId, eventId, status) {
+    const myHeader = new Headers();
+    myHeader.append('Content-type', 'application/json');
+
+    const raw = JSON.stringify({
+        member_id: memberId,
+        event_id: eventId,
+        status: status,
+        created_by: userId
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    }
+    
+    return fetch(serverRoutes.seAttendance, requestOptions);
+}
