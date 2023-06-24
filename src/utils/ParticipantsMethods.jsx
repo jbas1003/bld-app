@@ -52,7 +52,6 @@ export function AddParticipant(id, firstName, middleName, lastName, nickname, mo
       };
     
       return fetch(serverRoutes.participants, requestOptions);
-}
 
 
 export function UpdateParticipant (participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
