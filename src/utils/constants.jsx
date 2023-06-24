@@ -14,4 +14,5 @@ export const serverRoutes = {
     se: myApiURL + '/SE',
     getSE: myApiURL + '/show_SE',
     updateSE: myApiURL + '/update_SE',
+    seAttendance: myApiURL + '/seAttendance',
 }
