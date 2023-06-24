@@ -50,9 +50,8 @@ export function AddParticipant(id, firstName, middleName, lastName, nickname, mo
         body: raw,
         redirect: 'follow'
       };
-    //   console.log(`${id}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
-    return fetch(serverRoutes.participants, requestOptions);
-}
+    
+      return fetch(serverRoutes.participants, requestOptions);
 
 
 export function UpdateParticipant (participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
@@ -92,6 +91,6 @@ export function UpdateParticipant (participant, firstName, middleName, lastName,
         body: raw,
         redirect: "follow"
     };
-    // console.log(`${participant}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
+   
     return fetch(serverRoutes.participants, requestOptions)
 }

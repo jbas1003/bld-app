@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "flowbite": "^1.6.4",
+    "flowbite": "^1.6.5",
     "flowbite-datepicker": "^1.2.2",
     "flowbite-react": "^0.4.2",
     "localforage": "^1.10.0",
@@ -44,8 +44,7 @@
     ]
   },
   "devDependencies": {
-    "nodemon": "^2.0.22",
-    "tailwindcss": "^3.3.1"
+    "nodemon": "^2.0.22"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "tailwind.config.js",

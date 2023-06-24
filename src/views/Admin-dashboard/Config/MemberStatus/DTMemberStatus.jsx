@@ -52,8 +52,9 @@ function DTMemberStatus() {
                 setMemberStatus('');
             }
 
-            setShowAdd(false);
-            getMemberStatus();
+        
+        getMemberStatus();
+        closeAdd();
     }
 
     const updateMemberStatus = () => {
@@ -111,6 +112,12 @@ function DTMemberStatus() {
                 }
             }
         }
+    }
+
+    const closeAdd = () => {
+        setMemberStatusId('');
+        setMemberStatus('');
+        setShowAdd(false);
     }
 
     const editMemberstatus = (memberStatisId, memberStatus) => {
