@@ -7,7 +7,7 @@ import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import EmergencyContacts from './Modals/EmergencyContacts';
 import Result from './Modals/Result';
-import { AddParticipant, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
+import { AddParticipant, CreateSEAttendance, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditSEParticipant from './Modals/EditSEParticipant';
 import SEAttendanceWarning from './Modals/SEAttendanceWarning';
@@ -223,6 +223,29 @@ function DTRegistration() {
         setMiddleName(middleName);
         setLastName(lastName);
         setShowAttendanceWarning(true);
+    }
+
+    const closeAttendanceWarning = () => {
+        setMemberId('');
+        setAttendance('');
+        setFirstName('');
+        setMiddleName('');
+        setLastName('');
+        setShowAttendanceWarning(false);
+    }
+
+    const createAttendance = () => {
+        CreateSEAttendance(loginResult.__, memberId, seId, attendance)
+            .then(async result => { return await result.json()})
+            .then(async result => {
+                if (await result.status === 200) {
+                    alert('Attendance updated successfully!')
+                } else{
+                    alert('An error occured while updating the attendance. Please contact system administrator.')
+                }
+            });
+        getSE();
+        closeAttendanceWarning();
     }
 
     const showEditParticipant = (memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
@@ -507,17 +530,17 @@ function DTRegistration() {
                             <th scope="col" className="px-6 py-3">
                                 Participant
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3" align='center'>
                                 Nickname
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3" align='center'>
                                 Gender
                             </th>
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3" align='center'>
                                 Birthday
                             </th>
                             
-                            <th scope="col" className="px-6 py-3">
+                            <th scope="col" className="px-6 py-3" align='center'>
                                 Attendance Status
                             </th>
                             <th scope="col" className="px-6 py-3">
@@ -533,31 +556,28 @@ function DTRegistration() {
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
                                         </th>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 py-4" align='center'>
                                             {items.nickname}
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 py-4" align='center'>
                                             {items.gender}
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 py-4" align='center'>
                                             {items.birthday}
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 py-4 flex justify-center">
                                             {
                                                 event !== "" & event !== null & event !== undefined ?
-                                                    items.attendance_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
-                                                        items.attendance_status
-                                                    :
-                                                        <div class="flex items-center">
-                                                            <input id="link-checkbox" type="checkbox" value="Yes" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                                                                onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
-                                                                // value={
-                                                                //     items.attendance_status !== '' & items.attendance_status !== null & items.attendance_status !== undefined ?
-                                                                //         items.attendance_status
-                                                                //     : ''
-                                                                // }
-                                                            />
-                                                        </div>
+                                                    <div className="flex items-center">
+                                                        <input id="link-checkbox" type="checkbox" value={`${items.attendance_status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                                                            onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            checked={
+                                                                items.attendance_status === "Yes" & items.attendace_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
+                                                                    true
+                                                                : false
+                                                            }
+                                                        />
+                                                    </div>
                                                 : 'Please select an event first.'
                                             }
                                         </td>
@@ -1958,7 +1978,7 @@ function DTRegistration() {
                     <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                // onClick={createAttendance}
+                                onClick={createAttendance}
                             >
                                 Yes
                             </button>
