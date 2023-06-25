@@ -1,8 +1,8 @@
 import React from 'react'
 
-const WorkInfo = ({children, show}) => {
+const SchoolInfo = ({children, show}) => {
     const content = show && (<>{ children }</>);
     return content;
 }
 
-export default WorkInfo
+export default SchoolInfo;

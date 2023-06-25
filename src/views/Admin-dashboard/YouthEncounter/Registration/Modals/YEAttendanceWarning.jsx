@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-function AddSEParticipant({ children, show, setShow}) {
+function YEAttendanceWarning({ children, show, setShow }) {
     const content = show && (
         <div className="fixed flex justify-center top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto lg:inset-0 h-modal lg:h-full">
           <div className="relative self-center w-full h-full max-w-3xl xl:h-auto">
@@ -12,7 +12,7 @@ function AddSEParticipant({ children, show, setShow}) {
                       <span className="sr-only">Close modal</span>
                   </button>
                   <div className="px-6 py-6 lg:px-8">
-                    <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add New Participant</h3>
+                    {/* <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Delete Event Type</h3> */}
                     {children}
                   </div>
               </div>
@@ -20,7 +20,7 @@ function AddSEParticipant({ children, show, setShow}) {
         </div>
       )
     
-      return content
+      return content;
 }
 
-export default AddSEParticipant
+export default YEAttendanceWarning;

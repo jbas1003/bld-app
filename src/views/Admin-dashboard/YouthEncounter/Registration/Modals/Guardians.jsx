@@ -1,8 +1,8 @@
 import React from 'react'
 
-function EmergencyContacts({ children, show }) {
+function Guardians({ children, show }) {
     const content = show && (<>{ children }</>);
     return content;
 }
 
-export default EmergencyContacts
+export default Guardians;

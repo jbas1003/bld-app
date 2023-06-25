@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
 import { Link } from 'react-router-dom';
-import AddSEParticipant from './Modals/AddSEParticipant';
+import AddYEParticipant from './Modals/AddYEParticipant';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
-import WorkInfo from './Modals/WorkInfo';
-import EmergencyContacts from './Modals/EmergencyContacts';
+import SchoolInfo from './Modals/SchoolInfo';
+import Guardians from './Modals/Guardians';
 import Result from './Modals/Result';
 import { AddParticipant, CreateSEAttendance, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
-import EditSEParticipant from './Modals/EditSEParticipant';
-import SEAttendanceWarning from './Modals/SEAttendanceWarning';
+import EditYEParticipant from './Modals/EditYEParticipant';
+import YEAttendanceWarning from './Modals/YEAttendanceWarning';
 import Inviter from './Modals/Inviter';
 
 function DTRegistration() {
@@ -623,7 +623,7 @@ function DTRegistration() {
                 </table>
             </div>
 
-            <AddSEParticipant show={showAdd} setShow={setShowAdd}>
+            <AddYEParticipant show={showAdd} setShow={setShowAdd}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1019,7 +1019,7 @@ function DTRegistration() {
                     </button>
                 </AddressInfo>
 
-                <WorkInfo show={showWorkInfo}>
+                <SchoolInfo show={showWorkInfo}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
@@ -1108,9 +1108,9 @@ function DTRegistration() {
                     <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Emergency Contacts
                     </button>
-                </WorkInfo>
+                </SchoolInfo>
 
-                <EmergencyContacts show={showEmergencyContact}>
+                <Guardians show={showEmergencyContact}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
@@ -1183,7 +1183,7 @@ function DTRegistration() {
                     >
                         Next Step: Inviter Info
                     </button>
-                </EmergencyContacts>
+                </Guardians>
 
                 <Inviter show={showInvite}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
@@ -1300,9 +1300,9 @@ function DTRegistration() {
                         </button>
                     </div>
                 </Result> */}
-            </AddSEParticipant>
+            </AddYEParticipant>
 
-            <EditSEParticipant show={showEdit} setShow={closeEdit}>
+            <EditYEParticipant show={showEdit} setShow={closeEdit}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                 <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1698,7 +1698,7 @@ function DTRegistration() {
                     </button>
                 </AddressInfo>
 
-                <WorkInfo show={showWorkInfo}>
+                <SchoolInfo show={showWorkInfo}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
@@ -1787,9 +1787,9 @@ function DTRegistration() {
                     <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Emergency Contacts
                     </button>
-                </WorkInfo>
+                </SchoolInfo>
 
-                <EmergencyContacts show={showEmergencyContact}>
+                <Guardians show={showEmergencyContact}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
@@ -1862,7 +1862,7 @@ function DTRegistration() {
                     >
                         Next Step: Inviter Info
                     </button>
-                </EmergencyContacts>
+                </Guardians>
 
                 <Inviter show={showInvite}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
@@ -1964,9 +1964,9 @@ function DTRegistration() {
                         </button>
                     </div>
                 </Result> */}
-            </EditSEParticipant>
+            </EditYEParticipant>
 
-            <SEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
+            <YEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
                 <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1984,7 +1984,7 @@ function DTRegistration() {
                             </button>
                         </div>
                     </div>
-            </SEAttendanceWarning>
+            </YEAttendanceWarning>
         </div>
     )
 }
