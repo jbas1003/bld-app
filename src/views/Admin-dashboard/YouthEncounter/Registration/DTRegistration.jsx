@@ -49,7 +49,7 @@ function DTRegistration() {
         const [previousStep, setPreviousStep] = useState();
         const [showPersonalInfo, setShowPersonalInfo] = useState();
         const [showAddressInfo, setShowAddressinfo] = useState();
-        const [showWorkInfo, setShowWorkinfo] = useState();
+        const [showSchoolInfo, setShowSchoolInfo] = useState();
         const [showEmergencyContact, setShowEmergencyContact] = useState();
         const [showInvite, setShowInvite] = useState();
         const [showResult, setShowResult] = useState();
@@ -61,7 +61,6 @@ function DTRegistration() {
         const [showAdd, setShowAdd] = useState();
         const [showEdit, setShowEdit] = useState();
         const [showAttendanceWarning, setShowAttendanceWarning] = useState();
-        const [showDeleteWarning, setShowDeleteWarning] = useState();
 
     // END: Modal Constants
 
@@ -113,7 +112,7 @@ function DTRegistration() {
                     setCurrentStep("personal");
                     setShowPersonalInfo(true);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     setShowResult(false);
@@ -124,7 +123,7 @@ function DTRegistration() {
                     setCurrentStep("address");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(true);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     setShowResult(false);
@@ -135,7 +134,7 @@ function DTRegistration() {
                     setCurrentStep("work");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(true);
+                    setShowSchoolInfo(true);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     setShowResult(false);
@@ -146,7 +145,7 @@ function DTRegistration() {
                     setCurrentStep("emergency");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(true);
                     setShowInvite(false)
                     setShowResult(false);
@@ -157,7 +156,7 @@ function DTRegistration() {
                     setCurrentStep("invite");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(true)
                     setShowResult(false);
@@ -168,7 +167,7 @@ function DTRegistration() {
                     setCurrentStep("result");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     setShowResult(true);
@@ -1020,35 +1019,56 @@ function DTRegistration() {
                     </button>
                 </AddressInfo>
 
-                <SchoolInfo show={showWorkInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
+                <SchoolInfo show={showSchoolInfo}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">School Info</h3>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-3">
+                        <div>
+                            <label htmlFor="pi_education" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Educational Level</label>
+                            <select id="pi_education" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setCivilStatus(e.target.value)}}
+                                value={
+                                        civilStatus !== null ?
+                                            civilStatus
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Educational Level</option>
+                                <option value={"Single"}>High School</option>
+                                <option value={"Married"}>College</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
+                            <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setCivilStatus(e.target.value)}}
+                                value={
+                                        civilStatus !== null ?
+                                            civilStatus
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Year Level</option>
+                                <option value={"Single"}>1st Year</option>
+                                <option value={"Married"}>2nd Year</option>
+                                <option value={"Single"}>3rd Year</option>
+                                <option value={"Married"}>4th Year</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_course" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCompany(e.target.value)}}
+                                    value={
+                                        company !== null ?
+                                            company
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_course" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Course</label>
+                            </div>
+                        </div>
+                    </div>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_occupation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setOccupation(e.target.value)}}
-                                    value={
-                                        occupation !== null ?
-                                            occupation
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_occupation" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_specialty" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setSpecialty(e.target.value)}}
-                                    value={
-                                        specialty!== null ?
-                                            specialty
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_specialty" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Specialty (ex. Skill/Course)</label>
-                            </div>
-                        </div>
                         <div>
                             <div className="relative">
                                 <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
@@ -1699,8 +1719,8 @@ function DTRegistration() {
                     </button>
                 </AddressInfo>
 
-                <SchoolInfo show={showWorkInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
+                <SchoolInfo show={showSchoolInfo}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">School Info</h3>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div className="relative">
