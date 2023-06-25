@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
-import { AddParticipant, GetAllParticipants, UpdateParticipant } from '../../../../utils/ParticipantsMethods';
+import { AddParticipant, UpdateParticipant } from '../../../../utils/ParticipantsMethods';
 import AddParticipants from './Modals/AddParticipants';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
@@ -14,7 +14,6 @@ import AttendanceWarning from './Modals/AttendanceWarning';
 const DTRegistration = () => {
     const { loginResult } = useAuthContext()
 
-    const [participants, setParticipants] = useState();
     const [status, setStatus] = useState();
     const [errors, setErrors] = useState(true);
     const [message, setMessage] = useState();
@@ -28,7 +27,6 @@ const DTRegistration = () => {
 
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
-    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [showAttendanceWarning, setShowAttendanceWarning] = useState(false);
 
     const [currentStep, setCurrentStep] = useState();
