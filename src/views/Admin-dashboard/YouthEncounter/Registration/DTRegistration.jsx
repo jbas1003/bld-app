@@ -7,7 +7,8 @@ import AddressInfo from './Modals/AddressInfo';
 import SchoolInfo from './Modals/SchoolInfo';
 import Guardians from './Modals/Guardians';
 import Result from './Modals/Result';
-import { AddParticipant, CreateSEAttendance, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
+import { AddParticipant, CreateSEAttendance, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
+import { GetYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditYEParticipant from './Modals/EditYEParticipant';
 import YEAttendanceWarning from './Modals/YEAttendanceWarning';
@@ -27,9 +28,9 @@ function DTRegistration() {
         const [eventData, setEventData] = useState();
         const [event, setEvent] = useState('');
 
-        const [SEData, setSEData] = useState();
-        const [SEStatus, setSEStatus] = useState();
-        const [SEMessage, setSEMessage] = useState();
+        const [YEData, setYEData] = useState();
+        const [YEStatus, setYEStatus] = useState();
+        const [YEMessage, setYEMessage] = useState();
 
         const [isLoading, setIsLoading] = useState();
 
@@ -244,7 +245,7 @@ function DTRegistration() {
                     alert('An error occured while updating the attendance. Please contact system administrator.')
                 }
             });
-        getSE();
+        getYE();
         closeAttendanceWarning();
     }
 
@@ -406,7 +407,7 @@ function DTRegistration() {
 
                 setIsLoading(false)
             });
-        getSE();
+        getYE();
         Stepper('result');
         closeAddParticipant();
     }
@@ -434,7 +435,7 @@ function DTRegistration() {
             });
         
         closeEdit();
-        getSE();
+        getYE();
     }
 
     const getEvents = () => {
@@ -451,16 +452,16 @@ function DTRegistration() {
           })
       }
 
-      const getSE = (event) => {
-        GetSE(event)
+      const getYE = (event) => {
+        GetYE(event)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setSEStatus(true);
-                    setSEData(result.body);
+                    setYEStatus(true);
+                    setYEData(result.body);
                 } else {
-                    setSEStatus(false);
-                    setSEMessage(result.message);
+                    setYEStatus(false);
+                    setYEMessage(result.message);
                 }
             })
       }
@@ -469,7 +470,7 @@ function DTRegistration() {
 
     useEffect(() => {
         getEvents();
-        getSE(event)
+        getYE(event)
     }, [event])
 
     return (
@@ -501,7 +502,7 @@ function DTRegistration() {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Singles Encounter" ?
+                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Youth Encounter" ?
                                             <option value={event.event_id}>{event.event_name}</option>
                                         : null
                                     ))
@@ -550,8 +551,8 @@ function DTRegistration() {
                     </thead>
                     <tbody>
                         {
-                            SEStatus === true ?
-                                SEData.map(items => (
+                            YEStatus === true ?
+                                YEData.map(items => (
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
