@@ -8,7 +8,7 @@ import SchoolInfo from './Modals/SchoolInfo';
 import Guardians from './Modals/Guardians';
 import Result from './Modals/Result';
 import { AddParticipant, CreateSEAttendance, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
-import { GetYE } from '../../../../utils/YouthEncounterMethods';
+import { AddYE, GetYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditYEParticipant from './Modals/EditYEParticipant';
 import YEAttendanceWarning from './Modals/YEAttendanceWarning';
@@ -76,7 +76,9 @@ function DTRegistration() {
         const [participantEmail, setParticipantEmail] = useState()
         const [birthday, setBirthday] = useState();
         const [gender, setGender] = useState();
-        const [civilStatus, setCivilStatus] = useState();
+        const [educationalLevel, setEducationalLevel] = useState();
+        const [yearLevel, setYearLevel] = useState();
+        const [course, setCourse] = useState();
         const [religion, setReligion] = useState();
         const [baptized, setBaptized] = useState();
         const [confirmed, setConfirmed] = useState();
@@ -196,7 +198,9 @@ function DTRegistration() {
         setParticipantEmail('');
         setBirthday('');
         setGender('');
-        setCivilStatus('');
+        setEducationalLevel('');
+        setYearLevel('')
+        setCourse('')
         setReligion('');
         setBaptized('');
         setConfirmed('');
@@ -264,7 +268,9 @@ function DTRegistration() {
         setParticipantEmail(participantEmail);
         setBirthday(birthday);
         setGender(gender);
-        setCivilStatus(civilStatus);
+        setEducationalLevel('');
+        setYearLevel('')
+        setCourse('')
         setReligion(religion);
         setBaptized(baptized);
         setConfirmed(confirmed);
@@ -303,7 +309,9 @@ function DTRegistration() {
         setParticipantEmail('');
         setBirthday('');
         setGender('');
-        setCivilStatus('');
+        setEducationalLevel('');
+        setYearLevel('')
+        setCourse('')
         setReligion('');
         setBaptized('');
         setConfirmed('');
@@ -388,11 +396,12 @@ function DTRegistration() {
 
     const addParticipant = () => {
         setIsLoading(true);
-        AddParticipant(loginResult.__, firstName, middleName, lastName,
+        AddYE(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
-            civilStatus, religion, baptized, confirmed, memberAddressLine1,
-            memberAddressLine2, memberCity, occupation, specialty, company,
-            companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList, event)
+            religion, baptized, confirmed, memberAddressLine1,
+            memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
+            occupation, specialty, company, companyAddressLine1, companyAddressLine2,
+            companyCity, contactList, inviteList, event)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -415,11 +424,10 @@ function DTRegistration() {
         setIsLoading(true);
         UpdateParticipant(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
-                            birthday, gender, civilStatus, religion, baptized,
-                            confirmed, memberAddressLine1, memberAddressLine2,
-                            memberCity, occupation, specialty, company,
-                            companyAddressLine1, companyAddressLine2, companyCity,
-                            contactList, inviteList)
+                            birthday, gender, religion, baptized, confirmed, memberAddressLine1,
+                            memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
+                            occupation, specialty, company, companyAddressLine1, companyAddressLine2,
+                            companyCity, contactList, inviteList)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -1025,10 +1033,10 @@ function DTRegistration() {
                         <div>
                             <label htmlFor="pi_education" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Educational Level</label>
                             <select id="pi_education" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={e => {setCivilStatus(e.target.value)}}
+                                onChange={e => {setEducationalLevel(e.target.value)}}
                                 value={
-                                        civilStatus !== null ?
-                                            civilStatus
+                                        educationalLevel !== null ?
+                                            educationalLevel
                                         :""
                                     }
                             >
@@ -1040,10 +1048,10 @@ function DTRegistration() {
                         <div>
                             <label htmlFor="pi_yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
                             <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={e => {setCivilStatus(e.target.value)}}
+                                onChange={e => {setYearLevel(e.target.value)}}
                                 value={
-                                        civilStatus !== null ?
-                                            civilStatus
+                                        yearLevel !== null ?
+                                            yearLevel
                                         :""
                                     }
                             >
@@ -1057,10 +1065,10 @@ function DTRegistration() {
                         <div>
                             <div className="relative mt-6">
                                 <input type="text" id="fo_course" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setCompany(e.target.value)}}
+                                    onChange={e => {setCourse(e.target.value)}}
                                     value={
-                                        company !== null ?
-                                            company
+                                        course !== null ?
+                                            course
                                         :""
                                     }
                                 />
