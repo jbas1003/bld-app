@@ -20,8 +20,8 @@ export function GetYE (event) {
 
 export function AddYE (id, firstName, middleName, lastName,
                         nickname, participantMobile, participantEmail, birthday, gender,
-                        religion, baptized, confirmed, memberAddressLine1,
-                        memberAddressLine2, memberCity, educationalLevel, gradeLevel, course,
+                        civilStatus, religion, baptized, confirmed, memberAddressLine1,
+                        memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
                         company, companyAddressLine1, companyAddressLine2, companyCity, contactList,
                         inviteList, event) {
     
@@ -37,7 +37,7 @@ export function AddYE (id, firstName, middleName, lastName,
         member_email: participantEmail,
         birthday: birthday,
         gender: gender,
-        civil_status: "Single",
+        civil_status: civilStatus,
         religion: religion,
         baptized: baptized,
         confirmed: confirmed,
@@ -45,7 +45,7 @@ export function AddYE (id, firstName, middleName, lastName,
         member_address_line1: memberAddressLine1,
         member_address_line2: memberAddressLine2,
         member_city: memberCity,
-        occupation: `${educationalLevel} (${gradeLevel})`,
+        occupation: `${educationalLevel} (${yearLevel})`,
         specialty: course,
         company: company,
         company_addressLine1: companyAddressLine1,
@@ -64,6 +64,6 @@ export function AddYE (id, firstName, middleName, lastName,
         body: raw,
         redirect: 'follow'
     };
-    console.log(raw);
-    // return fetch(serverRoutes.ye, requestOptions);
+    
+    return fetch(serverRoutes.ye, requestOptions);
 }
