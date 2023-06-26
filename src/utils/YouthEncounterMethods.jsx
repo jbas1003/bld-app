@@ -57,4 +57,13 @@ export function AddYE (id, firstName, middleName, lastName,
         event_id: event,
         status: null
     });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+    console.log(raw);
+    // return fetch(serverRoutes.ye, requestOptions);
 }
