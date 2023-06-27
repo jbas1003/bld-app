@@ -8,7 +8,7 @@ import SchoolInfo from './Modals/SchoolInfo';
 import Guardians from './Modals/Guardians';
 import Result from './Modals/Result';
 import { AddParticipant, CreateSEAttendance, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
-import { AddYE, GetYE } from '../../../../utils/YouthEncounterMethods';
+import { AddYE, GetYE, UpdateYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditYEParticipant from './Modals/EditYEParticipant';
 import YEAttendanceWarning from './Modals/YEAttendanceWarning';
@@ -428,7 +428,7 @@ function DTRegistration() {
 
     const updateParticipant = () => {
         setIsLoading(true);
-        UpdateParticipant(loginResult.__, memberId, firstName, middleName,
+        UpdateYE(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
                             birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1,
                             memberAddressLine2, memberCity, educationalLevel, yearLevel, course,

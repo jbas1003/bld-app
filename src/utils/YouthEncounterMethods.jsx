@@ -101,7 +101,7 @@ export function UpdateYE (id, memberId, firstName, middleName, lastName,
         company: company,
         company_addressLine1: companyAddressLine1,
         company_addressLine2: companyAddressLine2,
-        company_city: companyCity,
+        city: companyCity,
         emergency_contacts: contactList,
         inviters: inviteList
     });
@@ -113,5 +113,5 @@ export function UpdateYE (id, memberId, firstName, middleName, lastName,
         redirect: 'follow'
     };
 
-    return fetch
+    return fetch(serverRoutes.updateYE, requestOptions);
 }
