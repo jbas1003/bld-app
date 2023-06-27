@@ -270,8 +270,11 @@ function DTRegistration() {
         setBirthday(birthday);
         setGender(gender);
         setCivilStatus(civilStatus);
-        setEducationalLevel(educationalLevel);
-        setYearLevel(yearLevel)
+
+        var splitOccupation = occupation.split(" - ");
+
+        setEducationalLevel(splitOccupation[0]);
+        setYearLevel(splitOccupation[1]);
         setCourse(course)
         setReligion(religion);
         setBaptized(baptized);
@@ -1050,20 +1053,51 @@ function DTRegistration() {
                         </div>
                         <div>
                             <label htmlFor="pi_yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
-                            <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={e => {setYearLevel(e.target.value)}}
-                                value={
-                                        yearLevel !== null ?
-                                            yearLevel
-                                        :""
-                                    }
-                            >
-                                <option value={null}>Choose Year Level</option>
-                                <option value={"1st Year"}>1st Year</option>
-                                <option value={"2nd Year"}>2nd Year</option>
-                                <option value={"3rd Year"}>3rd Year</option>
-                                <option value={"4th Year"}>4th Year</option>
-                            </select>
+                            {
+                                educationalLevel === 'High School' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Grade Level</option>
+                                            <option value={"Grade 7"}>Grade 7</option>
+                                            <option value={"Grade 8"}>Grade 8</option>
+                                            <option value={"Grade 9"}>Grade 9</option>
+                                            <option value={"Grade 10"}>Grade 10</option>
+                                            <option value={"Grade 11"}>Grade 11</option>
+                                            <option value={"Grade 12"}>Grade 12</option>
+                                        </select>
+                                    : educationalLevel === 'College' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Year Level</option>
+                                            <option value={"1st Year"}>1st Year</option>
+                                            <option value={"2nd Year"}>2nd Year</option>
+                                            <option value={"3rd Year"}>3rd Year</option>
+                                            <option value={"4th Year"}>4th Year</option>
+                                        </select>
+                                    :
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Please select an educational level</option>
+                                        </select>
+                            }
                         </div>
                         <div>
                             <div className="relative mt-6">
@@ -1075,7 +1109,7 @@ function DTRegistration() {
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_course" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Course</label>
+                                <label htmlFor="fo_course" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Course/Strand</label>
                             </div>
                         </div>
                     </div>
@@ -1732,36 +1766,88 @@ function DTRegistration() {
 
                 <SchoolInfo show={showSchoolInfo}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">School Info</h3>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-3">
+                        <div>
+                            <label htmlFor="pi_education" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Educational Level</label>
+                            <select id="pi_education" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setEducationalLevel(e.target.value)}}
+                                value={
+                                        educationalLevel !== null ?
+                                            educationalLevel
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Educational Level</option>
+                                <option value={"High School"}>High School</option>
+                                <option value={"College"}>College</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
+                            {
+                                educationalLevel === 'High School' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Grade Level</option>
+                                            <option value={"Grade 7"}>Grade 7</option>
+                                            <option value={"Grade 8"}>Grade 8</option>
+                                            <option value={"Grade 9"}>Grade 9</option>
+                                            <option value={"Grade 10"}>Grade 10</option>
+                                            <option value={"Grade 11"}>Grade 11</option>
+                                            <option value={"Grade 12"}>Grade 12</option>
+                                        </select>
+                                    : educationalLevel === 'College' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Year Level</option>
+                                            <option value={"1st Year"}>1st Year</option>
+                                            <option value={"2nd Year"}>2nd Year</option>
+                                            <option value={"3rd Year"}>3rd Year</option>
+                                            <option value={"4th Year"}>4th Year</option>
+                                        </select>
+                                    :
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Please select an educational level</option>
+                                        </select>
+                            }
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_course" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCourse(e.target.value)}}
+                                    value={
+                                        course !== null ?
+                                            course
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_course" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Course/Strand</label>
+                            </div>
+                        </div>
+                    </div>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div className="relative">
-                                <input type="text" id="fo_occupation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setOccupation(e.target.value)}}
-                                    value={
-                                        occupation !== null ?
-                                            occupation
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_occupation" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_specialty" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setSpecialty(e.target.value)}}
-                                    value={
-                                        specialty!== null ?
-                                            specialty
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_specialty" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Specialty (ex. Skill/Course)</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                <input type="text" id="fo_school" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={e => {setCompany(e.target.value)}}
                                     value={
                                         company !== null ?
@@ -1769,7 +1855,7 @@ function DTRegistration() {
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_company" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                                <label htmlFor="fo_school" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">School</label>
                             </div>
                         </div>
                         <div>
