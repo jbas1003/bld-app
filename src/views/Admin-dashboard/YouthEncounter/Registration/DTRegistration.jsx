@@ -7,7 +7,7 @@ import AddressInfo from './Modals/AddressInfo';
 import SchoolInfo from './Modals/SchoolInfo';
 import Guardians from './Modals/Guardians';
 import Result from './Modals/Result';
-import { AddParticipant, CreateSEAttendance, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
+import { CreateSEAttendance } from '../../../../utils/SinglesEncounterMethods';
 import { AddYE, GetYE, UpdateYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditYEParticipant from './Modals/EditYEParticipant';
@@ -67,7 +67,7 @@ function DTRegistration() {
     // START: Personal Info Constants
 
         const [memberId, setMemberId] = useState();
-        const [seId, setSEId] = useState();
+        const [yeId, setYEId] = useState();
         const [firstName, setFirstName] = useState();
         const [middleName, setMiddleName] = useState();
         const [lastName, setLastName] = useState();
@@ -190,7 +190,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setMemberId('');
-        setSEId('');
+        setYEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -220,9 +220,9 @@ function DTRegistration() {
         setShowAdd(false)
     }
 
-    const attendanceWarning = (memberId, seId, attendanceStatus, firstName, middleName, lastName) => {
+    const attendanceWarning = (memberId, yeId, attendanceStatus, firstName, middleName, lastName) => {
         setMemberId(memberId);
-        setSEId(seId);
+        setYEId(yeId);
         setAttendance(attendanceStatus);
         setFirstName(firstName);
         setMiddleName(middleName);
@@ -240,7 +240,7 @@ function DTRegistration() {
     }
 
     const createAttendance = () => {
-        CreateSEAttendance(loginResult.__, memberId, seId, attendance)
+        CreateSEAttendance(loginResult.__, memberId, yeId, attendance)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -253,14 +253,15 @@ function DTRegistration() {
         closeAttendanceWarning();
     }
 
-    const showEditParticipant = (memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
+    const showEditParticipant = (memberId, yeId, firstName, middleName, lastName, nickname, participantMobile,
                                 participantEmail, birthday, gender, civilStatus, religion,
                                 baptized, confirmed, memberAddressLine1, memberAddressLine2,
                                 memberCity, occupation, specialty, company, companyAddressLine1,
-                                companyAddressLine2, companyCity, emergency_contacts, inviters) => {
+                                companyAddressLine2, companyCity, se_emergency_contacts, se_inviters,
+                                ye_emergency_contacts, ye_inviters) => {
         
         setMemberId(memberId);
-        setSEId(seId);
+        setYEId(yeId);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
@@ -288,16 +289,19 @@ function DTRegistration() {
         setCompanyAddressLine1(companyAddressLine1);
         setCompanyAddressLine2(companyAddressLine2);
         setCompanyCity(companyCity);
-        
-        if (emergency_contacts.length > 0) {
-            setContactList(emergency_contacts);
+
+        if (se_emergency_contacts.length > 0) {
+            setContactList(se_emergency_contacts);
+        }else if (ye_emergency_contacts.length > 0) {
+            setContactList(ye_emergency_contacts);
         }
 
-        if (inviters.length > 0) {
-            setInviteList(inviters);
+        if (se_inviters.length > 0) {
+            setInviteList(se_inviters)
+        } else if (ye_inviters.length > 0) {
+            setInviteList(ye_inviters)
         }
 
-        // console.log(inviters);
         Stepper('personal');
 
         setShowEdit(true);
@@ -305,7 +309,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setMemberId('');
-        setSEId('');
+        setYEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -432,7 +436,7 @@ function DTRegistration() {
                             lastName, nickname, participantMobile, participantEmail,
                             birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1,
                             memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
-                            occupation, specialty, company, companyAddressLine1, companyAddressLine2,
+                            company, companyAddressLine1, companyAddressLine2,
                             companyCity, contactList, inviteList)
             .then(async result => {return await result.json()})
             .then(async result => {
@@ -446,7 +450,7 @@ function DTRegistration() {
 
                 setIsLoading(false);
             });
-        
+
         closeEdit();
         getYE();
     }
@@ -584,7 +588,7 @@ function DTRegistration() {
                                                 event !== "" & event !== null & event !== undefined ?
                                                     <div className="flex items-center">
                                                         <input id="link-checkbox" type="checkbox" value={`${items.attendance_status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                                                            onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            onChange={e => {attendanceWarning(items.member_id, items.yeId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
                                                             checked={
                                                                 items.attendance_status === "Yes" & items.attendace_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
                                                                     true
@@ -598,7 +602,7 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    onClick={() => showEditParticipant(items.member_id, items.seId,
+                                                    onClick={() => showEditParticipant(items.member_id, items.yeId,
                                                                                         items.first_name, items.middle_name,
                                                                                         items.last_name, items.nickname, items.mobile,
                                                                                         items.email, items.birthday, items.gender,
@@ -607,8 +611,8 @@ function DTRegistration() {
                                                                                         items.address_line1, items.address_line2,
                                                                                         items.city, items.occupation_name, items.specialty,
                                                                                         items.company, items.work_addressLine1,
-                                                                                        items.work_addressLine2, items.work_city, items.emergency_contacts,
-                                                                                        items.inviters)}
+                                                                                        items.work_addressLine2, items.work_city, items.se_emergency_contacts,
+                                                                                        items.se_inviters, items.ye_emergency_contacts, items.ye_inviters)}
                                                 >
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />

@@ -68,43 +68,44 @@ export function AddYE (id, firstName, middleName, lastName,
     return fetch(serverRoutes.ye, requestOptions);
 }
 
-export function UpdateYE (id, memberId, firstName, middleName, lastName,
-    nickname, participantMobile, participantEmail, birthday, gender,
-    civilStatus, religion, baptized, confirmed, memberAddressLine1,
-    memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
-    company, companyAddressLine1, companyAddressLine2, companyCity, contactList,
-    inviteList, event) {
+export function UpdateYE (userId, memberId, firstName, middleName,
+                                    lastName, nickname, memberMobile, memberEmail,
+                                    birthday, gender, civil_status, religion, baptism,
+                                    confirmation, member_addressLine1, member_addressLine2,
+                                    member_city, educationalLevel, yearLevel, specialty, company,
+                                    work_addressLine1, work_addressLine2, work_city,
+                                    emergency_contacts, inviters) {
 
-    const myHeader = new Headers();
-    myHeader.append('Content-Type', 'application/json');
+        const myHeader = new Headers();
+        myHeader.append('Content-Type', 'application/json');
 
-    const raw = JSON.stringify({
+        const raw = JSON.stringify({
         member_id: memberId,
-        created_by: id,
+        created_by: userId,
         first_name: firstName,
         middle_name: middleName,
         last_name: lastName,
         nickname: nickname,
         birthday: birthday,
         gender: gender,
-        civil_status: civilStatus,
+        civil_status: civil_status,
         religion: religion,
-        baptized: baptized,
-        confirmed: confirmed,
-        member_addressLine1: memberAddressLine1,
-        member_addressLine2: memberAddressLine2,
-        member_city: memberCity,
-        member_mobile: participantMobile,
-        member_email: participantEmail,
+        baptized: baptism,
+        confirmed: confirmation,
+        member_addressLine1: member_addressLine1,
+        member_addressLine2: member_addressLine2,
+        member_city: member_city,
+        member_mobile: memberMobile,
+        member_email: memberEmail,
         occupation: `${educationalLevel} - ${yearLevel}`,
-        specialty: course,
+        specialty: specialty,
         company: company,
-        company_addressLine1: companyAddressLine1,
-        company_addressLine2: companyAddressLine2,
-        city: companyCity,
-        emergency_contacts: contactList,
-        inviters: inviteList
-    });
+        company_addressLine1: work_addressLine1,
+        company_addressLine2: work_addressLine2,
+        city: work_city,
+        emergency_contacts: emergency_contacts,
+        inviters: inviters
+        });
 
     const requestOptions = {
         method: 'PUT',

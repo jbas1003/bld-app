@@ -12,7 +12,7 @@ function EditYEParticipant({ children, show, setShow }) {
                       <span className="sr-only">Close modal</span>
                   </button>
                   <div className="px-6 py-6 lg:px-8">
-                    <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add New Participant</h3>
+                    <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Edit Participant</h3>
                     {children}
                   </div>
               </div>
