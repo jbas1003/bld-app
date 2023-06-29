@@ -364,7 +364,12 @@ function DTRegistration() {
 
         const handleremove = (index) => {
             contactList.splice(index,1);
-            setContactList([...contactList]);
+            
+            if (contactList.length > 0) {
+                setContactList([...contactList]);
+            } else {
+                handleadd();
+            }
         }
 
     // END: Emergency Contacts Handle
@@ -384,7 +389,12 @@ function DTRegistration() {
 
         const handleInveterRemove = (index) => {
             inviteList.splice(index, 1);
-            setInviteList([...inviteList]);
+            
+            if (inviteList.length > 0) {
+                setInviteList([...inviteList]);
+            } else {
+                handleInviterAdd();
+            }
         }
 
     // END: Inviter Handle
@@ -1153,7 +1163,7 @@ function DTRegistration() {
                                         </div>
                                         <div className="relative">
                                             {
-                                                contactList.length > 1 &&
+                                                contactList.length > 0 &&
                                                     <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ () => handleremove(i) }
                                                     >
@@ -1228,7 +1238,7 @@ function DTRegistration() {
                                         </div>
                                         <div className="relative">
                                             {
-                                                inviteList.length > 1 &&
+                                                inviteList.length > 0 &&
                                                     <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ () => handleInveterRemove(i) }
                                                     >
@@ -1832,7 +1842,7 @@ function DTRegistration() {
                                         </div>
                                         <div className="relative">
                                             {
-                                                contactList.length > 1 &&
+                                                contactList.length > 0 &&
                                                     <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ () => handleremove(i) }
                                                     >
@@ -1892,7 +1902,7 @@ function DTRegistration() {
                                         </div>
                                         <div className="relative">
                                             {
-                                                inviteList.length > 1 &&
+                                                inviteList.length > 0 &&
                                                     <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ () => handleInveterRemove(i) }
                                                     >
