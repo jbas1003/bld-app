@@ -242,7 +242,7 @@ function DTRegistration() {
     }
 
     const createAttendance = () => {
-        CreateYEAttendance(loginResult.__, memberId, yeId, attendance)
+        CreateYEAttendance(loginResult.__, memberId, event, attendance)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
