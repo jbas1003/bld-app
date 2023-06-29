@@ -8,7 +8,7 @@ import SchoolInfo from './Modals/SchoolInfo';
 import Guardians from './Modals/Guardians';
 import Result from './Modals/Result';
 import { CreateSEAttendance } from '../../../../utils/SinglesEncounterMethods';
-import { AddYE, GetYE, UpdateYE } from '../../../../utils/YouthEncounterMethods';
+import { AddYE, CreateYEAttendance, GetYE, UpdateYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditYEParticipant from './Modals/EditYEParticipant';
 import YEAttendanceWarning from './Modals/YEAttendanceWarning';
@@ -242,7 +242,7 @@ function DTRegistration() {
     }
 
     const createAttendance = () => {
-        CreateSEAttendance(loginResult.__, memberId, yeId, attendance)
+        CreateYEAttendance(loginResult.__, memberId, yeId, attendance)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {

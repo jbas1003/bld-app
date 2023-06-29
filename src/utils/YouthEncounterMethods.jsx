@@ -116,3 +116,24 @@ export function UpdateYE (userId, memberId, firstName, middleName,
 
     return fetch(serverRoutes.updateYE, requestOptions);
 }
+
+export function CreateYEAttendance(userId, memberId, eventId, status) {
+    const myHeader = new Headers();
+    myHeader.append('Content-type', 'application/json');
+
+    const raw = JSON.stringify({
+        member_id: memberId,
+        event_id: eventId,
+        status: status,
+        created_by: userId
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: myHeader,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    return fetch(serverRoutes.yeAttendance, requestOptions);
+}

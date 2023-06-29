@@ -61,6 +61,7 @@ export const serverRoutes = {
         getYE: myApiURL + '/show_YE',
         ye: myApiURL + '/YE',
         updateYE: myApiURL + '/update_YE',
+        yeAttendance: myApiURL + '/yeAttendance',
 
     // END: YE Constants
 }
