@@ -10,7 +10,7 @@ import Nations from './Nations/Nations';
 import DTNations from './Nations/DTNations';
 
 function SinglesEncounter() {
-    const [currentTab, setCurrentTab] = useState();
+  const [currentTab, setCurrentTab] = useState();
   const [showRegistration, setShowRegistration] = useState();
   const [showRooms, setShowRooms] = useState();
   const [showTribes, setShowTribes] = useState();

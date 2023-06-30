@@ -6,6 +6,7 @@ import Dashboard from './views/Admin-dashboard/Dashboard/Dashboard';
 import {Login} from './views/Login/Login.jsx';
 import Config from './views/Admin-dashboard/Config/Config.jsx';
 import SinglesEncounter from './views/Admin-dashboard/SinglesEncounter/SinglesEncounter.jsx';
+import MarriageEncounter from './views/Admin-dashboard/MarriageEncounter/MarriageEncounter.jsx';
 import Attendance from './views/Admin-dashboard/Attendance/Attendance.jsx';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route index path='/admin/dashboard' element={<Dashboard />}/>
             <Route path='/admin/attendance' element={<Attendance />}/>
             <Route path='/admin/singles_encounter' element={<SinglesEncounter />}/>
+            <Route path='/admin/marriage_encounter' element={<MarriageEncounter />}/>
             <Route path='/admin/config' element={<Config />}/>
           </Route>
       </Routes>
