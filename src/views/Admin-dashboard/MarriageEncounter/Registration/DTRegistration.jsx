@@ -16,12 +16,14 @@ import Inviter from './Modals/Inviter';
 function DTRegistration() {
     // START: Utils Constants
 
+        const { spouseData, setSpouseData } = useState();
+
         const { loginResult } = useAuthContext();
         const [addStatus, setAddStatus] = useState();
         const [updateStatus, setUpdateStatus] = useState();
         const [participants, setParticipants] = useState();
 
-        const event_type = 'Singles Encounter';
+        const event_type = 'Marriage Encounter';
 
         const [eventStatus, setEventStatus] = useState();
         const [eventData, setEventData] = useState();
@@ -458,6 +460,13 @@ function DTRegistration() {
                 if (await result.status === 200) {
                     setSEStatus(true);
                     setSEData(result.body);
+
+                    const Data = result.body.map((item) => ({
+                        label: `${item.first_name} ${item.last_name}`,
+                        value: item.member_id
+                    }));
+
+                    setSpouseData(Data);
                 } else {
                     setSEStatus(false);
                     setSEMessage(result.message);
@@ -501,7 +510,7 @@ function DTRegistration() {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Singles Encounter" ?
+                                        event.status.toLowerCase() === 'active' & event.event_type_name === event_type ?
                                             <option value={event.event_id}>{event.event_name}</option>
                                         : null
                                     ))
@@ -863,7 +872,7 @@ function DTRegistration() {
                             </div>
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label htmlFor="pi_gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
                             <select id="pi_gender" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 onChange={e => {setGender(e.target.value)}}
@@ -877,7 +886,24 @@ function DTRegistration() {
                                 <option value={"Female"}>Female</option>
                                 <option value={"Male"}>Male</option>
                             </select>
+                        </div> */}
+
+                        <div>
+                            <label htmlFor="pi_gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                            { spouseData.map(({label, value, text }) => (
+                            <select id="pi_gender" inputMode='multiple' className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                
+                            >
+                                
+                                
+                                    <option value={label} key={value}>
+                                    {label}
+                                </option>
+                                    
+                            </select>
+                            ))}
                         </div>
+
                         <div>
                             <label htmlFor="pi_civileStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Civil Status</label>
                             <select id="pi_civileStatus" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
