@@ -22,7 +22,7 @@ function DTRegistration() {
         const [updateStatus, setUpdateStatus] = useState();
         const [participants, setParticipants] = useState();
 
-        const event_type = 'Singles Encounter';
+        const event_type = 'Youth Encounter';
 
         const [eventStatus, setEventStatus] = useState();
         const [eventData, setEventData] = useState();
@@ -530,7 +530,7 @@ function DTRegistration() {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Youth Encounter" ?
+                                        event.status.toLowerCase() === 'active' & event.event_type_name === event_type ?
                                             <option value={event.event_id}>{event.event_name}</option>
                                         : null
                                     ))
