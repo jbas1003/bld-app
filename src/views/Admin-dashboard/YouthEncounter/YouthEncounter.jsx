@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import Registration from './Registration/Registration';
 import DTRegistration from './Registration/DTRegistration';
+import Nations from './Nations/Nations';
+import DTNations from './Nations/DTNations';
 import Rooms from './Rooms/Rooms';
 import DTRooms from './Rooms/DTRooms';
 import Tribes from './Tribes/Tribes';
 import DTTribes from './Tribes/DTTribes';
-import Nations from './Nations/Nations';
-import DTNations from './Nations/DTNations';
 
-function SinglesEncounter() {
-  const [currentTab, setCurrentTab] = useState();
+function YouthEncounter() {
+    const [currentTab, setCurrentTab] = useState();
   const [showRegistration, setShowRegistration] = useState();
   const [showRooms, setShowRooms] = useState();
   const [showTribes, setShowTribes] = useState();
@@ -115,4 +115,4 @@ function SinglesEncounter() {
   )
 }
 
-export default SinglesEncounter
+export default YouthEncounter

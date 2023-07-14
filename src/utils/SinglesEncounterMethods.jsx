@@ -112,7 +112,7 @@ export function UpdateParticipant (userId, memberId, firstName, middleName,
         body: raw,
         redirect: 'follow'
     }
-
+    
     return fetch(serverRoutes.updateSE, requestOptions);
 }
 
