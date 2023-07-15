@@ -1,4 +1,4 @@
-export const myApiURL = 'http://54.173.244.33/api';
+export const myApiURL = 'http://3.238.247.215/api';
 
 export const serverRoutes = {
 
