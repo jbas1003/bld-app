@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import AddSEParticipant from './Modals/AddSEParticipant';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import EmergencyContacts from './Modals/EmergencyContacts';
-import Result from './Modals/Result';
+// import Result from './Modals/Result';
 import { AddParticipant, CreateSEAttendance, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditSEParticipant from './Modals/EditSEParticipant';
@@ -17,9 +17,9 @@ function DTRegistration() {
     // START: Utils Constants
 
         const { loginResult } = useAuthContext();
-        const [addStatus, setAddStatus] = useState();
-        const [updateStatus, setUpdateStatus] = useState();
-        const [participants, setParticipants] = useState();
+        // const [addStatus, setAddStatus] = useState();
+        // const [updateStatus, setUpdateStatus] = useState();
+        // const [participants, setParticipants] = useState();
 
         const event_type = 'Singles Encounter';
 
@@ -29,9 +29,9 @@ function DTRegistration() {
 
         const [SEData, setSEData] = useState();
         const [SEStatus, setSEStatus] = useState();
-        const [SEMessage, setSEMessage] = useState();
+        // const [SEMessage, setSEMessage] = useState();
 
-        const [isLoading, setIsLoading] = useState();
+        // const [isLoading, setIsLoading] = useState();
 
     // END: Utils Constants
 
@@ -51,7 +51,7 @@ function DTRegistration() {
         const [showWorkInfo, setShowWorkinfo] = useState();
         const [showEmergencyContact, setShowEmergencyContact] = useState();
         const [showInvite, setShowInvite] = useState();
-        const [showResult, setShowResult] = useState();
+        // const [showResult, setShowResult] = useState();
 
     // END: Stepper Constants
 
@@ -60,14 +60,14 @@ function DTRegistration() {
         const [showAdd, setShowAdd] = useState();
         const [showEdit, setShowEdit] = useState();
         const [showAttendanceWarning, setShowAttendanceWarning] = useState();
-        const [showDeleteWarning, setShowDeleteWarning] = useState();
+        // const [showDeleteWarning, setShowDeleteWarning] = useState();
 
     // END: Modal Constants
 
     // START: Personal Info Constants
 
         const [memberId, setMemberId] = useState();
-        const [seId, setSEId] = useState();
+        // const [seId, setSEId] = useState();
         const [firstName, setFirstName] = useState();
         const [middleName, setMiddleName] = useState();
         const [lastName, setLastName] = useState();
@@ -115,7 +115,7 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "address":
@@ -126,7 +126,7 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "work":
@@ -137,7 +137,7 @@ function DTRegistration() {
                     setShowWorkinfo(true);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "emergency":
@@ -148,7 +148,7 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(true);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
             
                 case "invite":
@@ -159,7 +159,7 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(true)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "result":
@@ -170,7 +170,7 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(true);
+                    // setShowResult(true);
                     break;
             
                 default:
@@ -187,7 +187,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setMemberId('');
-        setSEId('');
+        // setSEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -217,7 +217,7 @@ function DTRegistration() {
 
     const attendanceWarning = (memberId, seId, attendanceStatus, firstName, middleName, lastName) => {
         setMemberId(memberId);
-        setSEId(seId);
+        // setSEId(seId);
         setAttendance(attendanceStatus);
         setFirstName(firstName);
         setMiddleName(middleName);
@@ -256,7 +256,7 @@ function DTRegistration() {
                                 ye_emergency_contacts, ye_inviters) => {
         
         setMemberId(memberId);
-        setSEId(seId);
+        // setSEId(seId);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
@@ -299,7 +299,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setMemberId('');
-        setSEId('');
+        // setSEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -402,7 +402,7 @@ function DTRegistration() {
     // START: API Functions
 
     const addParticipant = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         AddParticipant(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
@@ -411,15 +411,15 @@ function DTRegistration() {
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setAddStatus(true);
-                    setParticipants(result.message);
+                    // setAddStatus(true);
+                    // setParticipants(result.message);
                     alert(result.message);
                 } else {
-                    setAddStatus(false);
+                    // setAddStatus(false);
                     alert(result.message);
                 }
 
-                setIsLoading(false)
+                // setIsLoading(false)
             });
         getSE();
         Stepper('result');
@@ -427,7 +427,7 @@ function DTRegistration() {
     }
 
     const updateParticipant = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         UpdateParticipant(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
                             birthday, gender, civilStatus, religion, baptized,
@@ -438,14 +438,14 @@ function DTRegistration() {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setUpdateStatus(true);
+                    // setUpdateStatus(true);
                     alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s record has been successfully updated!`);
                 } else {
-                    setUpdateStatus(false);
+                    // setUpdateStatus(false);
                     alert(result.message);
                 }
 
-                setIsLoading(false);
+                // setIsLoading(false);
             });
         
         closeEdit();
@@ -475,7 +475,7 @@ function DTRegistration() {
                     setSEData(result.body);
                 } else {
                     setSEStatus(false);
-                    setSEMessage(result.message);
+                    // setSEMessage(result.message);
                 }
             })
       }
@@ -516,7 +516,7 @@ function DTRegistration() {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.status.toLowerCase() === 'active' & event.event_type_name === "Singles Encounter" ?
+                                        event.status.toLowerCase() === 'active' & event.event_type_name === event_type ?
                                             <option value={event.event_id}>{event.event_name}</option>
                                         : null
                                     ))

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import AddYEParticipant from './Modals/AddYEParticipant';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
 import SchoolInfo from './Modals/SchoolInfo';
 import Guardians from './Modals/Guardians';
-import Result from './Modals/Result';
-import { CreateSEAttendance } from '../../../../utils/SinglesEncounterMethods';
+// import Result from './Modals/Result';
+// import { CreateSEAttendance } from '../../../../utils/SinglesEncounterMethods';
 import { AddYE, CreateYEAttendance, GetYE, UpdateYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
 import EditYEParticipant from './Modals/EditYEParticipant';
@@ -18,9 +18,9 @@ function DTRegistration() {
     // START: Utils Constants
 
         const { loginResult } = useAuthContext();
-        const [addStatus, setAddStatus] = useState();
-        const [updateStatus, setUpdateStatus] = useState();
-        const [participants, setParticipants] = useState();
+        // const [addStatus, setAddStatus] = useState();
+        // const [updateStatus, setUpdateStatus] = useState();
+        // const [participants, setParticipants] = useState();
 
         const event_type = 'Youth Encounter';
 
@@ -30,9 +30,9 @@ function DTRegistration() {
 
         const [YEData, setYEData] = useState();
         const [YEStatus, setYEStatus] = useState();
-        const [YEMessage, setYEMessage] = useState();
+        // const [YEMessage, setYEMessage] = useState();
 
-        const [isLoading, setIsLoading] = useState();
+        // const [isLoading, setIsLoading] = useState();
 
     // END: Utils Constants
 
@@ -52,7 +52,7 @@ function DTRegistration() {
         const [showSchoolInfo, setShowSchoolInfo] = useState();
         const [showEmergencyContact, setShowEmergencyContact] = useState();
         const [showInvite, setShowInvite] = useState();
-        const [showResult, setShowResult] = useState();
+        // const [showResult, setShowResult] = useState();
 
     // END: Stepper Constants
 
@@ -67,7 +67,7 @@ function DTRegistration() {
     // START: Personal Info Constants
 
         const [memberId, setMemberId] = useState();
-        const [yeId, setYEId] = useState();
+        // const [yeId, setYEId] = useState();
         const [firstName, setFirstName] = useState();
         const [middleName, setMiddleName] = useState();
         const [lastName, setLastName] = useState();
@@ -98,8 +98,8 @@ function DTRegistration() {
 
     // START: Work info Constants
 
-        const [occupation, setOccupation] = useState();
-        const [specialty, setSpecialty] = useState();
+        // const [occupation, setOccupation] = useState();
+        // const [specialty, setSpecialty] = useState();
         const [company, setCompany] = useState();
         const [companyAddressLine1, setCompanyAddressLine1] = useState();
         const [companyAddressLine2, setCompanyAddressLine2] = useState();
@@ -118,7 +118,7 @@ function DTRegistration() {
                     setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "address":
@@ -129,7 +129,7 @@ function DTRegistration() {
                     setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "work":
@@ -140,7 +140,7 @@ function DTRegistration() {
                     setShowSchoolInfo(true);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "emergency":
@@ -151,7 +151,7 @@ function DTRegistration() {
                     setShowSchoolInfo(false);
                     setShowEmergencyContact(true);
                     setShowInvite(false)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
             
                 case "invite":
@@ -162,7 +162,7 @@ function DTRegistration() {
                     setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(true)
-                    setShowResult(false);
+                    // setShowResult(false);
                     break;
                 
                 case "result":
@@ -173,7 +173,7 @@ function DTRegistration() {
                     setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(true);
+                    // setShowResult(true);
                     break;
             
                 default:
@@ -190,7 +190,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setMemberId('');
-        setYEId('');
+        // setYEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -208,8 +208,8 @@ function DTRegistration() {
         setMemberAddressLine1('');
         setMemberAddressLine2('');
         setMemberCity('');
-        setOccupation('');
-        setSpecialty('');
+        // setOccupation('');
+        // setSpecialty('');
         setCompany('');
         setCompanyAddressLine1('');
         setCompanyAddressLine2('');
@@ -224,7 +224,7 @@ function DTRegistration() {
 
     const attendanceWarning = (memberId, yeId, attendanceStatus, firstName, middleName, lastName) => {
         setMemberId(memberId);
-        setYEId(yeId);
+        // setYEId(yeId);
         setAttendance(attendanceStatus);
         setFirstName(firstName);
         setMiddleName(middleName);
@@ -263,7 +263,7 @@ function DTRegistration() {
                                 ye_emergency_contacts, ye_inviters) => {
         
         setMemberId(memberId);
-        setYEId(yeId);
+        // setYEId(yeId);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
@@ -285,8 +285,8 @@ function DTRegistration() {
         setMemberAddressLine1(memberAddressLine1);
         setMemberAddressLine2(memberAddressLine2);
         setMemberCity(memberCity);
-        setOccupation(occupation);
-        setSpecialty(specialty);
+        // setOccupation(occupation);
+        // setSpecialty(specialty);
         setCompany(company);
         setCompanyAddressLine1(companyAddressLine1);
         setCompanyAddressLine2(companyAddressLine2);
@@ -311,7 +311,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setMemberId('');
-        setYEId('');
+        // setYEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -330,8 +330,8 @@ function DTRegistration() {
         setMemberAddressLine1('');
         setMemberAddressLine2('');
         setMemberCity('');
-        setOccupation('');
-        setSpecialty('');
+        // setOccupation('');
+        // setSpecialty('');
         setCompany('');
         setCompanyAddressLine1('');
         setCompanyAddressLine2('');
@@ -416,7 +416,7 @@ function DTRegistration() {
     // START: API Functions
 
     const addParticipant = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         AddYE(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
@@ -426,15 +426,15 @@ function DTRegistration() {
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setAddStatus(true);
-                    setParticipants(result.message);
+                    // setAddStatus(true);
+                    // setParticipants(result.message);
                     alert(result.message);
                 } else {
-                    setAddStatus(false);
+                    // setAddStatus(false);
                     alert(result.message);
                 }
 
-                setIsLoading(false)
+                // setIsLoading(false)
             });
         getYE();
         Stepper('result');
@@ -442,7 +442,7 @@ function DTRegistration() {
     }
 
     const updateParticipant = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         UpdateYE(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
                             birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1,
@@ -452,14 +452,14 @@ function DTRegistration() {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setUpdateStatus(true);
+                    // setUpdateStatus(true);
                     alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s record has been successfully updated!`);
                 } else {
-                    setUpdateStatus(false);
+                    // setUpdateStatus(false);
                     alert(result.message);
                 }
 
-                setIsLoading(false);
+                // setIsLoading(false);
             });
 
         closeEdit();
@@ -489,7 +489,7 @@ function DTRegistration() {
                     setYEData(result.body);
                 } else {
                     setYEStatus(false);
-                    setYEMessage(result.message);
+                    // setYEMessage(result.message);
                 }
             })
       }

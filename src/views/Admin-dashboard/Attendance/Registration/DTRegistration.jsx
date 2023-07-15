@@ -265,9 +265,11 @@ const DTRegistration = () => {
             .then(async result => {
                 if (await result.status === 200) {
                     setErrors(false)
-                    alert(`${result.message}`)
+                    setMessage(result.message);
+                    alert(`${result.message}`);
                 } else {
                     setErrors(true)
+                    setMessage(result.message);
                     alert(`${result.message}`)
                 }
                 setIsLoading(false)
