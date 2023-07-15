@@ -15,7 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: npm install
-      - run: npm install --loglevel=error --no-update-notifier
       - run: npm run build
       - run: npm test
 
