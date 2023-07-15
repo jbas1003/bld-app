@@ -7,7 +7,7 @@ import DeleteEventTypeWarning from './Modals/DeleteEventTypeWarning';
 
 function DTEventTypeCategories() {
     const { loginResult } = useAuthContext();
-    const [isLoading, setIsLoading] = useState();
+    // const [isLoading, setIsLoading] = useState();
     const [eventType, setEventType] = useState();
     const [status, setStatus] = useState();
     const [message, setMessage] = useState();
@@ -21,7 +21,7 @@ function DTEventTypeCategories() {
     const [previousEventTypeName, setPreviousEventTypeName] = useState();
 
     const getEventTypes = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         GetAllEventTypes()
             .then(async result => {return await result.json()})
             .then(result => {
@@ -33,11 +33,11 @@ function DTEventTypeCategories() {
                     setMessage(result.errors)
                 }
             })
-        setIsLoading(false);
+        // setIsLoading(false);
     }
 
     const addNewEventType = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         AddNewEventTypes(loginResult.__, eventTypeName)
             .then(async result => {return await result.json()})
             .then(async result => {
@@ -47,7 +47,7 @@ function DTEventTypeCategories() {
                     alert(`A problem occured while adding ${eventTypeName} to the records. Please contact your systems administrator.`)
                 }
             })
-        setIsLoading(false);
+        // setIsLoading(false);
 
         setEventTypeName('');
         setShowAdd(false);
@@ -80,7 +80,7 @@ function DTEventTypeCategories() {
     }
 
     const deleteEventType = () => {
-        setIsLoading(true);
+        // setIsLoading(true);
         DeleteEventType(eventTypeId)
             .then(async result => {return await result.json()})
             .then(async result => {
@@ -92,7 +92,7 @@ function DTEventTypeCategories() {
                     alert('Sever error: A problem was encountered while deleting the record.')
                 }
             })
-        setIsLoading(false);
+        // setIsLoading(false);
         closeDelete();
 
         setMessage('');
