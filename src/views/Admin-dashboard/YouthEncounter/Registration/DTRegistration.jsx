@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
 // import { Link } from 'react-router-dom';
-import AddSEParticipant from './Modals/AddSEParticipant';
+import AddYEParticipant from './Modals/AddYEParticipant';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
-import WorkInfo from './Modals/WorkInfo';
-import EmergencyContacts from './Modals/EmergencyContacts';
+import SchoolInfo from './Modals/SchoolInfo';
+import Guardians from './Modals/Guardians';
 // import Result from './Modals/Result';
-import { AddParticipant, CreateSEAttendance, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
+// import { CreateSEAttendance } from '../../../../utils/SinglesEncounterMethods';
+import { AddYE, CreateYEAttendance, GetYE, UpdateYE } from '../../../../utils/YouthEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
-import EditSEParticipant from './Modals/EditSEParticipant';
-import SEAttendanceWarning from './Modals/SEAttendanceWarning';
+import EditYEParticipant from './Modals/EditYEParticipant';
+import YEAttendanceWarning from './Modals/YEAttendanceWarning';
 import Inviter from './Modals/Inviter';
 
 function DTRegistration() {
@@ -21,15 +22,15 @@ function DTRegistration() {
         // const [updateStatus, setUpdateStatus] = useState();
         // const [participants, setParticipants] = useState();
 
-        const event_type = 'Singles Encounter';
+        const event_type = 'Youth Encounter';
 
         const [eventStatus, setEventStatus] = useState();
         const [eventData, setEventData] = useState();
         const [event, setEvent] = useState('');
 
-        const [SEData, setSEData] = useState();
-        const [SEStatus, setSEStatus] = useState();
-        // const [SEMessage, setSEMessage] = useState();
+        const [YEData, setYEData] = useState();
+        const [YEStatus, setYEStatus] = useState();
+        // const [YEMessage, setYEMessage] = useState();
 
         // const [isLoading, setIsLoading] = useState();
 
@@ -48,7 +49,7 @@ function DTRegistration() {
         const [previousStep, setPreviousStep] = useState();
         const [showPersonalInfo, setShowPersonalInfo] = useState();
         const [showAddressInfo, setShowAddressinfo] = useState();
-        const [showWorkInfo, setShowWorkinfo] = useState();
+        const [showSchoolInfo, setShowSchoolInfo] = useState();
         const [showEmergencyContact, setShowEmergencyContact] = useState();
         const [showInvite, setShowInvite] = useState();
         // const [showResult, setShowResult] = useState();
@@ -60,14 +61,13 @@ function DTRegistration() {
         const [showAdd, setShowAdd] = useState();
         const [showEdit, setShowEdit] = useState();
         const [showAttendanceWarning, setShowAttendanceWarning] = useState();
-        // const [showDeleteWarning, setShowDeleteWarning] = useState();
 
     // END: Modal Constants
 
     // START: Personal Info Constants
 
         const [memberId, setMemberId] = useState();
-        // const [seId, setSEId] = useState();
+        // const [yeId, setYEId] = useState();
         const [firstName, setFirstName] = useState();
         const [middleName, setMiddleName] = useState();
         const [lastName, setLastName] = useState();
@@ -77,6 +77,9 @@ function DTRegistration() {
         const [birthday, setBirthday] = useState();
         const [gender, setGender] = useState();
         const [civilStatus, setCivilStatus] = useState();
+        const [educationalLevel, setEducationalLevel] = useState();
+        const [yearLevel, setYearLevel] = useState();
+        const [course, setCourse] = useState();
         const [religion, setReligion] = useState();
         const [baptized, setBaptized] = useState();
         const [confirmed, setConfirmed] = useState();
@@ -95,8 +98,8 @@ function DTRegistration() {
 
     // START: Work info Constants
 
-        const [occupation, setOccupation] = useState();
-        const [specialty, setSpecialty] = useState();
+        // const [occupation, setOccupation] = useState();
+        // const [specialty, setSpecialty] = useState();
         const [company, setCompany] = useState();
         const [companyAddressLine1, setCompanyAddressLine1] = useState();
         const [companyAddressLine2, setCompanyAddressLine2] = useState();
@@ -112,7 +115,7 @@ function DTRegistration() {
                     setCurrentStep("personal");
                     setShowPersonalInfo(true);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     // setShowResult(false);
@@ -123,7 +126,7 @@ function DTRegistration() {
                     setCurrentStep("address");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(true);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     // setShowResult(false);
@@ -134,7 +137,7 @@ function DTRegistration() {
                     setCurrentStep("work");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(true);
+                    setShowSchoolInfo(true);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     // setShowResult(false);
@@ -145,7 +148,7 @@ function DTRegistration() {
                     setCurrentStep("emergency");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(true);
                     setShowInvite(false)
                     // setShowResult(false);
@@ -156,7 +159,7 @@ function DTRegistration() {
                     setCurrentStep("invite");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(true)
                     // setShowResult(false);
@@ -167,7 +170,7 @@ function DTRegistration() {
                     setCurrentStep("result");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
-                    setShowWorkinfo(false);
+                    setShowSchoolInfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
                     // setShowResult(true);
@@ -187,7 +190,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setMemberId('');
-        // setSEId('');
+        // setYEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -196,28 +199,32 @@ function DTRegistration() {
         setParticipantEmail('');
         setBirthday('');
         setGender('');
-        setCivilStatus('');
+        setEducationalLevel('');
+        setYearLevel('')
+        setCourse('')
         setReligion('');
         setBaptized('');
         setConfirmed('');
         setMemberAddressLine1('');
         setMemberAddressLine2('');
         setMemberCity('');
-        setOccupation('');
-        setSpecialty('');
+        // setOccupation('');
+        // setSpecialty('');
         setCompany('');
         setCompanyAddressLine1('');
         setCompanyAddressLine2('');
         setCompanyCity('');
-        setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
-        setInviteList([{name: '', relationship: '', created_by: loginResult.__}]);
-        
+        // setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+        // setInviteList([{name: '', relationship: '', created_by: loginResult.__}]);
+        setContactList([]);
+        setInviteList([]);
+
         setShowAdd(false)
     }
 
-    const attendanceWarning = (memberId, seId, attendanceStatus, firstName, middleName, lastName) => {
+    const attendanceWarning = (memberId, yeId, attendanceStatus, firstName, middleName, lastName) => {
         setMemberId(memberId);
-        // setSEId(seId);
+        // setYEId(yeId);
         setAttendance(attendanceStatus);
         setFirstName(firstName);
         setMiddleName(middleName);
@@ -235,7 +242,7 @@ function DTRegistration() {
     }
 
     const createAttendance = () => {
-        CreateSEAttendance(loginResult.__, memberId, event, attendance)
+        CreateYEAttendance(loginResult.__, memberId, event, attendance)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -244,11 +251,11 @@ function DTRegistration() {
                     alert('An error occured while updating the attendance. Please contact system administrator.')
                 }
             });
-        getSE();
+        getYE();
         closeAttendanceWarning();
     }
 
-    const showEditParticipant = (memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
+    const showEditParticipant = (memberId, yeId, firstName, middleName, lastName, nickname, participantMobile,
                                 participantEmail, birthday, gender, civilStatus, religion,
                                 baptized, confirmed, memberAddressLine1, memberAddressLine2,
                                 memberCity, occupation, specialty, company, companyAddressLine1,
@@ -256,7 +263,7 @@ function DTRegistration() {
                                 ye_emergency_contacts, ye_inviters) => {
         
         setMemberId(memberId);
-        // setSEId(seId);
+        // setYEId(yeId);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
@@ -266,32 +273,37 @@ function DTRegistration() {
         setBirthday(birthday);
         setGender(gender);
         setCivilStatus(civilStatus);
+
+        var splitOccupation = occupation.split(" - ");
+
+        setEducationalLevel(splitOccupation[0]);
+        setYearLevel(splitOccupation[1]);
+        setCourse(course)
         setReligion(religion);
         setBaptized(baptized);
         setConfirmed(confirmed);
         setMemberAddressLine1(memberAddressLine1);
         setMemberAddressLine2(memberAddressLine2);
         setMemberCity(memberCity);
-        setOccupation(occupation);
-        setSpecialty(specialty);
+        // setOccupation(occupation);
+        // setSpecialty(specialty);
         setCompany(company);
         setCompanyAddressLine1(companyAddressLine1);
         setCompanyAddressLine2(companyAddressLine2);
         setCompanyCity(companyCity);
-        
+
         if (se_emergency_contacts.length > 0) {
             setContactList(se_emergency_contacts);
-        } else if (ye_emergency_contacts.length > 0) {
-            setContactList(ye_emergency_contacts)
+        }else if (ye_emergency_contacts.length > 0) {
+            setContactList(ye_emergency_contacts);
         }
 
         if (se_inviters.length > 0) {
-            setInviteList(se_inviters);
+            setInviteList(se_inviters)
         } else if (ye_inviters.length > 0) {
             setInviteList(ye_inviters)
         }
 
-        // console.log(inviters);
         Stepper('personal');
 
         setShowEdit(true);
@@ -299,7 +311,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setMemberId('');
-        // setSEId('');
+        // setYEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -309,14 +321,17 @@ function DTRegistration() {
         setBirthday('');
         setGender('');
         setCivilStatus('');
+        setEducationalLevel('');
+        setYearLevel('')
+        setCourse('')
         setReligion('');
         setBaptized('');
         setConfirmed('');
         setMemberAddressLine1('');
         setMemberAddressLine2('');
         setMemberCity('');
-        setOccupation('');
-        setSpecialty('');
+        // setOccupation('');
+        // setSpecialty('');
         setCompany('');
         setCompanyAddressLine1('');
         setCompanyAddressLine2('');
@@ -389,7 +404,6 @@ function DTRegistration() {
 
         const handleInveterRemove = (index) => {
             inviteList.splice(index, 1);
-            
             if (inviteList.length > 0) {
                 setInviteList([...inviteList]);
             } else {
@@ -403,11 +417,12 @@ function DTRegistration() {
 
     const addParticipant = () => {
         // setIsLoading(true);
-        AddParticipant(loginResult.__, firstName, middleName, lastName,
+        AddYE(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
-            memberAddressLine2, memberCity, occupation, specialty, company,
-            companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList, event)
+            memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
+            company, companyAddressLine1, companyAddressLine2,
+            companyCity, contactList, inviteList, event)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -421,20 +436,19 @@ function DTRegistration() {
 
                 // setIsLoading(false)
             });
-        getSE();
+        getYE();
         Stepper('result');
         closeAddParticipant();
     }
 
     const updateParticipant = () => {
         // setIsLoading(true);
-        UpdateParticipant(loginResult.__, memberId, firstName, middleName,
+        UpdateYE(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
-                            birthday, gender, civilStatus, religion, baptized,
-                            confirmed, memberAddressLine1, memberAddressLine2,
-                            memberCity, occupation, specialty, company,
-                            companyAddressLine1, companyAddressLine2, companyCity,
-                            contactList, inviteList)
+                            birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1,
+                            memberAddressLine2, memberCity, educationalLevel, yearLevel, course,
+                            company, companyAddressLine1, companyAddressLine2,
+                            companyCity, contactList, inviteList)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -447,9 +461,9 @@ function DTRegistration() {
 
                 // setIsLoading(false);
             });
-        
+
         closeEdit();
-        getSE();
+        getYE();
     }
 
     const getEvents = () => {
@@ -466,16 +480,16 @@ function DTRegistration() {
           })
       }
 
-      const getSE = (event) => {
-        GetSE(event)
+      const getYE = (event) => {
+        GetYE(event)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setSEStatus(true);
-                    setSEData(result.body);
+                    setYEStatus(true);
+                    setYEData(result.body);
                 } else {
-                    setSEStatus(false);
-                    // setSEMessage(result.message);
+                    setYEStatus(false);
+                    // setYEMessage(result.message);
                 }
             })
       }
@@ -484,7 +498,7 @@ function DTRegistration() {
 
     useEffect(() => {
         getEvents();
-        getSE(event)
+        getYE(event)
     }, [event])
 
     return (
@@ -565,8 +579,8 @@ function DTRegistration() {
                     </thead>
                     <tbody>
                         {
-                            SEStatus === true ?
-                                SEData.map(items => (
+                            YEStatus === true ?
+                                YEData.map(items => (
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
@@ -585,7 +599,7 @@ function DTRegistration() {
                                                 event !== "" & event !== null & event !== undefined ?
                                                     <div className="flex items-center">
                                                         <input id="link-checkbox" type="checkbox" value={`${items.attendance_status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                                                            onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            onChange={e => {attendanceWarning(items.member_id, items.yeId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
                                                             checked={
                                                                 items.attendance_status === "Yes" & items.attendace_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
                                                                     true
@@ -599,7 +613,7 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    onClick={() => showEditParticipant(items.member_id, items.seId,
+                                                    onClick={() => showEditParticipant(items.member_id, items.yeId,
                                                                                         items.first_name, items.middle_name,
                                                                                         items.last_name, items.nickname, items.mobile,
                                                                                         items.email, items.birthday, items.gender,
@@ -638,7 +652,7 @@ function DTRegistration() {
                 </table>
             </div>
 
-            <AddSEParticipant show={showAdd} setShow={setShowAdd}>
+            <AddYEParticipant show={showAdd} setShow={setShowAdd}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1034,38 +1048,90 @@ function DTRegistration() {
                     </button>
                 </AddressInfo>
 
-                <WorkInfo show={showWorkInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
+                <SchoolInfo show={showSchoolInfo}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">School Info</h3>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-3">
+                        <div>
+                            <label htmlFor="pi_education" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Educational Level</label>
+                            <select id="pi_education" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setEducationalLevel(e.target.value)}}
+                                value={
+                                        educationalLevel !== null ?
+                                            educationalLevel
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Educational Level</option>
+                                <option value={"High School"}>High School</option>
+                                <option value={"College"}>College</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
+                            {
+                                educationalLevel === 'High School' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Grade Level</option>
+                                            <option value={"Grade 7"}>Grade 7</option>
+                                            <option value={"Grade 8"}>Grade 8</option>
+                                            <option value={"Grade 9"}>Grade 9</option>
+                                            <option value={"Grade 10"}>Grade 10</option>
+                                            <option value={"Grade 11"}>Grade 11</option>
+                                            <option value={"Grade 12"}>Grade 12</option>
+                                        </select>
+                                    : educationalLevel === 'College' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Year Level</option>
+                                            <option value={"1st Year"}>1st Year</option>
+                                            <option value={"2nd Year"}>2nd Year</option>
+                                            <option value={"3rd Year"}>3rd Year</option>
+                                            <option value={"4th Year"}>4th Year</option>
+                                        </select>
+                                    :
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Please select an educational level</option>
+                                        </select>
+                            }
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_course" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCourse(e.target.value)}}
+                                    value={
+                                        course !== null ?
+                                            course
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_course" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Course/Strand</label>
+                            </div>
+                        </div>
+                    </div>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div className="relative">
-                                <input type="text" id="fo_occupation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setOccupation(e.target.value)}}
-                                    value={
-                                        occupation !== null ?
-                                            occupation
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_occupation" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_specialty" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setSpecialty(e.target.value)}}
-                                    value={
-                                        specialty!== null ?
-                                            specialty
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_specialty" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Specialty (ex. Skill/Course)</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                <input type="text" id="fo_school" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={e => {setCompany(e.target.value)}}
                                     value={
                                         company !== null ?
@@ -1073,7 +1139,7 @@ function DTRegistration() {
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_company" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                                <label htmlFor="fo_school" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">School</label>
                             </div>
                         </div>
                         <div>
@@ -1123,9 +1189,9 @@ function DTRegistration() {
                     <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Emergency Contacts
                     </button>
-                </WorkInfo>
+                </SchoolInfo>
 
-                <EmergencyContacts show={showEmergencyContact}>
+                <Guardians show={showEmergencyContact}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
@@ -1198,7 +1264,7 @@ function DTRegistration() {
                     >
                         Next Step: Inviter Info
                     </button>
-                </EmergencyContacts>
+                </Guardians>
 
                 <Inviter show={showInvite}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
@@ -1315,9 +1381,9 @@ function DTRegistration() {
                         </button>
                     </div>
                 </Result> */}
-            </AddSEParticipant>
+            </AddYEParticipant>
 
-            <EditSEParticipant show={showEdit} setShow={closeEdit}>
+            <EditYEParticipant show={showEdit} setShow={closeEdit}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                 <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1713,38 +1779,90 @@ function DTRegistration() {
                     </button>
                 </AddressInfo>
 
-                <WorkInfo show={showWorkInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
+                <SchoolInfo show={showSchoolInfo}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">School Info</h3>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-3">
+                        <div>
+                            <label htmlFor="pi_education" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Educational Level</label>
+                            <select id="pi_education" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setEducationalLevel(e.target.value)}}
+                                value={
+                                        educationalLevel !== null ?
+                                            educationalLevel
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Educational Level</option>
+                                <option value={"High School"}>High School</option>
+                                <option value={"College"}>College</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_yearLevel" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Year Level</label>
+                            {
+                                educationalLevel === 'High School' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Grade Level</option>
+                                            <option value={"Grade 7"}>Grade 7</option>
+                                            <option value={"Grade 8"}>Grade 8</option>
+                                            <option value={"Grade 9"}>Grade 9</option>
+                                            <option value={"Grade 10"}>Grade 10</option>
+                                            <option value={"Grade 11"}>Grade 11</option>
+                                            <option value={"Grade 12"}>Grade 12</option>
+                                        </select>
+                                    : educationalLevel === 'College' & educationalLevel !== undefined & educationalLevel !== null ?
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Choose Year Level</option>
+                                            <option value={"1st Year"}>1st Year</option>
+                                            <option value={"2nd Year"}>2nd Year</option>
+                                            <option value={"3rd Year"}>3rd Year</option>
+                                            <option value={"4th Year"}>4th Year</option>
+                                        </select>
+                                    :
+                                        <select id="pi_yearLevel" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            onChange={e => {setYearLevel(e.target.value)}}
+                                            value={
+                                                    yearLevel !== null ?
+                                                        yearLevel
+                                                    :""
+                                                }
+                                        >
+                                            <option value={null}>Please select an educational level</option>
+                                        </select>
+                            }
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_course" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setCourse(e.target.value)}}
+                                    value={
+                                        course !== null ?
+                                            course
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_course" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Course/Strand</label>
+                            </div>
+                        </div>
+                    </div>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div className="relative">
-                                <input type="text" id="fo_occupation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setOccupation(e.target.value)}}
-                                    value={
-                                        occupation !== null ?
-                                            occupation
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_occupation" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_specialty" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setSpecialty(e.target.value)}}
-                                    value={
-                                        specialty!== null ?
-                                            specialty
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_specialty" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Specialty (ex. Skill/Course)</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                <input type="text" id="fo_school" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={e => {setCompany(e.target.value)}}
                                     value={
                                         company !== null ?
@@ -1752,7 +1870,7 @@ function DTRegistration() {
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_company" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                                <label htmlFor="fo_school" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">School</label>
                             </div>
                         </div>
                         <div>
@@ -1802,9 +1920,9 @@ function DTRegistration() {
                     <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Emergency Contacts
                     </button>
-                </WorkInfo>
+                </SchoolInfo>
 
-                <EmergencyContacts show={showEmergencyContact}>
+                <Guardians show={showEmergencyContact}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
@@ -1877,7 +1995,7 @@ function DTRegistration() {
                     >
                         Next Step: Inviter Info
                     </button>
-                </EmergencyContacts>
+                </Guardians>
 
                 <Inviter show={showInvite}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
@@ -1979,9 +2097,9 @@ function DTRegistration() {
                         </button>
                     </div>
                 </Result> */}
-            </EditSEParticipant>
+            </EditYEParticipant>
 
-            <SEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
+            <YEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
                 <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1999,7 +2117,7 @@ function DTRegistration() {
                             </button>
                         </div>
                     </div>
-            </SEAttendanceWarning>
+            </YEAttendanceWarning>
         </div>
     )
 }
