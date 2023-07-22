@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
 import { CreateAccount, GetMemberAccounts, ResetAccount } from '../../../../utils/MemberAccountsMethods';
-import { GetAllParticipants } from '../../../../utils/ParticipantsMethods';
+// import { GetAllParticipants } from '../../../../utils/ParticipantsMethods';
 import CreateAccountModal from './Modals/CreateAccountModal';
 import AccountResetWarning from './Modals/AccountResetWarning';
 
@@ -9,14 +9,14 @@ function DTMemberAccounts() {
     const { loginResult } = useAuthContext();
 
     const [memberAccountsData, setMemberAccountsData] = useState();
-    const [membersData, setMembersData] = useState()
-    const [membersStatus, setMembersStatus] = useState();
+    // const [membersData, setMembersData] = useState();
+    // const [membersStatus, setMembersStatus] = useState();
     const [accountStatus, setAccountStatus] = useState();
-    const [memberMessage, setMemberMessage] = useState();
+    // const [memberMessage, setMemberMessage] = useState();
     const [accountMessage, setAccountMessage] = useState();
 
     const [showCreateAccount, setShowCreateAccount] = useState();
-    const [showEdit, setShowEdit] = useState();
+    // const [showEdit, setShowEdit] = useState();
     const [showReset, setShowReset] = useState();
 
     const [memberAccountId, setMemberAccountId] = useState();
@@ -218,7 +218,7 @@ function DTMemberAccounts() {
                                 :
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <td colSpan={3}  className="px-3 py-4 font-medium text-center text-gray-900 whitespace-nowrap dark:text-white">
-                                            {memberMessage}
+                                            {accountMessage}
                                         </td>
                                     </tr>
                                     

@@ -10,8 +10,8 @@ const DTWSC = () => {
     const [eventData, setEventData] = useState();
     const [eventId, setEventId] = useState();
 
-    const [selInput, setSelInput] = useState();
-    const [searchEvent, setSearchEvent] = useState();
+    // const [selInput, setSelInput] = useState();
+    // const [searchEvent, setSearchEvent] = useState();
 
     const event = 'Teaching';
     const [eventDate, setEventDate] = useState();

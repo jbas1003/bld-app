@@ -7,6 +7,7 @@ import {Login} from './views/Login/Login.jsx';
 import Config from './views/Admin-dashboard/Config/Config.jsx';
 import SinglesEncounter from './views/Admin-dashboard/SinglesEncounter/SinglesEncounter.jsx';
 import Attendance from './views/Admin-dashboard/Attendance/Attendance.jsx';
+import YouthEncounter from './views/Admin-dashboard/YouthEncounter/YouthEncounter.jsx';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route index path='/admin/dashboard' element={<Dashboard />}/>
             <Route path='/admin/attendance' element={<Attendance />}/>
             <Route path='/admin/singles_encounter' element={<SinglesEncounter />}/>
+            <Route path='/admin/youth_encounter' element={<YouthEncounter />}/>
             <Route path='/admin/config' element={<Config />}/>
           </Route>
       </Routes>

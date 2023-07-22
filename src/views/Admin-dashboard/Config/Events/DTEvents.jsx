@@ -19,17 +19,17 @@ function DTEvents() {
     const [eventLocation, setEventLocation] = useState();
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
-    const [eventType, setEventType] = useState();
+    // const [eventType, setEventType] = useState();
     const [eventStatus, setEventStatus] = useState();
 
     const [eventTypeData, setEventTypeData] = useState();
     const [eventTypeStatus, setEventTypeStatus] = useState();
-    const [eventTypeMessage, setEventTypeMessage] = useState();
+    // const [eventTypeMessage, setEventTypeMessage] = useState();
 
     const [eventTypeId, setEventTypeId] = useState();
-    const [eventTypeName, setEventTypeName] = useState();
+    // const [eventTypeName, setEventTypeName] = useState();
 
-    const [isLoading, setIsLoading] = useState();
+    // const [isLoading, setIsLoading] = useState();
 
     const [showAdd, setShowAdd] = useState();
     const [showEdit, setShowEdit] = useState();
@@ -39,7 +39,7 @@ function DTEvents() {
         GetAllEvents()
             .then(async result => {return result.json()})
             .then(result => {
-                setIsLoading(true)
+                // setIsLoading(true)
                 if (result.status === 200) {
                     setStatus(true);
                     setEvents(result.body);
@@ -47,7 +47,7 @@ function DTEvents() {
                     setStatus(false);
                     setMessage(result.message);
                 }
-                setIsLoading(false)
+                // setIsLoading(false)
             })
     }
 
@@ -56,19 +56,19 @@ function DTEvents() {
         GetAllEventTypes()
             .then(async result => {return await result.json()})
             .then(async result => {
-                setIsLoading(true)
+                // setIsLoading(true)
                 if (await result.status === 200) {
                     setEventTypeStatus(true);
                     setEventTypeData(result.body);
                     
                 } else if (await result.status === 422) {
                     setEventTypeStatus(false);
-                    setEventTypeMessage(result.message);
+                    // setEventTypeMessage(result.message);
                 } else {
                     setEventTypeStatus(false);
-                    setEventTypeMessage('Server Error: Please contact system administrator.')
+                    // setEventTypeMessage('Server Error: Please contact system administrator.')
                 }
-                setIsLoading(false)
+                // setIsLoading(false)
             })
         
     }
@@ -78,7 +78,7 @@ function DTEvents() {
         AddEvents(eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, loginResult.__)
             .then(async result => {return await result.json()})
             .then(async result => {
-                setIsLoading(true)
+                // setIsLoading(true)
                 if (await result.status === 200) {
                     alert(`${result.message}`);
                 } else if (await result.status === 422) {
@@ -86,7 +86,7 @@ function DTEvents() {
                 } else {
                     alert(`${result.message}`);
                 }
-                setIsLoading(false)
+                // setIsLoading(false)
             });
         
         closeAdd();
