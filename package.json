@@ -1,7 +1,7 @@
 {
   "name": "cdm-app",
   "version": "0.1.1",
-  "homepage": "https://pwnmykpl.com/bld-cdm",
+  "homepage": "https://bld-cdm.pwnmykpl.com",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
