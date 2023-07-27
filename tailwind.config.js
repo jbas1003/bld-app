@@ -14,9 +14,6 @@ module.exports = {
       Pink: '#ff8080',
       WhiteSmoke: '#f4f4f4',
     },
-    fontFamily: {
-      alegreya: ['Alegreya', 'serif'],
-    }
   },
   plugins: [
     require('flowbite/plugin')
