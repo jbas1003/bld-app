@@ -22,21 +22,21 @@ const TopNav = () => {
                             <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white">BLD</span>
                         </Link>
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-center md:order-2">
                         <div className="flex items-center ml-3">
                             <div>
-                                <button id="dropdownUserAvatarButton" data-modal-target="dropdownAvatar" className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-red-300" type="button">
+                                <button type="button" className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-red-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                                     <span className="sr-only">Open user menu</span>
                                     <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="userPhoto"/>
                                 </button>
                             </div>
-                            <div className="z-10 border border-solid border-gray-200 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="dropdownAvatar">
-                                <div className="px-4 py-3 bg-Red" role="none">
-                                    <p className="text-sm font-semibold text-WhiteSmoke" role="none">
+                            <div className="z-50 border border-solid border-gray-200 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow" id="user-dropdown">
+                                <div className="px-4 py-3 bg-Red">
+                                    <span className="block text-sm font-semibold text-WhiteSmoke" role="none">
                                         {loginResult.first_name} {loginResult.middle_name !== null & loginResult.middle_name !== undefined & loginResult.middle_name !== "" ? loginResult.middle_name.charAt(0) + ". " : null} {loginResult.last_name}
-                                    </p>
+                                    </span>
                                 </div>
-                                <ul className="py-1" role="none">
+                                <ul className="py-2" aria-labelledby="user-menu-button">
                                     <li>
                                         <Link to=".." onClick={memberLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-Red hover:text-WhiteSmoke" role="menuitem">Sign out</Link>
                                     </li>
@@ -47,6 +47,7 @@ const TopNav = () => {
                 </div>
             </div>
         </nav>
+
     </>
   )
 }

@@ -427,8 +427,8 @@ const DTRegistration = () => {
                 </div>
             </div>
             <div className='overflow-x-auto overflow-scroll max-h-[600px]'>
-                <table id='participantDTbl' className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table id='participantDTbl' className="w-full text-base text-left text-gray-500 dark:text-gray-400">
+                    <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th className="px-6 py-3 whitespace-nowrap w-[20%]">
                                 Participant
@@ -458,7 +458,7 @@ const DTRegistration = () => {
                             attendanceStatus === true ?
                                 attendanceRecord.map(items => (
                                     <tr>
-                                        <td className="px-7 py-3">
+                                        <td className="px-7 py-3px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
                                             {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
                                         </td>
                                         <td className="px-7 py-3">
