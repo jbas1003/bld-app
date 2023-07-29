@@ -48,8 +48,7 @@ export const Login = () => {
                 </g>
             </svg>
           </div>
-          <div>
-            <hr className='border border-solid rounded border-DarkRed'/>
+          <div className='border-2 rounded-xl border-solid border-DarkRed px-6 pb-6'>
             <div className='flex justify-center mt-3 mb-4'>
               <label className='text-3xl font-semibold text-DarkRed'>Login</label>
             </div>
