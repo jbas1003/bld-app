@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import useAuthContext from '../../../../utils/AuthContext';
-import { Link } from 'react-router-dom';
-import AddSEParticipant from './Modals/AddSEParticipant';
+// import { Link } from 'react-router-dom';
+import AddMEParticipant from './Modals/AddMEParticipant';
 import PersonalInfo from './Modals/PersonalInfo';
 import AddressInfo from './Modals/AddressInfo';
 import WorkInfo from './Modals/WorkInfo';
 import EmergencyContacts from './Modals/EmergencyContacts';
-import Result from './Modals/Result';
-import { AddParticipant, CreateSEAttendance, GetSE, UpdateParticipant } from '../../../../utils/SinglesEncounterMethods';
+// import Result from './Modals/Result';
+import { AddParticipant, CreateMEAttendance, GetME, UpdateParticipant } from '../../../../utils/MarriageEncounterMethods';
 import { GetAllEvents } from '../../../../utils/EventsMethods';
-import EditSEParticipant from './Modals/EditSEParticipant';
-import SEAttendanceWarning from './Modals/SEAttendanceWarning';
+import EditMEParticipant from './Modals/EditMEParticipant';
+import MEAttendanceWarning from './Modals/MEAttendanceWarning';
 import Inviter from './Modals/Inviter';
 
 function DTRegistration() {
@@ -237,7 +237,7 @@ function DTRegistration() {
     }
 
     const createAttendance = () => {
-        CreateSEAttendance(loginResult.__, memberId, seId, attendance)
+        CreateMEAttendance(loginResult.__, memberId, seId, attendance)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -246,7 +246,7 @@ function DTRegistration() {
                     alert('An error occured while updating the attendance. Please contact system administrator.')
                 }
             });
-        getSE();
+        getME();
         closeAttendanceWarning();
     }
 
@@ -408,7 +408,7 @@ function DTRegistration() {
 
                 setIsLoading(false)
             });
-        getSE();
+        getME();
         Stepper('result');
         closeAddParticipant();
     }
@@ -436,7 +436,7 @@ function DTRegistration() {
             });
         
         closeEdit();
-        getSE();
+        getME();
     }
 
     const getEvents = () => {
@@ -453,8 +453,8 @@ function DTRegistration() {
           })
       }
 
-      const getSE = (event) => {
-        GetSE(event)
+      const getME = (event) => {
+        GetME(event)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -478,7 +478,7 @@ function DTRegistration() {
 
     useEffect(() => {
         getEvents();
-        getSE(event)
+        getME(event)
     }, [event])
 
     return (
@@ -632,7 +632,7 @@ function DTRegistration() {
                 </table>
             </div>
 
-            <AddSEParticipant show={showAdd} setShow={setShowAdd}>
+            <AddMEParticipant show={showAdd} setShow={setShowAdd}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1326,9 +1326,9 @@ function DTRegistration() {
                         </button>
                     </div>
                 </Result> */}
-            </AddSEParticipant>
+            </AddMEParticipant>
 
-            <EditSEParticipant show={showEdit} setShow={closeEdit}>
+            <EditMEParticipant show={showEdit} setShow={closeEdit}>
                 <ol className="flex items-center w-full mb-4 sm:mb-5">
                 <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'personal' ?
@@ -1990,9 +1990,9 @@ function DTRegistration() {
                         </button>
                     </div>
                 </Result> */}
-            </EditSEParticipant>
+            </EditMEParticipant>
 
-            <SEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
+            <MEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
                 <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2010,7 +2010,7 @@ function DTRegistration() {
                             </button>
                         </div>
                     </div>
-            </SEAttendanceWarning>
+            </MEAttendanceWarning>
         </div>
     )
 }

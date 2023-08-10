@@ -1,6 +1,6 @@
 import React from 'react'
 
-function EditSEParticipant({ children, show, setShow }) {
+function EditMEParticipant({ children, show, setShow }) {
     const content = show && (
         <div className="fixed flex justify-center top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto lg:inset-0 h-modal lg:h-full">
           <div className="relative self-center w-full h-full max-w-3xl xl:h-auto">
@@ -23,4 +23,4 @@ function EditSEParticipant({ children, show, setShow }) {
       return content
 }
 
-export default EditSEParticipant
+export default EditMEParticipant
