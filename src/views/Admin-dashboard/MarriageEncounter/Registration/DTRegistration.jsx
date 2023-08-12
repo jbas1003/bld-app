@@ -16,8 +16,6 @@ import Inviter from './Modals/Inviter';
 function DTRegistration() {
     // START: Utils Constants
 
-        const { spouseData, setSpouseData } = useState();
-
         const { loginResult } = useAuthContext();
         const [addStatus, setAddStatus] = useState();
         const [updateStatus, setUpdateStatus] = useState();
@@ -29,17 +27,14 @@ function DTRegistration() {
         const [eventData, setEventData] = useState();
         const [event, setEvent] = useState('');
 
-        const [SEData, setSEData] = useState();
-        const [SEStatus, setSEStatus] = useState();
-        const [SEMessage, setSEMessage] = useState();
-
-        const [isLoading, setIsLoading] = useState();
+        const [MEData, setMEData] = useState();
+        const [MEStatus, setMEStatus] = useState();
 
     // END: Utils Constants
 
     // START: Emergency Contacts Constatns
 
-        const [contactList, setContactList] = useState([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+        const [childrenList, setChildrenList] = useState([{firstName: '', middleName: '', lastName: '', age: '', created_by: loginResult.__}]);
         const [inviteList, setInviteList] = useState([{name: '', relationship: '', created_by: loginResult.__}]);
    
     // END: Emergency Contacts Constants
@@ -69,7 +64,7 @@ function DTRegistration() {
     // START: Personal Info Constants
 
         const [memberId, setMemberId] = useState();
-        const [seId, setSEId] = useState();
+        const [meId, setMEId] = useState();
         const [firstName, setFirstName] = useState();
         const [middleName, setMiddleName] = useState();
         const [lastName, setLastName] = useState();
@@ -79,6 +74,7 @@ function DTRegistration() {
         const [birthday, setBirthday] = useState();
         const [gender, setGender] = useState();
         const [civilStatus, setCivilStatus] = useState();
+        const [participantSpouse, setParticipantSpouse] = useState();
         const [religion, setReligion] = useState();
         const [baptized, setBaptized] = useState();
         const [confirmed, setConfirmed] = useState();
@@ -143,7 +139,7 @@ function DTRegistration() {
                     break;
                 
                 case "emergency":
-                    setPreviousStep("work")
+                    setPreviousStep("address")
                     setCurrentStep("emergency");
                     setShowPersonalInfo(false);
                     setShowAddressinfo(false);
@@ -189,7 +185,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setMemberId('');
-        setSEId('');
+        setMEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -199,6 +195,7 @@ function DTRegistration() {
         setBirthday('');
         setGender('');
         setCivilStatus('');
+        setParticipantSpouse('');
         setReligion('');
         setBaptized('');
         setConfirmed('');
@@ -211,15 +208,15 @@ function DTRegistration() {
         setCompanyAddressLine1('');
         setCompanyAddressLine2('');
         setCompanyCity('');
-        setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+        setChildrenList([{firstName: '', middleName: '', lastName: '', age: '', created_by: loginResult.__}]);
         setInviteList([{name: '', relationship: '', created_by: loginResult.__}]);
         
         setShowAdd(false)
     }
 
-    const attendanceWarning = (memberId, seId, attendanceStatus, firstName, middleName, lastName) => {
+    const attendanceWarning = (memberId, meId, attendanceStatus, firstName, middleName, lastName) => {
         setMemberId(memberId);
-        setSEId(seId);
+        setMEId(meId);
         setAttendance(attendanceStatus);
         setFirstName(firstName);
         setMiddleName(middleName);
@@ -237,7 +234,7 @@ function DTRegistration() {
     }
 
     const createAttendance = () => {
-        CreateMEAttendance(loginResult.__, memberId, seId, attendance)
+        CreateMEAttendance(loginResult.__, memberId, meId, attendance)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -250,14 +247,14 @@ function DTRegistration() {
         closeAttendanceWarning();
     }
 
-    const showEditParticipant = (memberId, seId, firstName, middleName, lastName, nickname, participantMobile,
+    const showEditParticipant = (memberId, meId, firstName, middleName, lastName, nickname, participantMobile,
                                 participantEmail, birthday, gender, civilStatus, religion,
                                 baptized, confirmed, memberAddressLine1, memberAddressLine2,
                                 memberCity, occupation, specialty, company, companyAddressLine1,
-                                companyAddressLine2, companyCity, emergency_contacts, inviters) => {
+                                companyAddressLine2, companyCity, children, inviters) => {
         
         setMemberId(memberId);
-        setSEId(seId);
+        setMEId(meId);
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
@@ -267,6 +264,7 @@ function DTRegistration() {
         setBirthday(birthday);
         setGender(gender);
         setCivilStatus(civilStatus);
+        setParticipantSpouse('');
         setReligion(religion);
         setBaptized(baptized);
         setConfirmed(confirmed);
@@ -280,8 +278,8 @@ function DTRegistration() {
         setCompanyAddressLine2(companyAddressLine2);
         setCompanyCity(companyCity);
         
-        if (emergency_contacts.length > 0) {
-            setContactList(emergency_contacts);
+        if (children.length > 0) {
+            setChildrenList(children);
         }
 
         if (inviters.length > 0) {
@@ -296,7 +294,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setMemberId('');
-        setSEId('');
+        setMEId('');
         setFirstName('');
         setMiddleName('');
         setLastName('');
@@ -306,6 +304,7 @@ function DTRegistration() {
         setBirthday('');
         setGender('');
         setCivilStatus('');
+        setParticipantSpouse('');
         setReligion('');
         setBaptized('');
         setConfirmed('');
@@ -318,7 +317,7 @@ function DTRegistration() {
         setCompanyAddressLine1('');
         setCompanyAddressLine2('');
         setCompanyCity('');
-        setContactList([{name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+        setChildrenList([{firstName: '', middleName: '', lastName: '', age: '', created_by: loginResult.__}]);
         setInviteList([{name: '', relationship: '', created_by: loginResult.__}])
 
         setShowEdit(false);
@@ -350,18 +349,18 @@ function DTRegistration() {
 
         const handleContactChange = (e, index) => {
             const {name, value} = e.target;
-            const contacts = [...contactList];
-            contacts[index][name] = value;
-            setContactList(contacts);
+            const children = [...childrenList];
+            children[index][name] = value;
+            setChildrenList(children);
         }
 
         const handleadd = () => {
-            setContactList([...contactList, { name: '', mobile: '', email: '', relationship: '', created_by: loginResult.__}]);
+            setChildrenList([...childrenList, { firstName: '', middleName: '', lastName: '', age: '', created_by: loginResult.__}]);
         }
 
         const handleremove = (index) => {
-            contactList.splice(index,1);
-            setContactList([...contactList]);
+            childrenList.splice(index,1);
+            setChildrenList([...childrenList]);
         }
 
     // END: Emergency Contacts Handle
@@ -389,12 +388,11 @@ function DTRegistration() {
     // START: API Functions
 
     const addParticipant = () => {
-        setIsLoading(true);
         AddParticipant(loginResult.__, firstName, middleName, lastName,
             nickname, participantMobile, participantEmail, birthday, gender,
             civilStatus, religion, baptized, confirmed, memberAddressLine1,
             memberAddressLine2, memberCity, occupation, specialty, company,
-            companyAddressLine1, companyAddressLine2, companyCity, contactList, inviteList, event)
+            companyAddressLine1, companyAddressLine2, companyCity, childrenList, inviteList, event)
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -406,7 +404,6 @@ function DTRegistration() {
                     alert(result.message);
                 }
 
-                setIsLoading(false)
             });
         getME();
         Stepper('result');
@@ -414,14 +411,13 @@ function DTRegistration() {
     }
 
     const updateParticipant = () => {
-        setIsLoading(true);
         UpdateParticipant(loginResult.__, memberId, firstName, middleName,
                             lastName, nickname, participantMobile, participantEmail,
                             birthday, gender, civilStatus, religion, baptized,
                             confirmed, memberAddressLine1, memberAddressLine2,
                             memberCity, occupation, specialty, company,
                             companyAddressLine1, companyAddressLine2, companyCity,
-                            contactList, inviteList)
+                            childrenList, inviteList)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -432,7 +428,6 @@ function DTRegistration() {
                     alert(result.message);
                 }
 
-                setIsLoading(false);
             });
         
         closeEdit();
@@ -458,18 +453,11 @@ function DTRegistration() {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setSEStatus(true);
-                    setSEData(result.body);
+                    setMEStatus(true);
+                    setMEData(result.body);
 
-                    const Data = result.body.map((item) => ({
-                        label: `${item.first_name} ${item.last_name}`,
-                        value: item.member_id
-                    }));
-
-                    setSpouseData(Data);
                 } else {
-                    setSEStatus(false);
-                    setSEMessage(result.message);
+                    setMEStatus(false);
                 }
             })
       }
@@ -539,14 +527,21 @@ function DTRegistration() {
                             <th scope="col" className="px-6 py-3">
                                 Participant
                             </th>
+
                             <th scope="col" className="px-6 py-3" align='center'>
                                 Nickname
                             </th>
+
                             <th scope="col" className="px-6 py-3" align='center'>
                                 Gender
                             </th>
+
                             <th scope="col" className="px-6 py-3" align='center'>
                                 Birthday
+                            </th>
+
+                            <th scope="col" className="px-6 py-3" align='center'>
+                                Spouse
                             </th>
                             
                             <th scope="col" className="px-6 py-3" align='center'>
@@ -559,27 +554,35 @@ function DTRegistration() {
                     </thead>
                     <tbody>
                         {
-                            SEStatus === true ?
-                                SEData.map(items => (
+                            MEStatus === true ?
+                                MEData.map(items => (
                                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
                                         </th>
+
                                         <td className="px-6 py-4" align='center'>
                                             {items.nickname}
                                         </td>
+
                                         <td className="px-6 py-4" align='center'>
                                             {items.gender}
                                         </td>
+
                                         <td className="px-6 py-4" align='center'>
                                             {items.birthday}
                                         </td>
+
+                                        <td className="px-6 py-4" align='center'>
+                                            {items.spouse}
+                                        </td>
+
                                         <td className="px-6 py-4 flex justify-center">
                                             {
                                                 event !== "" & event !== null & event !== undefined ?
                                                     <div className="flex items-center">
                                                         <input id="link-checkbox" type="checkbox" value={`${items.attendance_status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
-                                                            onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            onChange={e => {attendanceWarning(items.member_id, items.meId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
                                                             checked={
                                                                 items.attendance_status === "Yes" & items.attendace_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
                                                                     true
@@ -593,7 +596,7 @@ function DTRegistration() {
                                         <td className="px-6 py-4">
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    onClick={() => showEditParticipant(items.member_id, items.seId,
+                                                    onClick={() => showEditParticipant(items.member_id, items.meId,
                                                                                         items.first_name, items.middle_name,
                                                                                         items.last_name, items.nickname, items.mobile,
                                                                                         items.email, items.birthday, items.gender,
@@ -602,7 +605,7 @@ function DTRegistration() {
                                                                                         items.address_line1, items.address_line2,
                                                                                         items.city, items.occupation_name, items.specialty,
                                                                                         items.company, items.work_addressLine1,
-                                                                                        items.work_addressLine2, items.work_city, items.emergency_contacts,
+                                                                                        items.work_addressLine2, items.work_city, items.children,
                                                                                         items.inviters)}
                                                 >
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -674,12 +677,11 @@ function DTRegistration() {
                                     'text-green-600'
                                     :'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
-                                <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+                                <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd"></path>
                             </svg>
                         </div>
                     </li>
-                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                    {/* <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
                         ${ currentStep === 'work' && previousStep === 'address' ?
                             'text-green-100 after:border-green-100'
                             : currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
@@ -704,29 +706,30 @@ function DTRegistration() {
                                 <path d="M3 18.4v-2.796a4.3 4.3 0 00.713.31A26.226 26.226 0 0012 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 01-6.477-.427C4.047 21.128 3 19.852 3 18.4z" />
                             </svg>
                         </div>
-                    </li>
+                    </li> */}
                     <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
-                        ${ currentStep === 'emergency' && previousStep === 'work' ?
+                        ${ currentStep === 'emergency' && previousStep === 'address' ?
                             'text-green-100 after:border-green-100'
                             : currentStep === 'invite' | currentStep === 'result' ?
                                 'text-green-600 after:border-green-600'
                                 :'text-green-100 after:border-gray-100'}
                     `}>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
-                            ${ currentStep === 'emergency' && previousStep === 'work' ?
+                            ${ currentStep === 'emergency' && previousStep === 'address' ?
                                 'bg-green-100'
                             : currentStep === 'invite' | currentStep === 'result' ?
                                 'bg-green-100'
                                 :'bg-gray-100'}
                         `}>
                             <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
-                                ${ currentStep === 'emergency' && previousStep === 'work' ?
+                                ${ currentStep === 'emergency' && previousStep === 'address' ?
                                     'text-gray-500'
                                 : currentStep === 'invite' | currentStep === 'result' ?
                                     'text-green-600'
                                     : 'text-gray-500'}
                             `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path clipRule="evenodd" fillRule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" />
+                                <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
+                                <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
                             </svg>
                         </div>
                     </li>
@@ -776,7 +779,7 @@ function DTRegistration() {
                 </ol>
                 
                 <PersonalInfo show={showPersonalInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Personal Info</h3>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Husband Info</h3>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div className="relative">
@@ -854,13 +857,13 @@ function DTRegistration() {
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_mobile-number" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
                             </div>
                         </div>
 
                         <div>
                             <div className="relative max-w-sm">
-                                <input id='fo_birthday' type="date" className="block mt-6 px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
+                                <input id='fo_birthday' type="date" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
                                     onChange={e => {setBirthday(e.target.value)}}
                                     value={
                                         birthday !== null ?
@@ -872,36 +875,18 @@ function DTRegistration() {
                             </div>
                         </div>
 
-                        {/* <div>
-                            <label htmlFor="pi_gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                            <select id="pi_gender" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={e => {setGender(e.target.value)}}
-                                value={
-                                        gender !== null ?
-                                            gender
-                                        :""
-                                    }
-                            >
-                                <option defaultValue={" "}>Choose gender</option>
-                                <option value={"Female"}>Female</option>
-                                <option value={"Male"}>Male</option>
-                            </select>
-                        </div> */}
-
                         <div>
-                            <label htmlFor="pi_gender" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                            { spouseData.map(({label, value, text }) => (
-                            <select id="pi_gender" inputMode='multiple' className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                
-                            >
-                                
-                                
-                                    <option value={label} key={value}>
-                                    {label}
-                                </option>
-                                    
-                            </select>
-                            ))}
+                            <div className="relative">
+                                <input type="text" id="fo_spouse" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setParticipantEmail(e.target.value)}}
+                                        value={
+                                            participantSpouse !== null ?
+                                                participantSpouse
+                                            :""
+                                        }
+                                    />
+                                <label htmlFor="fo_spouse" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Spouse</label>
+                            </div>
                         </div>
 
                         <div>
@@ -989,63 +974,420 @@ function DTRegistration() {
                             </div>
                         </div>
                     </div>
+                    <div className='mb-4'>
+                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Home Address</label>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_addressLine1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setMemberAddressLine1(e.target.value)}}
+                                        value={
+                                            memberAddressLine1 !== null ?
+                                                memberAddressLine1
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_addressLine2" className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setMemberAddressLine2(e.target.value)}}
+                                        value={
+                                            memberAddressLine2 !== null ?
+                                                memberAddressLine2
+                                            :""
+                                        }    
+                                    />
+                                    <label htmlFor="fo_addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_city" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setMemberCity(e.target.value)}}
+                                        value={
+                                            memberCity !== null ?
+                                                memberCity
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className='mb-4'>
+                        <label className="mb-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Work</label>
+                        <div className='grid sm:grid-cols-2 mb-4'>
+                            <div className="relative">
+                                <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setCompany(e.target.value)}}
+                                    value={
+                                        company !== null ?
+                                            company
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_company" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                            </div>
+                        </div>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_WorkaddressLine1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setCompanyAddressLine1(e.target.value)}}
+                                        value={
+                                            companyAddressLine1 !== null ?
+                                                companyAddressLine1
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_WorkaddressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_WorkaddressLine2" className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setCompanyAddressLine2(e.target.value)}}
+                                        value={
+                                            companyAddressLine2 !== null ?
+                                                companyAddressLine2
+                                            :""
+                                        }    
+                                    />
+                                    <label htmlFor="fo_WorkaddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_Workcity" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setCompanyCity(e.target.value)}}
+                                        value={
+                                            companyCity !== null ?
+                                                companyCity
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_Workcity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button type="submit" onClick={() => {Stepper('address')}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Next Step: Address Info
+                        Next Step: Wife info
                     </button>
                 </PersonalInfo>
 
                 <AddressInfo show={showAddressInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Address Info</h3>
+                <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Wife Info</h3>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <div className="relative">
-                                <input type="text" id="fo_addressLine1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                    onChange={e => {setMemberAddressLine1(e.target.value)}}
+                                <input type="text" id="fo_first-name" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setFirstName(e.target.value)}}
                                     value={
-                                        memberAddressLine1 !== null ?
-                                            memberAddressLine1
+                                        firstName !== null ?
+                                            firstName
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
+                                <label htmlFor="fo_first-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
                             </div>
                         </div>
                         <div>
                             <div className="relative">
-                                <input type="text" id="fo_addressLine2" className="block text-sm px-2.5 pb-2.5 pt-4 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setMemberAddressLine2(e.target.value)}}
+                                <input type="text" id="fo_middle-name" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setMiddleName(e.target.value)}}
                                     value={
-                                        memberAddressLine2 !== null ?
-                                            memberAddressLine2
+                                        middleName !== null ?
+                                            middleName
                                         :""
-                                    }    
+                                    }
                                 />
-                                <label htmlFor="fo_addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                <label htmlFor="fo_middle-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
                             </div>
                         </div>
                         <div>
                             <div className="relative">
-                                <input type="text" id="fo_city" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setMemberCity(e.target.value)}}
+                                <input type="text" id="fo_last-name" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setLastName(e.target.value)}}
                                     value={
-                                        memberCity !== null ?
-                                            memberCity
+                                        lastName !== null ?
+                                            lastName
                                         :""
                                     }
                                 />
-                                <label htmlFor="fo_city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                <label htmlFor="fo_last-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_nickname" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setNickname(e.target.value)}}
+                                    value={
+                                        nickname !== null ?
+                                            nickname
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_nickname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nickname</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_mobile-number" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setParticipantMobile(e.target.value)}}
+                                    value={
+                                        participantMobile !== null ?
+                                            participantMobile
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_mobile-number" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile number</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative">
+                                <input type="email" id="fo_email" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setParticipantEmail(e.target.value)}}
+                                    value={
+                                        participantEmail !== null ?
+                                            participantEmail
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative max-w-sm">
+                                <input id='fo_birthday' type="date" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
+                                    onChange={e => {setBirthday(e.target.value)}}
+                                    value={
+                                        birthday !== null ?
+                                            birthday
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_spouse" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setParticipantEmail(e.target.value)}}
+                                        value={
+                                            participantSpouse !== null ?
+                                                participantSpouse
+                                            :""
+                                        }
+                                    />
+                                <label htmlFor="fo_spouse" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Spouse</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="pi_civileStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Civil Status</label>
+                            <select id="pi_civileStatus" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setCivilStatus(e.target.value)}}
+                                value={
+                                        civilStatus !== null ?
+                                            civilStatus
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Civil Status</option>
+                                <option value={"Single"}>Single</option>
+                                <option value={"Married"}>Married</option>
+                                <option value={"Widow/Widower"}>Widow/Widower</option>
+                                <option value={"Separated"}>Separated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_religion" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setReligion(e.target.value)}}
+                                    value={
+                                        religion !== null ?
+                                            religion
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_religion" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Religion</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
+                            <div className="flex">
+                                <div className="flex items-center mr-4">
+                                <input id="pi_baptism-yes" type="radio" value="Yes" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setBaptized(e.target.value)}}
+                                        checked={
+                                            baptized !== null & baptized === 'Yes' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                <input id="pi_baptism-no" type="radio" value="No" name="baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setBaptized(e.target.value)}}
+                                        checked={
+                                            baptized !== null & baptized === 'No' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_baptism-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
+                            <div className="flex">
+                                <div className="flex items-center mr-4">
+                                    <input id="pi_confirmation" type="radio" value="Yes" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setConfirmed(e.target.value)}}
+                                        checked={
+                                            confirmed !== null & confirmed === 'Yes' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                    <input id="pi_confirmation" type="radio" value="No" name="confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        // onChange={e => {setconfirmed(e.target.value)}}
+                                        // checked={
+                                        //     confirmed !== null & confirmed === 'No' ?
+                                        //         true
+                                        //     : null
+                                        // }
+                                    />
+                                    <label htmlFor="pi_confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Home Address</label>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_addressLine1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setMemberAddressLine1(e.target.value)}}
+                                        value={
+                                            memberAddressLine1 !== null ?
+                                                memberAddressLine1
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_addressLine2" className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setMemberAddressLine2(e.target.value)}}
+                                        value={
+                                            memberAddressLine2 !== null ?
+                                                memberAddressLine2
+                                            :""
+                                        }    
+                                    />
+                                    <label htmlFor="fo_addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_city" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setMemberCity(e.target.value)}}
+                                        value={
+                                            memberCity !== null ?
+                                                memberCity
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className='mb-4'>
+                        <label className="mb-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Work</label>
+                        <div className='grid sm:grid-cols-2 mb-4'>
+                            <div className="relative">
+                                <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setCompany(e.target.value)}}
+                                    value={
+                                        company !== null ?
+                                            company
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_company" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                            </div>
+                        </div>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_WorkaddressLine1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setCompanyAddressLine1(e.target.value)}}
+                                        value={
+                                            companyAddressLine1 !== null ?
+                                                companyAddressLine1
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_WorkaddressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_WorkaddressLine2" className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setCompanyAddressLine2(e.target.value)}}
+                                        value={
+                                            companyAddressLine2 !== null ?
+                                                companyAddressLine2
+                                            :""
+                                        }    
+                                    />
+                                    <label htmlFor="fo_WorkaddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_Workcity" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setCompanyCity(e.target.value)}}
+                                        value={
+                                            companyCity !== null ?
+                                                companyCity
+                                            :""
+                                        }
+                                    />
+                                    <label htmlFor="fo_Workcity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <button onClick={() => Stepper('personal')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Personal Info
+                        Go Back to: Husband Info
                     </button>
-                    <button onClick={() => Stepper('work')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Next Step: Work Info
+                    <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Next Step: Children
                     </button>
                 </AddressInfo>
 
-                <WorkInfo show={showWorkInfo}>
+                {/* <WorkInfo show={showWorkInfo}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
                     <div className="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
@@ -1134,47 +1476,47 @@ function DTRegistration() {
                     <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Next Step: Emergency Contacts
                     </button>
-                </WorkInfo>
+                </WorkInfo> */}
 
                 <EmergencyContacts show={showEmergencyContact}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Children Info</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
-                            contactList.length > 0 ?
-                                contactList.map((x, i) => (
+                            childrenList.length > 0 ?
+                                childrenList.map((x, i) => (
                                     <>
                                         <div className="relative">
                                             <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i)}
-                                                value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
+                                                value={ childrenList[i].firstName !== "" & childrenList[i].firstName !== null & childrenList[i].firstName !== undefined ? childrenList[i].firstName : ""}
                                             />
-                                            <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                            <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
                                         </div>
                                         <div className="relative">
                                             <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i) }
 
-                                                value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
+                                                value={ childrenList[i].middleName !== "" & childrenList[i].middleName !== null & childrenList[i].middleName !== undefined ? childrenList[i].middleName : ""}
                                             />
-                                            <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                            <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
                                         </div>
                                         <div className="relative">
                                             <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i) }
-                                                value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
+                                                value={ childrenList[i].lastName !== "" & childrenList[i].lastName !== null & childrenList[i].lastName !== undefined ? childrenList[i].lastName : ""}
                                             />
-                                            <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                            <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
                                         </div>
                                         <div className="relative">
                                             <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i) }
-                                                value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
+                                                value={ childrenList[i].age !== "" & childrenList[i].age !== null & childrenList[i].age !== undefined ? childrenList[i].age : ""}
                                             />
-                                            <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                            <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Age</label>
                                         </div>
                                         <div className="relative">
                                             {
-                                                contactList.length > 1 &&
+                                                childrenList.length > 1 &&
                                                     <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ () => handleremove(i) }
                                                     >
@@ -1185,7 +1527,7 @@ function DTRegistration() {
                                                     </button>
                                             }
                                             {
-                                                contactList.length-1 === i &&
+                                                childrenList.length-1 === i &&
                                                     <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ handleadd }
                                                     >
@@ -1201,8 +1543,8 @@ function DTRegistration() {
                             : null
                         }
                     </div>
-                    <button onClick={() => Stepper('work')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Work Info
+                    <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
+                        Go Back to: Wife Info
                     </button>
                     <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
                         onClick={() => Stepper('invite')}
@@ -1277,7 +1619,7 @@ function DTRegistration() {
                         }
                     </div>
                     <button onClick={() => Stepper('emergency')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Emergency Contacts
+                        Go Back to: Children
                     </button>
                     <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
                         onClick={addParticipant}
@@ -1819,13 +2161,13 @@ function DTRegistration() {
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
                     <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
                         {
-                            contactList.length > 0 ?
-                                contactList.map((x, i) => (
+                            childrenList.length > 0 ?
+                            childrenList.map((x, i) => (
                                     <>
                                         <div className="relative">
                                             <input type="text" id="fo_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i)}
-                                                value={ contactList[i].name !== "" & contactList[i].name !== null & contactList[i].name !== undefined ? contactList[i].name : ""}
+                                                value={ childrenList[i].firstName !== "" & childrenList[i].firstName !== null & childrenList[i].firstName !== undefined ? childrenList[i].firstName : ""}
                                             />
                                             <label htmlFor="fo_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
                                         </div>
@@ -1833,27 +2175,27 @@ function DTRegistration() {
                                             <input type="text" id="fo_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i) }
 
-                                                value={ contactList[i].mobile !== "" & contactList[i].mobile !== null & contactList[i].mobile !== undefined ? contactList[i].mobile : ""}
+                                                value={ childrenList[i].middleName !== "" & childrenList[i].middleName !== null & childrenList[i].middleName !== undefined ? childrenList[i].middleName : ""}
                                             />
                                             <label htmlFor="fo_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
                                         </div>
                                         <div className="relative">
                                             <input type="text" id="fo_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i) }
-                                                value={ contactList[i].email !== "" & contactList[i].email !== null & contactList[i].email !== undefined ? contactList[i].email : ""}
+                                                value={ childrenList[i].lastName !== "" & childrenList[i].lastName !== null & childrenList[i].lastName !== undefined ? childrenList[i].lastName : ""}
                                             />
                                             <label htmlFor="fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
                                         </div>
                                         <div className="relative">
                                             <input type="text" id="fo_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                 onChange={ e => handleContactChange(e,i) }
-                                                value={ contactList[i].relationship !== "" & contactList[i].relationship !== null & contactList[i].relationship !== undefined ? contactList[i].relationship : ""}
+                                                value={ childrenList[i].age !== "" & childrenList[i].age !== null & childrenList[i].age !== undefined ? childrenList[i].age : ""}
                                             />
                                             <label htmlFor="fo_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
                                         </div>
                                         <div className="relative">
                                             {
-                                                contactList.length > 1 &&
+                                                childrenList.length > 1 &&
                                                     <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ () => handleremove(i) }
                                                     >
@@ -1864,7 +2206,7 @@ function DTRegistration() {
                                                     </button>
                                             }
                                             {
-                                                contactList.length-1 === i &&
+                                                childrenList.length-1 === i &&
                                                     <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
                                                     onClick={ handleadd }
                                                     >
