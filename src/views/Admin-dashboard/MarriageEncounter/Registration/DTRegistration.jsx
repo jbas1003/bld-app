@@ -693,6 +693,10 @@ function DTRegistration() {
                             </th>
 
                             <th scope="col" className="px-6 py-3" align='center'>
+                                Age
+                            </th>
+
+                            <th scope="col" className="px-6 py-3" align='center'>
                                 Spouse
                             </th>
                             
@@ -726,8 +730,31 @@ function DTRegistration() {
                                         </td>
 
                                         <td className="px-6 py-4" align='center'>
-                                            {items.spouse}
+                                            { items.Age }
                                         </td>
+
+                                        {
+                                            items.relationships.length > 0 ?
+                                                <td className="px-6 py-4" align='center'>
+                                                    {
+                                                        items.relationships
+                                                        .filter(relative => {
+                                                            return (
+                                                                relative.relationship.toLowerCase() === "wife" || relative.relationship.toLowerCase() === "husband"
+                                                            );
+                                                        })
+                                                        .map(relative => {
+                                                            return (
+                                                                <p>{relative.first_name} {(relative.middle_name !== undefined | relative.middle_name !== null | relative.middle_name !== " " ? relative.middle_name.charAt(0) + ". " : null)} {relative.last_name}</p>
+                                                            )
+                                                        })
+                                                    }
+                                                </td>
+                                            :
+                                                <td className="px-6 py-4" align='center'>
+                                                    No Spouse
+                                                </td>
+                                        }
 
                                         <td className="flex justify-center px-6 py-4">
                                             {
