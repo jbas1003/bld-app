@@ -1,4 +1,4 @@
-export const myApiURL = 'https://pwnmykpl.com/bld-api/api';
+export const myApiURL = 'http://127.0.0.1:8000/api';
 
 export const serverRoutes = {
 
@@ -64,4 +64,13 @@ export const serverRoutes = {
         yeAttendance: myApiURL + '/yeAttendance',
 
     // END: YE Constants
+
+    // START: ME Constants
+
+        me: myApiURL + '/ME',
+        getME: myApiURL + '/show_ME',
+        updateME: myApiURL + '/update_ME',
+        meAttendance: myApiURL + '/meAttendance',
+
+    // END: ME Constants
 }

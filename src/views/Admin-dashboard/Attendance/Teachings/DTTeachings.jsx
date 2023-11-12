@@ -83,7 +83,7 @@ const DTWSC = () => {
     }, [eventDate, eventId])
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
+            <div className="flex items-center justify-between px-2 py-4 bg-white dark:bg-gray-900">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -121,8 +121,8 @@ const DTWSC = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="default" className="block -mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Select CPW Date</label>
-                    <input id='fo_eventDate' type="date" className="block w-60 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
+                    <label htmlFor="default" className="block mb-2 -mt-5 text-sm font-medium text-gray-900 dark:text-white">Select Teaching Date</label>
+                    <input id='fo_eventDate' type="date" className="block text-sm text-gray-900 bg-transparent border-gray-300 rounded-lg appearance-none w-60 border-1 dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
                         onChange={e => {handleDateEvent(e.target.value)}}
                         value={
                             eventDate !== null ?

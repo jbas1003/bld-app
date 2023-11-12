@@ -16,6 +16,7 @@ function DTEvents() {
     const [eventId, setEventId] = useState();
     const [eventTitle, setEventTitle] = useState();
     const [eventSubtitle, setEventSubtitle] = useState();
+    const [eventDetails, seteventDetails] = useState();
     const [eventLocation, setEventLocation] = useState();
     const [startDate, setStartDate] = useState();
     const [endDate, setEndDate] = useState();
@@ -74,26 +75,29 @@ function DTEvents() {
     }
 
     const addNewEvent = () => {
-        
-        AddEvents(eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, loginResult.__)
-            .then(async result => {return await result.json()})
-            .then(async result => {
-                // setIsLoading(true)
-                if (await result.status === 200) {
-                    alert(`${result.message}`);
-                } else if (await result.status === 422) {
-                    alert(`${result.message}`);
-                } else {
-                    alert(`${result.message}`);
-                }
-                // setIsLoading(false)
-            });
-        
-        closeAdd();
+        if ((eventTitle === "" | eventTitle === undefined | eventTitle === null) | (eventSubtitle === "" | eventSubtitle === undefined | eventSubtitle === null) | (eventTypeId === "" | eventTypeId === undefined | eventTypeId === null) | (eventStatus === "" | eventStatus === undefined | eventStatus === null)) {
+            alert("You are missing some inputs. Please check your inputs.")
+        } else {
+            AddEvents(eventTitle, eventSubtitle, eventDetails, eventLocation, startDate, endDate, eventTypeId, eventStatus, loginResult.__)
+                .then(async result => {return await result.json()})
+                .then(async result => {
+                    // setIsLoading(true)
+                    if (await result.status === 200) {
+                        alert(`${result.message}`);
+                    } else if (await result.status === 422) {
+                        alert(`${result.message}`);
+                    } else {
+                        alert(`${result.message}`);
+                    }
+                    // setIsLoading(false)
+                });
+            
+            closeAdd();
+        }
     }
 
     const updateEvent = () => {
-        UpdateEvents(eventId, eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus)
+        UpdateEvents(eventId, eventTitle, eventSubtitle, eventDetails, eventLocation, startDate, endDate, eventTypeId, eventStatus)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -124,10 +128,11 @@ function DTEvents() {
         getEvents();
     }
 
-    const editEvent = (eventId, eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus) => {
+    const editEvent = (eventId, eventTitle, eventSubtitle, eventDetails, eventLocation, startDate, endDate, eventTypeId, eventStatus) => {
         setEventId(eventId);
         setEventTitle(eventTitle);
         setEventSubtitle(eventSubtitle);
+        seteventDetails(eventDetails);
         setEventLocation(eventLocation);
         setStartDate(startDate);
         setEndDate(endDate);
@@ -147,6 +152,7 @@ function DTEvents() {
     const closeAdd = () => {
         setEventTitle('');
         setEventSubtitle('');
+        seteventDetails('');
         setEventLocation('');
         setStartDate('');
         setEndDate('');
@@ -160,6 +166,7 @@ function DTEvents() {
         setEventId('')
         setEventTitle('');
         setEventSubtitle('');
+        seteventDetails('');
         setEventLocation('');
         setStartDate('');
         setEndDate('');
@@ -204,7 +211,7 @@ function DTEvents() {
 
     return (
         <div className="relative shadow-md sm:rounded-lg h-">
-            <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
+            <div className="flex items-center justify-between px-2 py-4 bg-white dark:bg-gray-900">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -234,6 +241,10 @@ function DTEvents() {
                             </th>
                             <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event Subtitle
+                            </th>
+                            
+                            <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
+                                Event Details
                             </th>
                             <th scope="col" className="px-8 py-3 whitespace-nowrap w-[10%]">
                                 Event Location
@@ -267,6 +278,9 @@ function DTEvents() {
                                                 <p className='hover:cursor-pointer'>{items.event_subtitle}</p>
                                             </th>
                                             <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <p className='hover:cursor-pointer'>{items.event_details}</p>
+                                            </th>
+                                            <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <p className='hover:cursor-pointer'>{items.location}</p>
                                             </th>
                                             <th scope="row" className="px-8 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -293,7 +307,7 @@ function DTEvents() {
 
                                                 <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
-                                                    onClick={() => editEvent(items.event_id, items.event_name, items.event_subtitle, items.location, items.start_date, items.end_date, items.event_type_id, items.status)}
+                                                    onClick={() => editEvent(items.event_id, items.event_name, items.event_subtitle, items.event_details, items.location, items.start_date, items.end_date, items.event_type_id, items.status)}
                                                 >
                                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
@@ -319,7 +333,7 @@ function DTEvents() {
                 <div className="grid gap-4 mb-4 sm:grid-cols-2">
                     <div>
                         <div className="relative">
-                            <input type="text" id="fo_eventTitle" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                            <input type="text" id="fo_eventTitle" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                 onChange={e => {setEventTitle(e.target.value)}}
                                 value={
                                     eventTitle !== null ?
@@ -384,7 +398,7 @@ function DTEvents() {
                     </div>
                     <div>
                         <div className="relative">
-                            <select id="fo_eventType" className=" md bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            <select id="fo_eventType" className="md bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 onChange={(e) => {setEventTypeId(e.target.value)}}
                                 value={
                                         eventTypeId !== null ?
@@ -409,19 +423,32 @@ function DTEvents() {
                     </div>
                     <div>
                         <div className="relative">
-                        <select id="fo_eventStatus" className=" md bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        <select id="fo_eventStatus" className="md bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 onChange={(e) => {setEventStatus(e.target.value)}}
                                 value={
                                         eventStatus !== null ?
                                             eventStatus
                                         :""
                                     }
-                            >
+                        >
                                 <option defaultValue={" "}>Choose Event Status</option>
                                 <option value={"Active"}>Active</option>
                                 <option value={"Inactive"}>Inactive</option>
                             </select>
                             <label htmlFor="fo_status" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Status</label>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="relative">
+                            <label for="message" class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Details</label>
+                            <textarea id="message" rows="4" class="md bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write event details here..."
+                                onChange={e => {seteventDetails(e.target.value)}}
+                                value={
+                                    eventDetails !== null ?
+                                        eventDetails
+                                    :""
+                                }
+                            ></textarea>
                         </div>
                     </div>
                 </div>
@@ -541,6 +568,19 @@ function DTEvents() {
                             <label htmlFor="fo_status" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Status</label>
                         </div>
                     </div>
+                    <div>
+                        <div className="relative">
+                            <label for="message" class="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Event Details</label>
+                            <textarea id="message" rows="4" class="md bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write event details here..."
+                                onChange={e => {seteventDetails(e.target.value)}}
+                                value={
+                                    eventDetails !== null ?
+                                        eventDetails
+                                    :""
+                                }
+                            ></textarea>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     onClick={updateEvent}
@@ -550,15 +590,15 @@ function DTEvents() {
             </EditEvent>
 
             <DeleteEventWarning show={showDeleteWarning} setShow={closeDeleteWarning}>
-                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2">
                     <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                         </svg>
-                        <label className='font-semibold text-xl'>Are you sure you want to delete <strong><em>{eventTitle}</em></strong>?</label>
+                        <label className='text-xl font-semibold'>Are you sure you want to delete <strong><em>{eventTitle}</em></strong>?</label>
                     </div>
                 </div>
-                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2">
                     <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                         <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             onClick={deleteEvent}
