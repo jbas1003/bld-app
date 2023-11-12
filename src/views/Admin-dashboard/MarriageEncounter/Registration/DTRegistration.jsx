@@ -253,7 +253,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setHusbandId('');
-        setHusbandMEId('');
+        // setHusbandMEId('');
         setHusbandFirstName('');
         setHusbandMiddleName('');
         setHusbandLastName('');
@@ -276,7 +276,7 @@ function DTRegistration() {
         setHusbandCompanyCity('');
 
         setWifeId('');
-        setWifeMEId('');
+        // setWifeMEId('');
         setWifeFirstName('');
         setWifeMiddleName('');
         setWifeLastName('');
@@ -347,7 +347,7 @@ function DTRegistration() {
                                 wifeCompanyAddressLine2, wifeCompanyCity, children, inviters) => {
         
         setHusbandId(husbandId);
-        setHusbandMEId(husbandMeId);
+        // setHusbandMEId(husbandMeId);
         setHusbandFirstName(husbandFirstName);
         setHusbandMiddleName(husbandMiddleName);
         setHusbandLastName(husbandLastName);
@@ -370,7 +370,7 @@ function DTRegistration() {
         setHusbandCompanyCity(husbandCompanyCity);
 
         setWifeId(wifeId);
-        setWifeMEId(wifeMeId);
+        // setWifeMEId(wifeMeId);
         setWifeFirstName(wifeFirstName);
         setWifeMiddleName(wifeMiddleName);
         setWifeLastName(wifeLastName);
@@ -408,7 +408,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setHusbandId('');
-        setHusbandMEId('');
+        // setHusbandMEId('');
         setHusbandFirstName('');
         setHusbandMiddleName('');
         setHusbandLastName('');
@@ -431,7 +431,7 @@ function DTRegistration() {
         setHusbandCompanyCity('');
 
         setWifeId('');
-        setWifeMEId('');
+        // setWifeMEId('');
         setWifeFirstName('');
         setWifeMiddleName('');
         setWifeLastName('');
