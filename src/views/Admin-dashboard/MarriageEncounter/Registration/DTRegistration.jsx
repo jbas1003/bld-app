@@ -17,9 +17,6 @@ function DTRegistration() {
     // START: Utils Constants
 
         const { loginResult } = useAuthContext();
-        const [addStatus, setAddStatus] = useState();
-        const [updateStatus, setUpdateStatus] = useState();
-        const [participants, setParticipants] = useState();
 
         const event_type = 'Marriage Encounter';
 
@@ -48,7 +45,6 @@ function DTRegistration() {
         const [showWorkInfo, setShowWorkinfo] = useState();
         const [showEmergencyContact, setShowEmergencyContact] = useState();
         const [showInvite, setShowInvite] = useState();
-        const [showResult, setShowResult] = useState();
 
     // END: Stepper Constants
 
@@ -57,7 +53,7 @@ function DTRegistration() {
         const [showAdd, setShowAdd] = useState();
         const [showEdit, setShowEdit] = useState();
         const [showAttendanceWarning, setShowAttendanceWarning] = useState();
-        const [showDeleteWarning, setShowDeleteWarning] = useState();
+        // const [showDeleteWarning, setShowDeleteWarning] = useState();
 
     // END: Modal Constants
 
@@ -74,7 +70,6 @@ function DTRegistration() {
         const [birthday, setBirthday] = useState();
         const [gender, setGender] = useState();
         const [civilStatus, setCivilStatus] = useState();
-        const [participantSpouse, setParticipantSpouse] = useState();
         const [religion, setReligion] = useState();
         const [baptized, setBaptized] = useState();
         const [confirmed, setConfirmed] = useState();
@@ -106,7 +101,7 @@ function DTRegistration() {
     // START: Husband Info Constants
 
     const [husbandId, setHusbandId] = useState();
-    const [husbandMeId, setHusbandMEId] = useState();
+    // const [husbandMeId, setHusbandMEId] = useState();
     const [husbandFirstName, setHusbandFirstName] = useState();
     const [husbandMiddleName, setHusbandMiddleName] = useState();
     const [husbandLastName, setHusbandLastName] = useState();
@@ -145,7 +140,7 @@ function DTRegistration() {
     // START: Wife Info Constants
 
         const [wifeId, setWifeId] = useState();
-        const [wifeMeId, setWifeMEId] = useState();
+        // const [wifeMeId, setWifeMEId] = useState();
         const [wifeFirstName, setWifeFirstName] = useState();
         const [wifeMiddleName, setWifeMiddleName] = useState();
         const [wifeLastName, setWifeLastName] = useState();
@@ -192,7 +187,6 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
                     break;
                 
                 case "address":
@@ -203,7 +197,6 @@ function DTRegistration() {
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
                     setShowInvite(false)
-                    setShowResult(false);
                     break;
                 
                 case "work":
@@ -213,8 +206,7 @@ function DTRegistration() {
                     setShowAddressinfo(false);
                     setShowWorkinfo(true);
                     setShowEmergencyContact(false);
-                    setShowInvite(false)
-                    setShowResult(false);
+                    setShowInvite(false);
                     break;
                 
                 case "emergency":
@@ -224,8 +216,7 @@ function DTRegistration() {
                     setShowAddressinfo(false);
                     setShowWorkinfo(false);
                     setShowEmergencyContact(true);
-                    setShowInvite(false)
-                    setShowResult(false);
+                    setShowInvite(false);
                     break;
             
                 case "invite":
@@ -235,8 +226,7 @@ function DTRegistration() {
                     setShowAddressinfo(false);
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
-                    setShowInvite(true)
-                    setShowResult(false);
+                    setShowInvite(true);
                     break;
                 
                 case "result":
@@ -246,8 +236,7 @@ function DTRegistration() {
                     setShowAddressinfo(false);
                     setShowWorkinfo(false);
                     setShowEmergencyContact(false);
-                    setShowInvite(false)
-                    setShowResult(true);
+                    setShowInvite(false);
                     break;
             
                 default:
@@ -264,7 +253,7 @@ function DTRegistration() {
 
     const closeAddParticipant = () => {
         setHusbandId('');
-        setHusbandMEId('');
+        // setHusbandMEId('');
         setHusbandFirstName('');
         setHusbandMiddleName('');
         setHusbandLastName('');
@@ -287,7 +276,7 @@ function DTRegistration() {
         setHusbandCompanyCity('');
 
         setWifeId('');
-        setWifeMEId('');
+        // setWifeMEId('');
         setWifeFirstName('');
         setWifeMiddleName('');
         setWifeLastName('');
@@ -358,7 +347,7 @@ function DTRegistration() {
                                 wifeCompanyAddressLine2, wifeCompanyCity, children, inviters) => {
         
         setHusbandId(husbandId);
-        setHusbandMEId(husbandMeId);
+        // setHusbandMEId(husbandMeId);
         setHusbandFirstName(husbandFirstName);
         setHusbandMiddleName(husbandMiddleName);
         setHusbandLastName(husbandLastName);
@@ -381,7 +370,7 @@ function DTRegistration() {
         setHusbandCompanyCity(husbandCompanyCity);
 
         setWifeId(wifeId);
-        setWifeMEId(wifeMeId);
+        // setWifeMEId(wifeMeId);
         setWifeFirstName(wifeFirstName);
         setWifeMiddleName(wifeMiddleName);
         setWifeLastName(wifeLastName);
@@ -419,7 +408,7 @@ function DTRegistration() {
 
     const closeEdit = () => {
         setHusbandId('');
-        setHusbandMEId('');
+        // setHusbandMEId('');
         setHusbandFirstName('');
         setHusbandMiddleName('');
         setHusbandLastName('');
@@ -442,7 +431,7 @@ function DTRegistration() {
         setHusbandCompanyCity('');
 
         setWifeId('');
-        setWifeMEId('');
+        // setWifeMEId('');
         setWifeFirstName('');
         setWifeMiddleName('');
         setWifeLastName('');
@@ -546,11 +535,8 @@ function DTRegistration() {
             .then(async result => { return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setAddStatus(true);
-                    setParticipants(result.message);
                     alert(result.message);
                 } else {
-                    setAddStatus(false);
                     alert(result.message);
                 }
 
@@ -573,10 +559,8 @@ function DTRegistration() {
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
-                    setUpdateStatus(true);
                     alert(`${firstName} ${middleName !== null & middleName !== undefined & middleName !== "" ? middleName.charAt(0) + "." : ""} ${lastName}'s record has been successfully updated!`);
                 } else {
-                    setUpdateStatus(false);
                     alert(result.message);
                 }
 
