@@ -18,13 +18,14 @@ export function GetAllEvents (event) {
     return fetch(serverRoutes.getEvents, requestOptions);
 }
 
-export function AddEvents (eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus, userId) {
+export function AddEvents (eventTitle, eventSubtitle, eventDetails, eventLocation, startDate, endDate, eventTypeId, eventStatus, userId) {
     var myHeader = new Headers();
     myHeader.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
         "event_name": eventTitle,
         "event_subtitle": eventSubtitle,
+        "event_details": eventDetails,
         "location": eventLocation,
         "start_date": startDate,
         "end_date": endDate,
@@ -39,11 +40,12 @@ export function AddEvents (eventTitle, eventSubtitle, eventLocation, startDate, 
         body: raw,
         redirect: 'follow'
     };
-    
+
+    // console.log(`${eventTitle}, ${eventSubtitle}, ${eventDetails}, ${eventLocation}, ${startDate}, ${endDate}, ${eventTypeId}, ${eventStatus}`)
     return fetch(serverRoutes.events, requestOptions);
 }
 
-export function UpdateEvents (eventId, eventTitle, eventSubtitle, eventLocation, startDate, endDate, eventTypeId, eventStatus) {
+export function UpdateEvents (eventId, eventTitle, eventSubtitle, eventDetails, eventLocation, startDate, endDate, eventTypeId, eventStatus) {
     var myHeader = new Headers();
     myHeader.append('Content-type', 'application/json');
 
@@ -51,6 +53,7 @@ export function UpdateEvents (eventId, eventTitle, eventSubtitle, eventLocation,
         "event_id": eventId,
         "event_name": eventTitle,
         "event_subtitle": eventSubtitle,
+        "event_details": eventDetails,
         "location": eventLocation,
         "start_date": startDate,
         "end_date": endDate,
@@ -64,7 +67,7 @@ export function UpdateEvents (eventId, eventTitle, eventSubtitle, eventLocation,
         body: raw,
         redirect: 'follow'
     };
-    // console.log(`${eventId}, ${eventTitle}, ${eventSubtitle}, ${eventLocation}, ${startDate}, ${endDate}, ${eventTypeId}, ${eventStatus}`)
+    // console.log(`${eventId}, ${eventTitle}, ${eventSubtitle}, ${eventDetails}, ${eventLocation}, ${startDate}, ${endDate}, ${eventTypeId}, ${eventStatus}`)
     return fetch(serverRoutes.events, requestOptions);
 }
 
