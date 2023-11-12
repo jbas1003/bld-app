@@ -396,10 +396,10 @@ const DTRegistration = () => {
                         value={
                         event !== null ?
                             event
-                        : alert('No Event was selected. Please select an event.')
+                        : null
                         }
                     >
-                        <option value={null}>Choose an event</option>
+                        <option value="">Choose an event</option>
                         {
                             status ?
                                 eventData !== null & eventData !== undefined ?
@@ -515,7 +515,7 @@ const DTRegistration = () => {
                                                     : null
                                             } */}
 
-{
+                                            {
                                                 event !== "" & event !== null & event !== undefined ?
                                                     <div className="flex items-center">
                                                         <input id="link-checkbox" type="checkbox" value={`${items.status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
