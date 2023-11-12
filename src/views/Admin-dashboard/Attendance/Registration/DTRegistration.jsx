@@ -380,7 +380,7 @@ const DTRegistration = () => {
 
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
+            <div className="flex items-center justify-between px-2 py-4 bg-white dark:bg-gray-900">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -430,25 +430,25 @@ const DTRegistration = () => {
                 <table id='participantDTbl' className="w-full text-base text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th className="px-6 py-3 whitespace-nowrap w-[20%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Participant
                             </th>
-                            <th className="px-6 py-3 whitespace-nowrap w-[15%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Birthday (YYYY-MM-DD)
                             </th>
-                            <th className="px-6 py-3 whitespace-nowrap w-[10%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Gender
                             </th>
-                            <th className="px-6 py-3 whitespace-nowrap w-[10%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Civil Status
                             </th>
-                            <th className="px-6 py-3 whitespace-nowrap w-[20%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Spouse
                             </th>
-                            <th className="px-6 py-3 whitespace-nowrap w-[15%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Attendance
                             </th>
-                            <th className="px-6 py-3 whitespace-nowrap w-[10%]">
+                            <th scope='col' className="py-4 px-7 whitespace-nowrap" align='center'>
                                 Action
                             </th>
                         </tr>
@@ -458,36 +458,44 @@ const DTRegistration = () => {
                             attendanceStatus === true ?
                                 attendanceRecord.map(items => (
                                     <tr>
-                                        <td className="px-7 py-3px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
+                                        <td className="py-4 px-7 whitespace-nowrap">
                                             {items.first_name} {items.middle_name !== null & items.middle_name !== undefined & items.middle_name !== "" ? items.middle_name.charAt(0) + "." : ""} {items.last_name}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="py-4 px-7 whitespace-nowrap" align='center'>
                                             {items.birthday}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="py-4 px-7 whitespace-nowrap" align='center'>
                                             {items.gender}
                                         </td>
-                                        <td className="px-7 py-3">
+                                        <td className="py-4 px-7 whitespace-nowrap" align='center'>
                                             {items.civil_status}
                                         </td>
-                                        <td className="px-7 py-3">
-                                            {
-                                                items.spouse_member_id === null ?
-                                                    items.civil_status === 'Married' | items.civil_status === 'Single Parent' ?
-                                                        'Spouse not found'
-                                                    : null
-                                                    
-                                                :
-                                                    attendanceRecord.map(getSpouse => (
-                                                        getSpouse.member_id === items.spouse_member_id ?
-                                                            getSpouse.first_name + ' ' + (getSpouse.middle_name !== null & getSpouse.middle_name !== undefined & getSpouse.middle_name !== "" ? getSpouse.middle_name.charAt(0) : "") + ' ' + getSpouse.last_name
-                                                        : null
-                                                    ))
-                                                    
-                                            }
-                                        </td>
-                                        <td className="px-7 py-4 whitespace-nowrap">
+                                        
                                         {
+                                            items.relationships.length > 0 ?
+                                                <td className="py-4 px-7 whitespace-nowrap" align='center'>
+                                                    {
+                                                        items.relationships
+                                                        .filter(relative => {
+                                                            return (
+                                                                relative.relationship.toLowerCase() === "wife" || relative.relationship.toLowerCase() === "husband"
+                                                            );
+                                                        })
+                                                        .map(relative => {
+                                                            return (
+                                                                <p>{relative.first_name} {(relative.middle_name !== undefined | relative.middle_name !== null | relative.middle_name !== " " ? relative.middle_name.charAt(0) + ". " : null)} {relative.last_name}</p>
+                                                            )
+                                                        })
+                                                    }
+                                                </td>
+                                            :
+                                                <td className="py-4 px-7 whitespace-nowrap" align='center'>
+                                                    No Spouse
+                                                </td>
+                                        }
+
+                                        <td className="flex justify-center py-4 px-7">
+                                        {/* {
                                                 items.status !== '' ?
                                                     items.status
                                                 :
@@ -505,9 +513,24 @@ const DTRegistration = () => {
                                                             <option value="Late">Late</option>
                                                         </select>
                                                     : null
+                                            } */}
+
+{
+                                                event !== "" & event !== null & event !== undefined ?
+                                                    <div className="flex items-center">
+                                                        <input id="link-checkbox" type="checkbox" value={`${items.status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                                                            onChange={e => {attendanceWarning(items.member_id, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                            checked={
+                                                                items.status === "Yes" & items.status !== "" & items.status !== null & items.status !== undefined ?
+                                                                    true
+                                                                : false
+                                                            }
+                                                        />
+                                                    </div>
+                                                : 'Please select an event first.'
                                             }
                                         </td>
-                                        <td className="px-7 py-4 whitespace-nowrap" style={{ cursor: "pointer", width: "20%" }}>
+                                        <td className="py-4 px-7 whitespace-nowrap" align='center'>
                                             <button type="button"
                                                     className="text-green-800 border border-green-800 hover:bg-green-800 hover:text-white focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
                                                     onClick={() => editParticipant('personal', items.member_id, items.first_name, items.middle_name, items.last_name, items.nickname, items.mobile, items.email, items.birthday, items.gender, items.civil_status, items.spouse_member_id, items.religion, items.baptism, items.confirmation, items.address_line1, items.address_line2, items.city, items.occupation_name, items.specialty, items.company, items.work_address_line1, items.work_address_line2, items.work_city)}
@@ -533,7 +556,7 @@ const DTRegistration = () => {
                                 ))
                             :
                             <tr>
-                                <th colSpan={7} className="px-7 py-3 text-center">
+                                <th className="py-4 px-7 whitespace-nowrap" align='center'>
                                     {attendanceMessage}
                                 </th>
                             </tr>
@@ -998,21 +1021,21 @@ const DTRegistration = () => {
                         </div>
                         :
                             !errors ?
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-green-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-green-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='text-3xl font-semibold'>{message}</label>
                                     </div>
                                 </div>
                             :
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-red-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-red-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='text-3xl font-semibold'>{message}</label>
                                     </div>
                                 </div>
                     }
@@ -1482,21 +1505,21 @@ const DTRegistration = () => {
                         </div>
                         :
                             !errors ?
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-green-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-green-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='text-3xl font-semibold'>{message}</label>
                                     </div>
                                 </div>
                             :
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-red-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-red-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{message}</label>
+                                        <label className='text-3xl font-semibold'>{message}</label>
                                     </div>
                                 </div>
                     }
@@ -1510,15 +1533,15 @@ const DTRegistration = () => {
             </EditParticipant>
 
             <AttendanceWarning show={showAttendanceWarning} setShow={closeAttendanceWarning}>
-                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                            <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                             </svg>
-                            <label className='font-semibold text-lg'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? "" : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
+                            <label className='text-lg font-semibold'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? "" : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
                         </div>
                     </div>
-                    <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                    <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 onClick={createAttendance}
