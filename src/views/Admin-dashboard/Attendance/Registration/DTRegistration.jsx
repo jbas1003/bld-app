@@ -46,7 +46,6 @@ const DTRegistration = () => {
     const [birthday, setBirthday] = useState();
     const [gender, setGender] = useState();
     const [civilStatus, setCivilStatus] = useState();
-    const [spouse, setSpouse] = useState();
     const [religion, setReligion] = useState();
     const [baptized, setBaptized] = useState();
     const [confirmed, setconfirmed] = useState();
@@ -144,7 +143,6 @@ const DTRegistration = () => {
         setBirthday(null);
         setGender(null);
         setCivilStatus(null);
-        setSpouse(null);
         setReligion(null);
         setBaptized(null);
         setconfirmed(null);
@@ -171,7 +169,6 @@ const DTRegistration = () => {
         setBirthday(null);
         setGender(null);
         setCivilStatus(null);
-        setSpouse(null);
         setReligion(null);
         setBaptized(null);
         setconfirmed(null);
@@ -188,7 +185,7 @@ const DTRegistration = () => {
         setShowEdit(false);
     }
 
-    const editParticipant = (step, participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) => {
+    const editParticipant = (step, participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) => {
         setParticipant(participant);
         setFirstName(firstName);
         setMiddleName(middleName);
@@ -199,7 +196,6 @@ const DTRegistration = () => {
         setBirthday(birthday);
         setGender(gender);
         setCivilStatus(civilStatus);
-        setSpouse(spouse);
         setReligion(religion);
         setBaptized(baptized);
         setconfirmed(confirmed);
@@ -260,7 +256,7 @@ const DTRegistration = () => {
 
     const addParticipants = () => {
         setIsLoading(true);
-        AddParticipant(loginResult.__, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
+        AddParticipant(loginResult.__, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -277,13 +273,13 @@ const DTRegistration = () => {
 
         // console.log(`${loginResult.__}, ${firstName}, ${middleName}, ${lastName}, ${nickname}, ${mobile}, ${email}, ${birthday}, ${gender}, ${civilStatus}, ${spouse}, ${religion}, ${baptized}, ${confirmed}, ${memberAddressLine1}, ${memberAddressLine2}, ${memberCity}, ${occupation}, ${specialty}, ${company}, ${companyAddressLine1}, ${companyAddressLine2}, ${companyCity}`)
         
-        getAttendanceRecords();
         Stepper('result');
         closeAdd();
+        getAttendanceRecords(event);
     }
 
     const updateParticipant = () => {
-        UpdateParticipant(participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
+        UpdateParticipant(participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity)
             .then(async result => {return await result.json()})
             .then(async result => {
                 if (await result.status === 200) {
@@ -770,29 +766,6 @@ const DTRegistration = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="pi_spouse" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Spouse</label>
-                            <select id="pi_spouse" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={(e) => {setSpouse(e.target.value)}}
-                                value={
-                                        spouse !== null ?
-                                            spouse
-                                        :""
-                                    }
-                            >
-                                <option defaultValue={null}>Choose Spouse</option>
-                                <option value={null}>No Spouse</option>
-                                {
-                                    attendanceStatus === true ?
-                                        attendanceRecord.map(items => (
-                                                items.civil_status !== 'Single' ?
-                                                    <option value={items.member_id}>{items.first_name} {items.last_name}</option>
-                                                :null
-                                        ))
-                                    : <option>No Records Found...</option>
-                                }
-                            </select>
-                        </div>
-                        <div>
                             <div className="relative mt-6">
                                 <input type="text" id="fo_religion" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                     onChange={e => {setReligion(e.target.value)}}
@@ -1251,29 +1224,6 @@ const DTRegistration = () => {
                                 <option value={"Married"}>Married</option>
                                 <option value={"Widow/Widower"}>Widow/Widower</option>
                                 <option value={"Separated"}>Separated</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label htmlFor="pi_spouse" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Spouse</label>
-                            <select id="pi_spouse" className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={(e) => {setSpouse(e.target.value)}}
-                                value={
-                                        spouse !== null ?
-                                            spouse
-                                        :""
-                                    }
-                            >
-                                <option defaultValue={" "}>Choose Spouse</option>
-                                <option value={" "}>No Spouse</option>
-                                {
-                                    attendanceStatus === true ?
-                                        attendanceRecord.map(items => (
-                                                items.civil_status !== 'Single' ?
-                                                    <option value={items.member_id}>{items.first_name} {items.last_name}</option>
-                                                :null
-                                        ))
-                                    : <option>No Records Found...</option>
-                                }
                             </select>
                         </div>
                         <div>
