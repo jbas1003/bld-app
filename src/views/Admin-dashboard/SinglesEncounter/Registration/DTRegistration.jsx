@@ -244,7 +244,7 @@ function DTRegistration() {
                     alert('An error occured while updating the attendance. Please contact system administrator.')
                 }
             });
-        getSE();
+        getSE(event);
         closeAttendanceWarning();
     }
 
