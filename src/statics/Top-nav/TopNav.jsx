@@ -1,3 +1,6 @@
+import { Fragment } from 'react';
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import useAuthContext from '../../utils/AuthContext';
 import { Link } from 'react-router-dom';
@@ -5,9 +8,22 @@ import { Link } from 'react-router-dom';
 
 const TopNav = () => {
     const { memberLogout, loginResult } = useAuthContext();
+
+    // const navigation = [
+    //     { name: 'Dashboard', href: '#', current: true },
+    //     { name: 'Team', href: '#', current: false },
+    //     { name: 'Projects', href: '#', current: false },
+    //     { name: 'Calendar', href: '#', current: false },
+    //   ]
+
+    function classNames(...classes) {
+        return classes.filter(Boolean).join(' ')
+      }
   return (
     <>
-        <nav className="fixed top-0 z-50 w-full p-3 border-b border-gray-200 font-alegreya bg-Red">
+        <Disclosure as="nav" className="fixed top-0 z-50 w-full p-3 border-b border-gray-200 font-alegreya bg-Red">
+      {({ open }) => (
+        <>
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start">
@@ -52,31 +68,71 @@ const TopNav = () => {
                             <span className="self-center text-xl font-semibold text-white sm:text-2xl whitespace-nowrap">BLD</span>
                         </Link>
                     </div>
-                    <div className="flex items-center md:order-2">
-                        <div className="flex items-center ml-3">
+                    
+                    <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                        {/* Mobile menu button*/}
+                        <Disclosure.Button className="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                            <span className="absolute -inset-0.5" />
+                            <span className="sr-only">Open main menu</span>
+                            {open ? (
+                            <XMarkIcon className="block w-6 h-6" aria-hidden="true" />
+                            ) : (
+                            <Bars3Icon className="block w-6 h-6" aria-hidden="true" />
+                            )}
+                        </Disclosure.Button>
+                    </div>
+                
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                        {/* Profile dropdown */}
+                        <Menu as="div" className="relative ml-3">
                             <div>
-                                <button type="button" className="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-red-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                                <Menu.Button className="relative flex text-sm bg-gray-800 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                    <span className="absolute -inset-1.5" />
                                     <span className="sr-only">Open user menu</span>
-                                    <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="userPhoto"/>
-                                </button>
+                                    <img
+                                    className="w-8 h-8 rounded-full"
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt=""
+                                    />
+                                </Menu.Button>
                             </div>
-                            <div className="z-50 hidden my-4 text-base list-none bg-white border border-gray-200 border-solid divide-y divide-gray-100 rounded shadow" id="user-dropdown">
-                                <div className="px-4 py-3 bg-Red">
-                                    <span className="block text-sm font-semibold text-WhiteSmoke" role="none">
-                                        {loginResult.first_name} {loginResult.middle_name !== null & loginResult.middle_name !== undefined & loginResult.middle_name !== "" ? loginResult.middle_name.charAt(0) + ". " : null} {loginResult.last_name}
-                                    </span>
-                                </div>
-                                <ul className="py-2" aria-labelledby="user-menu-button">
-                                    <li>
-                                        <Link to=".." onClick={memberLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-Red hover:text-WhiteSmoke" role="menuitem">Sign out</Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                            <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <Menu.Item>
+                                    {({ active }) => (
+                                        <span
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                        >
+                                            {loginResult.first_name} {loginResult.middle_name !== null & loginResult.middle_name !== undefined & loginResult.middle_name !== "" ? loginResult.middle_name.charAt(0) + ". " : null} {loginResult.last_name}
+                                        </span>
+                                    )}
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                    {({ active }) => (
+                                        <Link to=".." onClick={memberLogout}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                        >
+                                        Sign out
+                                        </Link>
+                                    )}
+                                    </Menu.Item>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
                     </div>
                 </div>
             </div>
-        </nav>
+        </>
+      )}
+    </Disclosure>
 
     </>
   )
