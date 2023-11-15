@@ -13,7 +13,7 @@ export function GetAllParticipants () {
     return fetch(serverRoutes.participants, requestOptions)
 }
 
-export function AddParticipant(id, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
+export function AddParticipant(id, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -25,7 +25,6 @@ export function AddParticipant(id, firstName, middleName, lastName, nickname, mo
         "birthday": birthday,
         "gender": gender,
         "civil_status": civilStatus,
-        "spouse_member_id": spouse,
         "religion": religion,
         "baptism": baptized,
         "confirmation": confirmed,
@@ -55,7 +54,7 @@ export function AddParticipant(id, firstName, middleName, lastName, nickname, mo
 }
 
 
-export function UpdateParticipant (participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, spouse, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
+export function UpdateParticipant (participant, firstName, middleName, lastName, nickname, mobile, email, birthday, gender, civilStatus, religion, baptized, confirmed, memberAddressLine1, memberAddressLine2, memberCity, occupation, specialty, company, companyAddressLine1, companyAddressLine2, companyCity) {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -68,7 +67,6 @@ export function UpdateParticipant (participant, firstName, middleName, lastName,
         "birthday": birthday,
         "gender": gender,
         "civil_status": civilStatus,
-        "spouse_member_id": spouse,
         "religion": religion,
         "baptism": baptized,
         "confirmation": confirmed,
