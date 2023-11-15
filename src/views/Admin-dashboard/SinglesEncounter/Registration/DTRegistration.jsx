@@ -583,7 +583,7 @@ function DTRegistration() {
                                         <td className="flex justify-center px-6 py-4">
                                             {
                                                 event !== "" & event !== null & event !== undefined ?
-                                                    event != items.event_id ?
+                                                    parseInt(event) !== items.event_id ?
                                                         items.event !== "" & items.event !== null & items.event !== undefined ?
                                                             <div className="flex items-center"> Attended ({items.event}) </div>
                                                         :
