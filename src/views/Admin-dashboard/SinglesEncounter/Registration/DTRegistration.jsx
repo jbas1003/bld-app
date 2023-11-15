@@ -490,7 +490,7 @@ function DTRegistration() {
     return (
         
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <div className="flex items-center justify-between py-4 px-2 bg-white dark:bg-gray-900">
+            <div className="flex items-center justify-between px-2 py-4 bg-white dark:bg-gray-900">
                 <label htmlFor="table-search" className="sr-only">Search</label>
                 <div className="relative mt-1">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -580,9 +580,24 @@ function DTRegistration() {
                                         <td className="px-6 py-4" align='center'>
                                             {items.birthday}
                                         </td>
-                                        <td className="px-6 py-4 flex justify-center">
+                                        <td className="flex justify-center px-6 py-4">
                                             {
                                                 event !== "" & event !== null & event !== undefined ?
+                                                    event != items.event_id ?
+                                                        items.event !== "" & items.event !== null & items.event !== undefined ?
+                                                            <div className="flex items-center"> Attended ({items.event}) </div>
+                                                        :
+                                                            <div className="flex items-center">
+                                                                <input id="link-checkbox" type="checkbox" value={`${items.attendance_status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
+                                                                    onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
+                                                                    checked={
+                                                                        items.attendance_status === "Yes" & items.attendace_status !== "" & items.attendance_status !== null & items.attendance_status !== undefined ?
+                                                                            true
+                                                                        : false
+                                                                    }
+                                                                />
+                                                            </div>
+                                                    :
                                                     <div className="flex items-center">
                                                         <input id="link-checkbox" type="checkbox" value={`${items.attendance_status === "Yes" ? "No" : "Yes"}`} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500"
                                                             onChange={e => {attendanceWarning(items.member_id, items.seId, e.target.value, items.first_name, items.middle_name, items.last_name)}}
@@ -762,7 +777,7 @@ function DTRegistration() {
                             </svg>
                         </div>
                     </li>
-                    {/* <li className='flex w-full items-center'>
+                    {/* <li className='flex items-center w-full'>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'result' && previousStep === 'emergency' ?
                                 'bg-green-100'
@@ -1127,7 +1142,7 @@ function DTRegistration() {
 
                 <EmergencyContacts show={showEmergencyContact}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
-                    <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
+                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
                         {
                             contactList.length > 0 ?
                                 contactList.map((x, i) => (
@@ -1202,7 +1217,7 @@ function DTRegistration() {
 
                 <Inviter show={showInvite}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
-                    <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
+                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
                         {
                             inviteList.length > 0 ?
                                 inviteList.map((x, i) => (
@@ -1289,21 +1304,21 @@ function DTRegistration() {
                         </div>
                         :
                             addStatus ?
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-green-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-green-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
+                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
                                     </div>
                                 </div>
                             :
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-red-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-red-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
+                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
                                     </div>
                                 </div>
                     }
@@ -1441,7 +1456,7 @@ function DTRegistration() {
                             </svg>
                         </div>
                     </li>
-                    {/* <li className='flex w-full items-center'>
+                    {/* <li className='flex items-center w-full'>
                         <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
                             ${ currentStep === 'result' && previousStep === 'emergency' ?
                                 'bg-green-100'
@@ -1806,7 +1821,7 @@ function DTRegistration() {
 
                 <EmergencyContacts show={showEmergencyContact}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Emergency Contact</h3>
-                    <div className="w-full grid gap-2 mb-4 sm:grid-cols-5">
+                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
                         {
                             contactList.length > 0 ?
                                 contactList.map((x, i) => (
@@ -1881,7 +1896,7 @@ function DTRegistration() {
 
                 <Inviter show={showInvite}>
                     <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
-                    <div className="w-full grid gap-2 mb-4 sm:grid-cols-3">
+                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-3">
                         {
                             inviteList.length > 0 ?
                                 inviteList.map((x, i) => (
@@ -1953,21 +1968,21 @@ function DTRegistration() {
                         </div>
                         :
                             updateStatus ?
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-green-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-green-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-green-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-green-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
+                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
                                     </div>
                                 </div>
                             :
-                                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg bg-red-50">
+                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-red-50">
                                     <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
                                         </svg>
-                                        <label className='font-semibold text-3xl'>{SEMessage}</label>
+                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
                                     </div>
                                 </div>
                     }
@@ -1982,15 +1997,15 @@ function DTRegistration() {
             </EditSEParticipant>
 
             <SEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
-                <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                            <svg fill="none" className='w-20 h-20 lg:w-24 lg:h-24 text-red-600' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                             </svg>
-                            <label className='font-semibold text-lg'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? "" : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
+                            <label className='text-lg font-semibold'>Are you sure you want to tag <strong><em>"{firstName} {middleName === "" | middleName === null | middleName === undefined ? "" : middleName.charAt(0) + "."} {lastName}"</em></strong> as <strong><em>"{attendance}"</em></strong>?</label>
                         </div>
                     </div>
-                    <div className="flex items-center justify-around gap-4 mb-4 sm:grid-cols-2 rounded-lg">
+                    <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2">
                         <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
                             <button type="submit" className="mx-3 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 onClick={createAttendance}
