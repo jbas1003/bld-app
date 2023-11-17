@@ -554,7 +554,9 @@ function DTRegistration() {
                             <th scope="col" className="px-6 py-3" align='center'>
                                 Birthday
                             </th>
-                            
+                            <th scope="col" className="px-6 py-3" align='center'>
+                                Age
+                            </th>
                             <th scope="col" className="px-6 py-3" align='center'>
                                 Attendance Status
                             </th>
@@ -579,6 +581,9 @@ function DTRegistration() {
                                         </td>
                                         <td className="px-6 py-4" align='center'>
                                             {items.birthday}
+                                        </td>
+                                        <td className="px-6 py-4" align='center'>
+                                            {items.age}
                                         </td>
                                         <td className="flex justify-center px-6 py-4">
                                             {
