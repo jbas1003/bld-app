@@ -421,7 +421,7 @@ function DTRegistration() {
 
                 // setIsLoading(false)
             });
-        getSE();
+        getSE(event);
         Stepper('result');
         closeAddParticipant();
     }
@@ -449,7 +449,7 @@ function DTRegistration() {
             });
         
         closeEdit();
-        getSE();
+        getSE(event);
     }
 
     const getEvents = () => {
