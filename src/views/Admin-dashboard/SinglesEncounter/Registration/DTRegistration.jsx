@@ -589,7 +589,7 @@ function DTRegistration() {
                                             {
                                                 event !== "" & event !== null & event !== undefined ?
                                                     event !== items.event_id ?
-                                                        items.event !== "" & items.event !== null & items.event !== undefined ?
+                                                        items.event !== "" & items.event !== null & items.event !== undefined & items.attendance_status !== "No" ?
                                                             <div className="flex items-center"> Attended ({items.event}) </div>
                                                         :
                                                             <div className="flex items-center">
