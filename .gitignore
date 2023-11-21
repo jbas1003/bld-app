@@ -25,6 +25,4 @@ yarn-error.log*
 *.zip
 
 # configuration
-/src/utils/constants.jsx
-
 src/utils/constants.jsx
