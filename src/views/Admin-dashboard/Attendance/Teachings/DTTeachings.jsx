@@ -13,7 +13,7 @@ const DTWSC = () => {
     // const [selInput, setSelInput] = useState();
     // const [searchEvent, setSearchEvent] = useState();
 
-    const event = 'Teaching';
+    const event = "Teaching";
     const [eventDate, setEventDate] = useState();
 
     function handleDateEvent (date) {
@@ -110,7 +110,7 @@ const DTWSC = () => {
                             eventStatus ?
                                 eventData !== null & eventData !== undefined ?
                                     eventData.map(event => (
-                                        event.event_type_category === 9 ?
+                                        event.event_type_name === 'Teaching' ?
                                             <option value={event.event_id}>{event.event_subtitle}</option>
                                         : null
                                     ))
