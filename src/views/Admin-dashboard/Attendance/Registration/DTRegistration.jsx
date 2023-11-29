@@ -370,8 +370,9 @@ const DTRegistration = () => {
     }
 
     useEffect(() => {
-        getAttendanceRecords(event);
-        getEvents();
+        getAttendanceRecords()
+        getAttendanceRecords(event)
+        getEvents()
     }, [event])
 
     return (
