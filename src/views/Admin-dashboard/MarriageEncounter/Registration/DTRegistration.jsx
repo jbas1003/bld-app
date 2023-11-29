@@ -15,75 +15,13 @@ import EditMEParticipant from './Modals/EditMEParticipant';
 import MEAttendanceWarning from './Modals/MEAttendanceWarning';
 import Inviter from './Modals/Inviter';
 
-// const people = [
-//     {
-//       id: 1,
-//       name: 'Wade Cooper',
-//       avatar:
-//         'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 2,
-//       name: 'Arlene Mccoy',
-//       avatar:
-//         'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 3,
-//       name: 'Devon Webb',
-//       avatar:
-//         'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 4,
-//       name: 'Tom Cook',
-//       avatar:
-//         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 5,
-//       name: 'Tanya Fox',
-//       avatar:
-//         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 6,
-//       name: 'Hellen Schmidt',
-//       avatar:
-//         'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 7,
-//       name: 'Caroline Schultz',
-//       avatar:
-//         'https://images.unsplash.com/photo-1568409938619-12e139227838?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 8,
-//       name: 'Mason Heaney',
-//       avatar:
-//         'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 9,
-//       name: 'Claudie Smitham',
-//       avatar:
-//         'https://images.unsplash.com/photo-1584486520270-19eca1efcce5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//     {
-//       id: 10,
-//       name: 'Emil Schaefer',
-//       avatar:
-//         'https://images.unsplash.com/photo-1561505457-3bcad021f8ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-//     },
-//   ]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 function DTRegistration() {
-    const [selected, setSelected] = useState();
+    const [selected, setSelected] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     // START: Utils Constants
 
@@ -984,966 +922,6 @@ function DTRegistration() {
                             </svg>
                         </div>
                     </li>
-                    {/* <li className='flex items-center w-full'>
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
-                            ${ currentStep === 'result' && previousStep === 'emergency' ?
-                                'bg-green-100'
-                            : currentStep === 'result' ?
-                                'bg-green-100'
-                                :'bg-gray-100'}
-                        `}>
-                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
-                                ${ currentStep === 'result' ?
-                                    'text-green-600'
-                                    : 'text-gray-500'}
-                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path clipRule="evenodd" fillRule="evenodd" d="M16.403 12.652a3 3 0 000-5.304 3 3 0 00-3.75-3.751 3 3 0 00-5.305 0 3 3 0 00-3.751 3.75 3 3 0 000 5.305 3 3 0 003.75 3.751 3 3 0 005.305 0 3 3 0 003.751-3.75zm-2.546-4.46a.75.75 0 00-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" />
-                            </svg>
-                        </div>
-                    </li> */}
-                </ol>
-                
-                <PersonalInfo show={showPersonalInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Husband Info</h3>
-                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_husband-first-name" name='husband_firstName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandFirstName(e.target.value)}}
-                                    value={ husbandFirstName !== "" & husbandFirstName !== null & husbandFirstName !== undefined ? husbandFirstName : "" }
-                                />
-                                <label htmlFor="fo_husband-first-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_husband-middle-name" name='husband_middleName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandMiddleName(e.target.value)}}
-                                    value={ husbandMiddleName !== "" & husbandMiddleName !== null & husbandMiddleName !== undefined ? husbandMiddleName : "" }
-                                />
-                                <label htmlFor="fo_husband-middle-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_husband-last-name" name='husband_lastName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandLastName(e.target.value)}}
-                                    value={ husbandLastName !== "" & husbandLastName !== null & husbandLastName !== undefined ? husbandLastName : "" }
-                                />
-                                <label htmlFor="fo_husband-last-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_husband-nickname" name='husband_nickname' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandNickname(e.target.value)}}
-                                    value={ husbandNickname !== "" & husbandNickname !== null & husbandNickname !== undefined ? husbandNickname : "" }
-                                />
-                                <label htmlFor="fo_husband-nickname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nickname</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_husband-mobile-number" name='husband_mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandMobile(e.target.value)}}
-                                    value={ husbandMobile !== "" & husbandMobile !== null & husbandMobile !== undefined ? husbandMobile : "" }
-                                />
-                                <label htmlFor="fo_husband-mobile-number" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile number</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative">
-                                <input type="email" id="husband-fo_email" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandEmail(e.target.value)}}
-                                    value={ husbandEmail !== "" & husbandEmail !== null & husbandEmail !== undefined ? husbandEmail : "" }
-                                />
-                                <label htmlFor="husband-fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative max-w-sm">
-                                <input id='fo_husband-birthday' type="date" name='husband_dob' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
-                                    onChange={e => {setHusbandBirthday(e.target.value)}}
-                                    value={ husbandBirthday !== "" & husbandBirthday !== null & husbandBirthday !== undefined ? husbandBirthday : "" }
-                                />
-                                <label htmlFor="fo_husband-birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_husband-spouse" name='husband_spouse' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setHusbandSpouse(e.target.value)}}
-                                        value={ husbandSpouse !== "" & husbandSpouse !== null & husbandSpouse !== undefined ? husbandSpouse : "" }
-                                    />
-                                <label htmlFor="fo_husband-spouse" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Spouse</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor="pi_husband-civilStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Civil Status</label>
-                            <select id="pi_husband-civilStatus" name='husband_civilStatus' className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={e => {setHusbandCivilStatus(e.target.value)}}
-                                value={ husbandCivilStatus !== "" & husbandCivilStatus !== null & husbandCivilStatus !== undefined ? husbandCivilStatus : "" }
-                            >
-                                <option value={null}>Choose Civil Status</option>
-                                <option value={"Single"}>Single</option>
-                                <option value={"Married"}>Married</option>
-                                <option value={"Widow/Widower"}>Widow/Widower</option>
-                                <option value={"Separated"}>Separated</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div className="relative mt-6">
-                                <input type="text" id="fo_husband-religion" name='husband_religion' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setHusbandReligion(e.target.value)}}
-                                    value={ husbandReligion !== "" & husbandReligion !== null & husbandReligion !== undefined ? husbandReligion : "" }
-                                />
-                                <label htmlFor="fo_husband-religion" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Religion</label>
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="pi_husband-baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
-                            <div className="flex">
-                                <div className="flex items-center mr-4">
-                                <input id="pi_husband-baptism-yes" type="radio" value="Yes" name="husband_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setHusbandBaptized(e.target.value)}}
-                                        checked={
-                                            husbandBaptized !== null & husbandBaptized === 'Yes' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_husband-baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                <input id="pi_husband-baptism-no" type="radio" value="No" name="husband_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setHusbandBaptized(e.target.value)}}
-                                        checked={
-                                            husbandBaptized !== null & husbandBaptized === 'No' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_husband-baptism-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="pi_husband-confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
-                            <div className="flex">
-                                <div className="flex items-center mr-4">
-                                    <input id="pi_husband-confirmation" type="radio" value="Yes" name="husband_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setHusbandConfirmed(e.target.value)}}
-                                        checked={
-                                            husbandConfirmed !== null & husbandConfirmed === 'Yes' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_husband-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                    <input id="pi_husband-confirmation" type="radio" value="No" name="husband_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        onChange={e => {setHusbandConfirmed(e.target.value)}}
-                                        checked={
-                                            husbandConfirmed !== null & husbandConfirmed === 'No' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_husband-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='mb-4'>
-                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Home Address</label>
-                        <div className='grid gap-1 sm:grid-cols-3'>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_husband-addressLine1" name='husband_memberAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                        onChange={e => {setHusbandAddressLine1(e.target.value)}}
-                                        value={ husbandAddressLine1 !== "" & husbandAddressLine1 !== null & husbandAddressLine1 !== undefined ? husbandAddressLine1 : "" }
-                                    />
-                                    <label htmlFor="fo_husband-addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_husband-addressLine2" name='husband_memberAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setHusbandAddressLine2(e.target.value)}}
-                                        value={ husbandAddressLine2 !== "" & husbandAddressLine2 !== null & husbandAddressLine2 !== undefined ? husbandAddressLine2 : "" }    
-                                    />
-                                    <label htmlFor="fo_husband-addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_husband-city" name='husband_memberCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setHusbandCity(e.target.value)}}
-                                        value={ husbandCity !== "" & husbandCity !== null & husbandCity !== undefined ? husbandCity : "" }
-                                    />
-                                    <label htmlFor="fo_husband-city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className='mb-4'>
-                        <label className="mb-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Work</label>
-                        <div className='grid mb-4 sm:grid-cols-2'>
-                            <div className="relative mr-2">
-                                <input type="text" id="fo_husband-occupation" name='husband_occupation' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                    onChange={e => {setHusbandOccupation(e.target.value)}}
-                                    value={ husbandOccupation !== "" & husbandOccupation !== null & husbandOccupation !== undefined ? husbandOccupation : "" }
-                                />
-                                <label htmlFor="fo_husband-occupation" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                            <div className="relative ml-2">
-                                <input type="text" id="fo_husband-company" name='husband_company' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                    onChange={e => {setHusbandCompany(e.target.value)}}
-                                    value={ husbandCompany !== "" & husbandCompany !== null & husbandCompany !== undefined ? husbandCompany : "" }
-                                />
-                                <label htmlFor="fo_husband-company" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
-                            </div>
-                        </div>
-                        <div className='grid gap-1 sm:grid-cols-3'>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_husband-WorkaddressLine1" name='husband_workAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                        onChange={e => {setHusbandCompanyAddressLine1(e.target.value)}}
-                                        value={ husbandCompanyAddressLine1 !== "" & husbandCompanyAddressLine1 !== null & husbandCompanyAddressLine1 !== undefined ? husbandCompanyAddressLine1 : "" }
-                                    />
-                                    <label htmlFor="fo_husband-WorkaddressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 1 (ex. PO-Box #)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_husband-WorkaddressLine2" name='husband_workAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setHusbandCompanyAddressLine2(e.target.value)}}
-                                        value={ husbandCompanyAddressLine2 !== "" & husbandCompanyAddressLine2 !== null & husbandCompanyAddressLine2 !== undefined ? husbandCompanyAddressLine2 : "" }    
-                                    />
-                                    <label htmlFor="fo_husband-WorkaddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_husband-Workcity" name='husband_workCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setHusbandCompanyCity(e.target.value)}}
-                                        value={ husbandCompanyCity !== "" & husbandCompanyCity !== null & husbandCompanyCity !== undefined ? husbandCompanyCity : "" }
-                                    />
-                                    <label htmlFor="fo_husband-Workcity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" onClick={() => {Stepper('address')}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Next Step: Wife info
-                    </button>
-                </PersonalInfo>
-
-                <AddressInfo show={showAddressInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Wife Info</h3>
-                    {/* <div className="grid gap-4 mb-4 sm:grid-cols-1">
-                        <Listbox value={selected} onChange={setSelected}>
-                            {({ open }) => (
-                                <>
-                                <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">Assigned to</Listbox.Label>
-                                    <div className="relative mt-2">
-                                        <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
-                                        <span className="flex items-center">
-                                            <span className="block ml-3 truncate">{selected.name}</span>
-                                        </span>
-                                        <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
-                                            <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                                        </span>
-                                        </Listbox.Button>
-
-                                        <Transition
-                                        show={open}
-                                        as={Fragment}
-                                        leave="transition ease-in duration-100"
-                                        leaveFrom="opacity-100"
-                                        leaveTo="opacity-100"
-                                        >
-                                            <Listbox.Options style={{ position: 'absolute !important ' }} className="z-10 w-full py-1 mt-1 overflow-scroll text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                                {MEData.map((person) => (
-                                                <Listbox.Option
-                                                    key={person.member_id}
-                                                    className={({ active }) =>
-                                                    classNames(
-                                                        active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-                                                        'relative cursor-default select-none py-2 pl-3 pr-9'
-                                                    )
-                                                    }
-                                                    value={person}
-                                                >
-                                                    {({ selected, active }) => (
-                                                    <>
-                                                        <div className="flex items-center">
-                                                        <span
-                                                            className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
-                                                        >
-                                                            {person.first_name} {person.middle_name !== null & person.middle_name !== undefined & person.middle_name !== "" ? person.middle_name.charAt(0) + "." : ""} {person.last_name}
-                                                        </span>
-                                                        </div>
-
-                                                        {selected ? (
-                                                        <span
-                                                            className={classNames(
-                                                            active ? 'text-white' : 'text-indigo-600',
-                                                            'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                            )}
-                                                        >
-                                                            <CheckIcon className="w-5 h-5" aria-hidden="true" />
-                                                        </span>
-                                                        ) : null}
-                                                    </>
-                                                    )}
-                                                </Listbox.Option>
-                                                ))}
-                                            </Listbox.Options>
-                                        </Transition>
-                                    </div>
-                                </>
-                            )}
-                        </Listbox>
-                    </div> */}
-                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-first-name" name='wife_firstName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeFirstName(e.target.value)}}
-                                    value={ wifeFirstName !== "" & wifeFirstName !== null & wifeFirstName !== undefined ? wifeFirstName : "" }
-                                />
-                                <label htmlFor="fo_wife-first-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-middle-name" name='wife_middleName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeMiddleName(e.target.value)}}
-                                    value={ wifeMiddleName !== "" & wifeMiddleName !== null & wifeMiddleName !== undefined ? wifeMiddleName : "" }
-                                />
-                                <label htmlFor="fo_wife-middle-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-last-name" name='wife_lastName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeLastName(e.target.value)}}
-                                    value={ wifeLastName !== "" & wifeLastName !== null & wifeLastName !== undefined ? wifeLastName : "" }
-                                />
-                                <label htmlFor="fo_wife-last-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-nickname" name='wife_nickname' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeNickname(e.target.value)}}
-                                    value={ wifeNickname !== "" & wifeNickname !== null & wifeNickname !== undefined ? wifeNickname : "" }
-                                />
-                                <label htmlFor="fo_wife-nickname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nickname</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-mobile-number" name='wife_mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeMobile(e.target.value)}}
-                                    value={ wifeMobile !== "" & wifeMobile !== null & wifeMobile !== undefined ? wifeMobile : "" }
-                                />
-                                <label htmlFor="fo_wife-mobile-number" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile number</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative">
-                                <input type="email" id="fo_wife-email" name='wife_email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeEmail(e.target.value)}}
-                                    value={ wifeEmail !== "" & wifeEmail !== null & wifeEmail !== undefined ? wifeEmail : "" }
-                                />
-                                <label htmlFor="fo_wife-email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative max-w-sm">
-                                <input id='fo_wife-birthday' type="date" name='wife_dob' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
-                                    onChange={e => {setWifeBirthday(e.target.value)}}
-                                    value={ wifeBirthday !== "" & wifeBirthday !== null & wifeBirthday !== undefined ? wifeBirthday : "" }
-                                />
-                                <label htmlFor="fo_wife-birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-spouse" name='wife_spouse' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setWifeSpouse(e.target.value)}}
-                                        value={ wifeSpouse !== "" & wifeSpouse !== null & wifeSpouse !== undefined ? wifeSpouse : "" }
-                                    />
-                                <label htmlFor="fo_wife-spouse" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Spouse</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor="pi_wife-civilStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Civil Status</label>
-                            <select id="pi_wife-civilStatus" name='wife_civilStatus' className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                onChange={e => {setWifeCivilStatus(e.target.value)}}
-                                value={
-                                        wifeCivilStatus !== null ?
-                                            wifeCivilStatus
-                                        :""
-                                    }
-                            >
-                                <option value={null}>Choose Civil Status</option>
-                                <option value={"Single"}>Single</option>
-                                <option value={"Married"}>Married</option>
-                                <option value={"Widow/Widower"}>Widow/Widower</option>
-                                <option value={"Separated"}>Separated</option>
-                            </select>
-                        </div>
-                        <div>
-                            <div className="relative mt-6">
-                                <input type="text" id="fo_wife-religion" name='wife_religion' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setWifeReligion(e.target.value)}}
-                                    value={
-                                        wifeReligion !== null ?
-                                            wifeReligion
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_wife-religion" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Religion</label>
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="pi_wife-baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
-                            <div className="flex">
-                                <div className="flex items-center mr-4">
-                                <input id="pi_wife-baptism-yes" type="radio" value="Yes" name="wife_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setWifeBaptized(e.target.value)}}
-                                        checked={
-                                            wifeBaptized !== null & wifeBaptized === 'Yes' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_wife-baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                <input id="pi_wife-baptism-no" type="radio" value="No" name="wife_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setWifeBaptized(e.target.value)}}
-                                        checked={
-                                            wifeBaptized !== null & wifeBaptized === 'No' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_wife-baptism-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label htmlFor="pi_wife-confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
-                            <div className="flex">
-                                <div className="flex items-center mr-4">
-                                    <input id="pi_wife-confirmation" type="radio" value="Yes" name="wife_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
-                                        onChange={e => {setWifeConfirmed(e.target.value)}}
-                                        checked={
-                                            wifeConfirmed !== null & wifeConfirmed === 'Yes' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_wife-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
-                                </div>
-                                <div className="flex items-center mr-4">
-                                    <input id="pi_wife-confirmation" type="radio" value="No" name="wife_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                        onChange={e => {setWifeConfirmed(e.target.value)}}
-                                        checked={
-                                            wifeConfirmed !== null & wifeConfirmed === 'No' ?
-                                                true
-                                            : null
-                                        }
-                                    />
-                                    <label htmlFor="pi_wife-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='mb-4'>
-                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Home Address</label>
-                        <div className='grid gap-1 sm:grid-cols-3'>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_wife-addressLine1" name='wife_memberAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                        onChange={e => {setWifeAddressLine1(e.target.value)}}
-                                        value={ wifeAddressLine1 !== "" & wifeAddressLine1 !== null & wifeAddressLine1 !== undefined ? wifeAddressLine1 : "" }
-                                    />
-                                    <label htmlFor="fo_wife-addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_wife-addressLine2" name='wife_memberAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setWifeAddressLine2(e.target.value)}}
-                                        value={ wifeAddressLine2 !== "" & wifeAddressLine2 !== null & wifeAddressLine2 !== undefined ? wifeAddressLine2 : "" }    
-                                    />
-                                    <label htmlFor="fo_wife-addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_wife-city" name='wife_memberCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setWifeCity(e.target.value)}}
-                                        value={ wifeCity !== "" & wifeCity !== null & wifeCity !== undefined ? wifeCity : "" }
-                                    />
-                                    <label htmlFor="fo_wife-city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className='mb-4'>
-                        <label className="mb-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Work</label>
-                        <div className='grid mb-4 sm:grid-cols-2'>
-                        <div className="relative">
-                                <input type="text" id="fo_wife-occupation" name='wife_memberOccupation' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                    onChange={e => {setWifeOccupation(e.target.value)}}
-                                    value={ wifeOccupation !== "" & wifeOccupation !== null & wifeOccupation !== undefined ? wifeOccupation : "" }
-                                />
-                                <label htmlFor="fo_wife-occupation" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                            <div className="relative">
-                                <input type="text" id="fo_wife-company" name='wife_memberCompany' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                    onChange={e => {setWifeCompany(e.target.value)}}
-                                    value={ wifeCompany !== "" & wifeCompany !== null & wifeCompany !== undefined ? wifeCompany : "" }
-                                />
-                                <label htmlFor="fo_wife-company" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
-                            </div>
-                        </div>
-                        <div className='grid gap-1 sm:grid-cols-3'>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_wife-WorkaddressLine1" name='wife_memberWorkAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
-                                        onChange={e => {setWifeCompanyAddressLine1(e.target.value)}}
-                                        value={ wifeCompanyAddressLine1 !== "" & wifeCompanyAddressLine1 !== null & wifeCompanyAddressLine1 !== undefined ? wifeCompanyAddressLine1 : "" }
-                                    />
-                                    <label htmlFor="fo_wife-WorkaddressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 1 (ex. PO-Box #)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_wife-WorkaddressLine2" name='wife_memberWorkAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setWifeCompanyAddressLine2(e.target.value)}}
-                                        value={ wifeCompanyAddressLine2 !== "" & wifeCompanyAddressLine2 !== null & wifeCompanyAddressLine2 !== undefined ? wifeCompanyAddressLine2 : "" }    
-                                    />
-                                    <label htmlFor="fo_wife-WorkaddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="relative">
-                                    <input type="text" id="fo_wife-Workcity" name='wife_memberWorkCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                        onChange={e => {setWifeCompanyCity(e.target.value)}}
-                                        value={ wifeCompanyCity !== "" & wifeCompanyCity !== null & wifeCompanyCity !== undefined ? wifeCompanyCity : "" }
-                                    />
-                                    <label htmlFor="fo_wife-Workcity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button onClick={() => Stepper('personal')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Husband Info
-                    </button>
-                    <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Next Step: Children
-                    </button>
-                </AddressInfo>
-
-                {/* <WorkInfo show={showWorkInfo}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Work Info</h3>
-                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_occupation" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setOccupation(e.target.value)}}
-                                    value={
-                                        occupation !== null ?
-                                            occupation
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_occupation" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_specialty" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setSpecialty(e.target.value)}}
-                                    value={
-                                        specialty!== null ?
-                                            specialty
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_specialty" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Specialty (ex. Skill/Course)</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_company" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setCompany(e.target.value)}}
-                                    value={
-                                        company !== null ?
-                                            company
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_company" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_companyAddressLine1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setCompanyAddressLine1(e.target.value)}}
-                                    value={
-                                        companyAddressLine1 !== null ?
-                                            companyAddressLine1
-                                        :null
-                                    }
-                                />
-                                <label htmlFor="fo_companyAddressLine1" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_companyAddressLine2" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setCompanyAddressLine2(e.target.value)}}
-                                    value={
-                                        companyAddressLine2 !== null ?
-                                            companyAddressLine2
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_companyAddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (ex. Bldg #, Street, Brgy, Subdivision, District)</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="relative">
-                                <input type="text" id="fo_companyCity" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                    onChange={e => {setCompanyCity(e.target.value)}}
-                                    value={
-                                        companyCity !== null ?
-                                            companyCity
-                                        :""
-                                    }
-                                />
-                                <label htmlFor="fo_companyCity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
-                            </div>
-                        </div>
-                    </div>
-                    <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Address Info
-                    </button>
-                    <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Next Step: Emergency Contacts
-                    </button>
-                </WorkInfo> */}
-
-                <EmergencyContacts show={showEmergencyContact}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Children Info</h3>
-                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
-                        {
-                            childrenList.length > 0 ?
-                                childrenList.map((x, i) => (
-                                    <>
-                                        <div className="relative">
-                                            <input type="text" id="fo_child_firstName" name='firstName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleChildrenChange(e,i)}
-                                                value={ childrenList[i].firstName !== "" & childrenList[i].firstName !== null & childrenList[i].firstName !== undefined ? childrenList[i].firstName : ""}
-                                            />
-                                            <label htmlFor="fo_child_firstName" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
-                                        </div>
-                                        <div className="relative">
-                                            <input type="text" id="fo_child_middleName" name='middleName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleChildrenChange(e,i) }
-
-                                                value={ childrenList[i].middleName !== "" & childrenList[i].middleName !== null & childrenList[i].middleName !== undefined ? childrenList[i].middleName : ""}
-                                            />
-                                            <label htmlFor="fo_child_middleName" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
-                                        </div>
-                                        <div className="relative">
-                                            <input type="text" id="fo_child_lastName" name='lastName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleChildrenChange(e,i) }
-                                                value={ childrenList[i].lastName !== "" & childrenList[i].lastName !== null & childrenList[i].lastName !== undefined ? childrenList[i].lastName : ""}
-                                            />
-                                            <label htmlFor="fo_child_lastName" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
-                                        </div>
-                                        <div className="relative">
-                                            <input type="date" id="fo_child_birthday" name='age' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleChildrenChange(e,i) }
-                                                value={ childrenList[i].birthday !== "" & childrenList[i].birthday !== null & childrenList[i].birthday !== undefined ? childrenList[i].birthday : ""}
-                                            />
-                                            <label htmlFor="fo_child_birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
-                                        </div>
-                                        <div className="relative">
-                                            {
-                                                childrenList.length > 1 &&
-                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                    onClick={ () => handleremove(i) }
-                                                    >
-                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                        </svg>
-                                                        <span className="sr-only">Remove Contact</span>
-                                                    </button>
-                                            }
-                                            {
-                                                childrenList.length-1 === i &&
-                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                    onClick={ handleadd }
-                                                    >
-                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                        </svg>
-                                                        <span className="sr-only">Add Contact</span>
-                                                    </button>
-                                            }
-                                        </div>
-                                    </>
-                                ))
-                            : null
-                        }
-                    </div>
-                    <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Wife Info
-                    </button>
-                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
-                        onClick={() => Stepper('invite')}
-                    >
-                        Next Step: Inviter Info
-                    </button>
-                </EmergencyContacts>
-
-                <Inviter show={showInvite}>
-                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
-                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
-                        {
-                            inviteList.length > 0 ?
-                                inviteList.map((x, i) => (
-                                    <>
-                                        <div className="relative">
-                                            <input type="text" id="fo_inviter_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleInviterChange(e,i)}
-                                                value={ inviteList[i].name !== "" & inviteList[i].name !== null & inviteList[i].name !== undefined ? inviteList[i].name : ""}
-                                            />
-                                            <label htmlFor="fo_inviter_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
-                                        </div>
-                                        <div className="relative">
-                                            <input type="text" id="fo_inviter_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleInviterChange(e,i) }
-
-                                                value={ inviteList[i].mobile !== "" & inviteList[i].mobile !== null & inviteList[i].mobile !== undefined ? inviteList[i].mobile : ""}
-                                            />
-                                            <label htmlFor="fo_inviter_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
-                                        </div>
-                                        <div className="relative">
-                                            <input type="text" id="fo_inviter_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleInviterChange(e,i) }
-                                                value={ inviteList[i].email !== "" & inviteList[i].email !== null & inviteList[i].email !== undefined ? inviteList[i].email : ""}
-                                            />
-                                            <label htmlFor="fo_inviter_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
-                                        </div>
-                                        <div className="relative">
-                                            <input type="text" id="fo_inviter_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                onChange={ e => handleInviterChange(e,i) }
-                                                value={ inviteList[i].relationship !== "" & inviteList[i].relationship !== null & inviteList[i].relationship !== undefined ? inviteList[i].relationship : ""}
-                                            />
-                                            <label htmlFor="fo_inviter_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
-                                        </div>
-                                        <div className="relative">
-                                            {
-                                                inviteList.length > 1 &&
-                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                    onClick={ () => handleInveterRemove(i) }
-                                                    >
-                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                        </svg>
-                                                        <span className="sr-only">Remove Contact</span>
-                                                    </button>
-                                            }
-                                            {
-                                                inviteList.length-1 === i &&
-                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-                                                    onClick={ handleInviterAdd }
-                                                    >
-                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                        </svg>
-                                                        <span className="sr-only">Add Contact</span>
-                                                    </button>
-                                            }
-                                        </div>
-                                    </>
-                                ))
-                            : null
-                        }
-                    </div>
-                    <button onClick={() => Stepper('emergency')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
-                        Go Back to: Children
-                    </button>
-                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
-                        onClick={addParticipant}
-                    >
-                        Save
-                    </button>
-                </Inviter>
-
-                {/* <Result show={showResult}>
-                    {
-                        isLoading ?
-                        <div className="text-center">
-                            <div role="status">
-                                <svg aria-hidden="true" className="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                                </svg>
-                                <span className="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                        :
-                            addStatus ?
-                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-green-50">
-                                    <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 text-green-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                                        </svg>
-                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
-                                    </div>
-                                </div>
-                            :
-                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-red-50">
-                                    <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                                        </svg>
-                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
-                                    </div>
-                                </div>
-                    }
-                    <div className='flex justify-end'>
-                        <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            // onClick={closeAdd}
-                        >
-                            Close
-                        </button>
-                    </div>
-                </Result> */}
-            </AddMEParticipant>
-
-            <EditMEParticipant show={showEdit} setShow={closeEdit}>
-            <ol className="flex items-center w-full mb-4 sm:mb-5">
-                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
-                        ${ currentStep === 'personal' ?
-                            'text-green-100 after:border-green-100'
-                            : 'text-green-600 after:border-green-600'}
-                    `}>
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
-                            ${ currentStep === 'personal'?
-                                'bg-green-100 '
-                            : 'bg-green-100 '}
-                        `}>
-                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
-                                ${ currentStep === 'personal' ?
-                                    'text-gray-500'
-                                : 'text-green-600'}
-                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd"></path>
-                            </svg>
-                        </div>
-                    </li>
-                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
-                        ${ currentStep === 'address' && previousStep === 'personal' ?
-                            'text-green-100 after:border-green-100'
-                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
-                                'text-green-600 after:border-green-600'
-                                :'text-green-100 after:border-gray-100'}
-                    `}>
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
-                            ${ currentStep === 'address' && previousStep === 'personal' ?
-                                'bg-green-100'
-                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
-                                'bg-green-100'
-                                :'bg-gray-100'}
-                        `}>
-                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
-                                ${ currentStep === 'address' && previousStep === 'personal' ?
-                                    'text-gray-500'
-                                : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
-                                    'text-green-600'
-                                    :'text-gray-500'}
-                            `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd"></path>
-                            </svg>
-                        </div>
-                    </li>
-                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
-                        ${ currentStep === 'emergency' && previousStep === 'address' ?
-                            'text-green-100 after:border-green-100'
-                            : currentStep === 'invite' | currentStep === 'result' ?
-                                'text-green-600 after:border-green-600'
-                                :'text-green-100 after:border-gray-100'}
-                    `}>
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
-                            ${ currentStep === 'emergency' && previousStep === 'address' ?
-                                'bg-green-100'
-                            : currentStep === 'invite' | currentStep === 'result' ?
-                                'bg-green-100'
-                                :'bg-gray-100'}
-                        `}>
-                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
-                                ${ currentStep === 'emergency' && previousStep === 'address' ?
-                                    'text-gray-500'
-                                : currentStep === 'invite' | currentStep === 'result' ?
-                                    'text-green-600'
-                                    : 'text-gray-500'}
-                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
-                                <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
-                            </svg>
-                        </div>
-                    </li>
-                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
-                        ${ currentStep === 'invite' && previousStep === 'emergency' ?
-                            'text-green-100 after:border-green-100'
-                            : currentStep === 'result' ?
-                                'text-green-600 after:border-green-600'
-                                :'text-green-100 after:border-gray-100'}
-                    `}>
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
-                            ${ currentStep === 'invite' && previousStep === 'emergency' ?
-                                'bg-green-100'
-                            : currentStep === 'result' ?
-                                'bg-green-100'
-                                :'bg-gray-100'}
-                        `}>
-                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
-                                ${ currentStep === 'invite' && previousStep === 'emergency' ?
-                                    'text-gray-500'
-                                : currentStep === 'result' ?
-                                    'text-green-600'
-                                    : 'text-gray-500'}
-                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
-                                <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
-                            </svg>
-                        </div>
-                    </li>
                 </ol>
                 
                 <PersonalInfo show={showPersonalInfo}>
@@ -2222,22 +1200,22 @@ function DTRegistration() {
                                                 <Listbox.Options static style={{ position: 'absolute !important ' }} className="z-10 w-full py-1 mt-1 overflow-scroll text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                                                     
                                                     <div className="relative">
-                                                        <div className="sticky top-0 z-20  px-1">
-                                                            <div className="mt-1 block  items-center">
+                                                        <div className="sticky top-0 z-20 px-1">
+                                                            <div className="items-center block mt-1">
                                                                 <input
                                                                 type="text"
                                                                 name="search"
                                                                 id="search"
                                                                 value={searchTerm}
                                                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                                                className="shadow-sm border px-2 bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 block w-full py-2 pr-12 font-bold sm:text-sm border-gray-300 rounded-md"
+                                                                className="block w-full px-2 py-2 pr-12 font-bold border border-gray-300 rounded-md shadow-sm bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                                                 onKeyDown={(e) => e.stopPropagation()}
                                                                 />
                                                                 <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5 ">
                                                                 {searchTerm && (
                                                                     <svg
                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                    className="h-6 w-6 text-blue-500 font-bold mr-1"
+                                                                    className="w-6 h-6 mr-1 font-bold text-blue-500"
                                                                     viewBox="0 0 20 20"
                                                                     fill="currentColor"
                                                                     onClick={() => {
@@ -2253,7 +1231,7 @@ function DTRegistration() {
                                                                 )}
                                                                 <svg
                                                                     xmlns="http://www.w3.org/2000/svg"
-                                                                    className="h-6 w-6 text-gray-500 mr-1"
+                                                                    className="w-6 h-6 mr-1 text-gray-500"
                                                                     fill="none"
                                                                     viewBox="0 0 24 24"
                                                                     stroke="currentColor"
@@ -2722,47 +1700,900 @@ function DTRegistration() {
                         Save
                     </button>
                 </Inviter>
+            </AddMEParticipant>
 
-                {/* <Result show={showResult}>
-                    {
-                        isLoading ?
-                        <div className="text-center">
-                            <div role="status">
-                                <svg aria-hidden="true" className="inline w-20 h-20 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                                </svg>
-                                <span className="sr-only">Loading...</span>
+            <EditMEParticipant show={showEdit} setShow={closeEdit}>
+            <ol className="flex items-center w-full mb-4 sm:mb-5">
+                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                        ${ currentStep === 'personal' ?
+                            'text-green-100 after:border-green-100'
+                            : 'text-green-600 after:border-green-600'}
+                    `}>
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
+                            ${ currentStep === 'personal'?
+                                'bg-green-100 '
+                            : 'bg-green-100 '}
+                        `}>
+                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
+                                ${ currentStep === 'personal' ?
+                                    'text-gray-500'
+                                : 'text-green-600'}
+                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </li>
+                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                        ${ currentStep === 'address' && previousStep === 'personal' ?
+                            'text-green-100 after:border-green-100'
+                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
+                                'text-green-600 after:border-green-600'
+                                :'text-green-100 after:border-gray-100'}
+                    `}>
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
+                            ${ currentStep === 'address' && previousStep === 'personal' ?
+                                'bg-green-100'
+                            : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
+                                'bg-green-100'
+                                :'bg-gray-100'}
+                        `}>
+                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
+                                ${ currentStep === 'address' && previousStep === 'personal' ?
+                                    'text-gray-500'
+                                : currentStep === 'work' | currentStep === 'emergency' | currentStep === 'invite' | currentStep === 'result' ?
+                                    'text-green-600'
+                                    :'text-gray-500'}
+                            `} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fillRule="evenodd" d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 4h3a3 3 0 006 0h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zm2.5 7a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm2.45 4a2.5 2.5 0 10-4.9 0h4.9zM12 9a1 1 0 100 2h3a1 1 0 100-2h-3zm-1 4a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z" clipRule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </li>
+                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                        ${ currentStep === 'emergency' && previousStep === 'address' ?
+                            'text-green-100 after:border-green-100'
+                            : currentStep === 'invite' | currentStep === 'result' ?
+                                'text-green-600 after:border-green-600'
+                                :'text-green-100 after:border-gray-100'}
+                    `}>
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
+                            ${ currentStep === 'emergency' && previousStep === 'address' ?
+                                'bg-green-100'
+                            : currentStep === 'invite' | currentStep === 'result' ?
+                                'bg-green-100'
+                                :'bg-gray-100'}
+                        `}>
+                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
+                                ${ currentStep === 'emergency' && previousStep === 'address' ?
+                                    'text-gray-500'
+                                : currentStep === 'invite' | currentStep === 'result' ?
+                                    'text-green-600'
+                                    : 'text-gray-500'}
+                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.5 0A3.987 3.987 0 0 0 11 2.1a4.977 4.977 0 0 1 3.9 5.858A3.989 3.989 0 0 0 14.5 0ZM9 13h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z"/>
+                                <path d="M5 19h10v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2ZM5 7a5.008 5.008 0 0 1 4-4.9 3.988 3.988 0 1 0-3.9 5.859A4.974 4.974 0 0 1 5 7Zm5 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm5-1h-.424a5.016 5.016 0 0 1-1.942 2.232A6.007 6.007 0 0 1 17 17h2a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5ZM5.424 9H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h2a6.007 6.007 0 0 1 4.366-5.768A5.016 5.016 0 0 1 5.424 9Z"/>
+                            </svg>
+                        </div>
+                    </li>
+                    <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block
+                        ${ currentStep === 'invite' && previousStep === 'emergency' ?
+                            'text-green-100 after:border-green-100'
+                            : currentStep === 'result' ?
+                                'text-green-600 after:border-green-600'
+                                :'text-green-100 after:border-gray-100'}
+                    `}>
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 shrink-0
+                            ${ currentStep === 'invite' && previousStep === 'emergency' ?
+                                'bg-green-100'
+                            : currentStep === 'result' ?
+                                'bg-green-100'
+                                :'bg-gray-100'}
+                        `}>
+                            <svg aria-hidden="true" className={`w-5 h-5 lg:w-6 lg:h-6
+                                ${ currentStep === 'invite' && previousStep === 'emergency' ?
+                                    'text-gray-500'
+                                : currentStep === 'result' ?
+                                    'text-green-600'
+                                    : 'text-gray-500'}
+                            `} fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
+                                <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
+                            </svg>
+                        </div>
+                    </li>
+                </ol>
+                
+                <PersonalInfo show={showPersonalInfo}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Husband Info</h3>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_husband-first-name" name='husband_firstName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandFirstName(e.target.value)}}
+                                    value={ husbandFirstName !== "" & husbandFirstName !== null & husbandFirstName !== undefined ? husbandFirstName : "" }
+                                />
+                                <label htmlFor="fo_husband-first-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
                             </div>
                         </div>
-                        :
-                            updateStatus ?
-                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-green-50">
-                                    <div className='flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 text-green-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                                        </svg>
-                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
-                                    </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_husband-middle-name" name='husband_middleName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandMiddleName(e.target.value)}}
+                                    value={ husbandMiddleName !== "" & husbandMiddleName !== null & husbandMiddleName !== undefined ? husbandMiddleName : "" }
+                                />
+                                <label htmlFor="fo_husband-middle-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_husband-last-name" name='husband_lastName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandLastName(e.target.value)}}
+                                    value={ husbandLastName !== "" & husbandLastName !== null & husbandLastName !== undefined ? husbandLastName : "" }
+                                />
+                                <label htmlFor="fo_husband-last-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_husband-nickname" name='husband_nickname' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandNickname(e.target.value)}}
+                                    value={ husbandNickname !== "" & husbandNickname !== null & husbandNickname !== undefined ? husbandNickname : "" }
+                                />
+                                <label htmlFor="fo_husband-nickname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nickname</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_husband-mobile-number" name='husband_mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandMobile(e.target.value)}}
+                                    value={ husbandMobile !== "" & husbandMobile !== null & husbandMobile !== undefined ? husbandMobile : "" }
+                                />
+                                <label htmlFor="fo_husband-mobile-number" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile number</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative">
+                                <input type="email" id="husband-fo_email" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandEmail(e.target.value)}}
+                                    value={ husbandEmail !== "" & husbandEmail !== null & husbandEmail !== undefined ? husbandEmail : "" }
+                                />
+                                <label htmlFor="husband-fo_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative max-w-sm">
+                                <input id='fo_husband-birthday' type="date" name='husband_dob' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
+                                    onChange={e => {setHusbandBirthday(e.target.value)}}
+                                    value={ husbandBirthday !== "" & husbandBirthday !== null & husbandBirthday !== undefined ? husbandBirthday : "" }
+                                />
+                                <label htmlFor="fo_husband-birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_husband-spouse" name='husband_spouse' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setHusbandSpouse(e.target.value)}}
+                                        value={ husbandSpouse !== "" & husbandSpouse !== null & husbandSpouse !== undefined ? husbandSpouse : "" }
+                                    />
+                                <label htmlFor="fo_husband-spouse" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Spouse</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="pi_husband-civilStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Civil Status</label>
+                            <select id="pi_husband-civilStatus" name='husband_civilStatus' className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setHusbandCivilStatus(e.target.value)}}
+                                value={ husbandCivilStatus !== "" & husbandCivilStatus !== null & husbandCivilStatus !== undefined ? husbandCivilStatus : "" }
+                            >
+                                <option value={null}>Choose Civil Status</option>
+                                <option value={"Single"}>Single</option>
+                                <option value={"Married"}>Married</option>
+                                <option value={"Widow/Widower"}>Widow/Widower</option>
+                                <option value={"Separated"}>Separated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_husband-religion" name='husband_religion' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setHusbandReligion(e.target.value)}}
+                                    value={ husbandReligion !== "" & husbandReligion !== null & husbandReligion !== undefined ? husbandReligion : "" }
+                                />
+                                <label htmlFor="fo_husband-religion" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Religion</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_husband-baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
+                            <div className="flex">
+                                <div className="flex items-center mr-4">
+                                <input id="pi_husband-baptism-yes" type="radio" value="Yes" name="husband_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setHusbandBaptized(e.target.value)}}
+                                        checked={
+                                            husbandBaptized !== null & husbandBaptized === 'Yes' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_husband-baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                                 </div>
-                            :
-                                <div className="flex items-center justify-around gap-4 mb-4 rounded-lg sm:grid-cols-2 bg-red-50">
-                                    <div className='flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg'>
-                                        <svg fill="none" className='w-20 h-20 text-red-600 lg:w-24 lg:h-24' stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                                        </svg>
-                                        <label className='text-3xl font-semibold'>{SEMessage}</label>
-                                    </div>
+                                <div className="flex items-center mr-4">
+                                <input id="pi_husband-baptism-no" type="radio" value="No" name="husband_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setHusbandBaptized(e.target.value)}}
+                                        checked={
+                                            husbandBaptized !== null & husbandBaptized === 'No' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_husband-baptism-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                                 </div>
-                    }
-                    <div className='flex justify-end'>
-                        <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            onClick={closeEdit}
-                        >
-                            Close
-                        </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_husband-confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
+                            <div className="flex">
+                                <div className="flex items-center mr-4">
+                                    <input id="pi_husband-confirmation" type="radio" value="Yes" name="husband_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setHusbandConfirmed(e.target.value)}}
+                                        checked={
+                                            husbandConfirmed !== null & husbandConfirmed === 'Yes' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_husband-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                    <input id="pi_husband-confirmation" type="radio" value="No" name="husband_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        onChange={e => {setHusbandConfirmed(e.target.value)}}
+                                        checked={
+                                            husbandConfirmed !== null & husbandConfirmed === 'No' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_husband-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </Result> */}
+                    <div className='mb-4'>
+                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Home Address</label>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_husband-addressLine1" name='husband_memberAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setHusbandAddressLine1(e.target.value)}}
+                                        value={ husbandAddressLine1 !== "" & husbandAddressLine1 !== null & husbandAddressLine1 !== undefined ? husbandAddressLine1 : "" }
+                                    />
+                                    <label htmlFor="fo_husband-addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_husband-addressLine2" name='husband_memberAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setHusbandAddressLine2(e.target.value)}}
+                                        value={ husbandAddressLine2 !== "" & husbandAddressLine2 !== null & husbandAddressLine2 !== undefined ? husbandAddressLine2 : "" }    
+                                    />
+                                    <label htmlFor="fo_husband-addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_husband-city" name='husband_memberCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setHusbandCity(e.target.value)}}
+                                        value={ husbandCity !== "" & husbandCity !== null & husbandCity !== undefined ? husbandCity : "" }
+                                    />
+                                    <label htmlFor="fo_husband-city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className='mb-4'>
+                        <label className="mb-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Work</label>
+                        <div className='grid mb-4 sm:grid-cols-2'>
+                            <div className="relative mr-2">
+                                <input type="text" id="fo_husband-occupation" name='husband_occupation' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setHusbandOccupation(e.target.value)}}
+                                    value={ husbandOccupation !== "" & husbandOccupation !== null & husbandOccupation !== undefined ? husbandOccupation : "" }
+                                />
+                                <label htmlFor="fo_husband-occupation" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
+                            </div>
+                            <div className="relative ml-2">
+                                <input type="text" id="fo_husband-company" name='husband_company' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setHusbandCompany(e.target.value)}}
+                                    value={ husbandCompany !== "" & husbandCompany !== null & husbandCompany !== undefined ? husbandCompany : "" }
+                                />
+                                <label htmlFor="fo_husband-company" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                            </div>
+                        </div>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_husband-WorkaddressLine1" name='husband_workAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setHusbandCompanyAddressLine1(e.target.value)}}
+                                        value={ husbandCompanyAddressLine1 !== "" & husbandCompanyAddressLine1 !== null & husbandCompanyAddressLine1 !== undefined ? husbandCompanyAddressLine1 : "" }
+                                    />
+                                    <label htmlFor="fo_husband-WorkaddressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_husband-WorkaddressLine2" name='husband_workAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setHusbandCompanyAddressLine2(e.target.value)}}
+                                        value={ husbandCompanyAddressLine2 !== "" & husbandCompanyAddressLine2 !== null & husbandCompanyAddressLine2 !== undefined ? husbandCompanyAddressLine2 : "" }    
+                                    />
+                                    <label htmlFor="fo_husband-WorkaddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_husband-Workcity" name='husband_workCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setHusbandCompanyCity(e.target.value)}}
+                                        value={ husbandCompanyCity !== "" & husbandCompanyCity !== null & husbandCompanyCity !== undefined ? husbandCompanyCity : "" }
+                                    />
+                                    <label htmlFor="fo_husband-Workcity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" onClick={() => {Stepper('address')}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Next Step: Wife info
+                    </button>
+                </PersonalInfo>
+
+                <AddressInfo show={showAddressInfo}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Wife Info</h3>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                        <div>
+                            <Listbox value={selected} onChange={setSelected}>
+                                {({ open }) => (
+                                    <>
+                                    <Listbox.Label className="block italic font-extrabold leading-6 text-md text-Red">*Select spouse here, if already in the record.</Listbox.Label>
+                                        <div className="relative mt-2">
+                                            <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
+                                            <span className="flex items-center">
+                                                <span className="block ml-3 truncate">{ 
+                                                    selected !== undefined ?
+                                                        `${selected.first_name} ${selected.middle_name !== null & selected.middle_name !== undefined & selected.middle_name !== "" ? selected.middle_name.charAt(0) + "." : ""} ${selected.last_name}`
+                                                    :
+                                                        "Please Select Spouse"
+                                                }</span>
+                                            </span>
+                                            
+                                            <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
+                                                <ChevronUpDownIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                                            </span>
+                                            </Listbox.Button>
+
+                                            <Transition
+                                            show={open}
+                                            as={Fragment}
+                                            leave="transition ease-in duration-100"
+                                            leaveFrom="opacity-100"
+                                            leaveTo="opacity-100"
+                                            >
+                                                <Listbox.Options static style={{ position: 'absolute !important ' }} className="z-10 w-full py-1 mt-1 overflow-scroll text-base bg-white rounded-md shadow-lg max-h-56 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                    
+                                                    <div className="relative">
+                                                        <div className="sticky top-0 z-20 px-1">
+                                                            <div className="items-center block mt-1">
+                                                                <input
+                                                                type="text"
+                                                                name="search"
+                                                                id="search"
+                                                                value={searchTerm}
+                                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                                                className="block w-full px-2 py-2 pr-12 font-bold border border-gray-300 rounded-md shadow-sm bg-gray-50 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                                                onKeyDown={(e) => e.stopPropagation()}
+                                                                />
+                                                                <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5 ">
+                                                                {searchTerm && (
+                                                                    <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    className="w-6 h-6 mr-1 font-bold text-blue-500"
+                                                                    viewBox="0 0 20 20"
+                                                                    fill="currentColor"
+                                                                    onClick={() => {
+                                                                        setSearchTerm("");
+                                                                    }}
+                                                                    >
+                                                                    <path
+                                                                        fillRule="evenodd"
+                                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                        clipRule="evenodd"
+                                                                    />
+                                                                    </svg>
+                                                                )}
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    className="w-6 h-6 mr-1 text-gray-500"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    stroke="currentColor"
+                                                                >
+                                                                    <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth="2"
+                                                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                                                    />
+                                                                </svg>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <Listbox.Option
+                                                        key={selected.Status}
+                                                        className={({ active }) =>
+                                                        classNames(
+                                                            active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                                            'relative cursor-default select-none py-2 pl-3 pr-9'
+                                                        )
+                                                        }
+                                                        value={[{Status: "No Spouse"}]}
+                                                    >
+                                                        <div className="flex items-center">
+                                                            <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}>
+                                                                No Spouse
+                                                            </span>
+                                                        </div>
+                                                    </Listbox.Option>
+
+                                                    {MEData
+                                                    .filter((person) => {
+                                                        const fullName = `${person.first_name} ${person.middle_name !== null & person.middle_name !== undefined & person.middle_name !== "" ? person.middle_name.charAt(0) + "." : ""} ${person.last_name}`
+                                                        return(
+                                                            fullName.toLowerCase().includes(searchTerm.toLowerCase())
+                                                        );
+                                                    })
+                                                        
+                                                    .map((person) => (
+                                                    <Listbox.Option
+                                                        key={person.member_id}
+                                                        className={({ active }) =>
+                                                        classNames(
+                                                            active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                                            'relative cursor-default select-none py-2 pl-3 pr-9'
+                                                        )
+                                                        }
+                                                        value={person}
+                                                    >
+                                                        {({ selected, active }) => (
+                                                        <>
+                                                            <div className="flex items-center">
+                                                                <span
+                                                                    className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                                                >
+                                                                    {person.first_name} {person.middle_name !== null & person.middle_name !== undefined & person.middle_name !== "" ? person.middle_name.charAt(0) + "." : ""} {person.last_name}
+                                                                </span>
+                                                            </div>
+
+                                                            {selected ? (
+                                                            <span
+                                                                className={classNames(
+                                                                active ? 'text-white' : 'text-indigo-600',
+                                                                'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                )}
+                                                            >
+                                                                <CheckIcon className="w-5 h-5" aria-hidden="true" />
+                                                            </span>
+                                                            ) : null}
+                                                        </>
+                                                        )}
+                                                    </Listbox.Option>
+                                                    ))}
+                                                </Listbox.Options>
+                                            </Transition>
+                                        </div>
+                                    </>
+                                )}
+                            </Listbox>
+                        </div>
+                        <div></div>
+                    </div>
+                    <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-first-name" name='wife_firstName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeFirstName(e.target.value)}}
+                                    value={ wifeFirstName !== "" & wifeFirstName !== null & wifeFirstName !== undefined ? wifeFirstName : "" }
+                                />
+                                <label htmlFor="fo_wife-first-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-middle-name" name='wife_middleName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeMiddleName(e.target.value)}}
+                                    value={ wifeMiddleName !== "" & wifeMiddleName !== null & wifeMiddleName !== undefined ? wifeMiddleName : "" }
+                                />
+                                <label htmlFor="fo_wife-middle-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-last-name" name='wife_lastName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeLastName(e.target.value)}}
+                                    value={ wifeLastName !== "" & wifeLastName !== null & wifeLastName !== undefined ? wifeLastName : "" }
+                                />
+                                <label htmlFor="fo_wife-last-name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-nickname" name='wife_nickname' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeNickname(e.target.value)}}
+                                    value={ wifeNickname !== "" & wifeNickname !== null & wifeNickname !== undefined ? wifeNickname : "" }
+                                />
+                                <label htmlFor="fo_wife-nickname" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nickname</label>
+                            </div>
+                        </div>
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-mobile-number" name='wife_mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeMobile(e.target.value)}}
+                                    value={ wifeMobile !== "" & wifeMobile !== null & wifeMobile !== undefined ? wifeMobile : "" }
+                                />
+                                <label htmlFor="fo_wife-mobile-number" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile number</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative">
+                                <input type="email" id="fo_wife-email" name='wife_email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeEmail(e.target.value)}}
+                                    value={ wifeEmail !== "" & wifeEmail !== null & wifeEmail !== undefined ? wifeEmail : "" }
+                                />
+                                <label htmlFor="fo_wife-email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative max-w-sm">
+                                <input id='fo_wife-birthday' type="date" name='wife_dob' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Birthday"
+                                    onChange={e => {setWifeBirthday(e.target.value)}}
+                                    value={ wifeBirthday !== "" & wifeBirthday !== null & wifeBirthday !== undefined ? wifeBirthday : "" }
+                                />
+                                <label htmlFor="fo_wife-birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-spouse" name='wife_spouse' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setWifeSpouse(e.target.value)}}
+                                        value={ wifeSpouse !== "" & wifeSpouse !== null & wifeSpouse !== undefined ? wifeSpouse : "" }
+                                    />
+                                <label htmlFor="fo_wife-spouse" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Spouse</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor="pi_wife-civilStatus" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Civil Status</label>
+                            <select id="pi_wife-civilStatus" name='wife_civilStatus' className="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                onChange={e => {setWifeCivilStatus(e.target.value)}}
+                                value={
+                                        wifeCivilStatus !== null ?
+                                            wifeCivilStatus
+                                        :""
+                                    }
+                            >
+                                <option value={null}>Choose Civil Status</option>
+                                <option value={"Single"}>Single</option>
+                                <option value={"Married"}>Married</option>
+                                <option value={"Widow/Widower"}>Widow/Widower</option>
+                                <option value={"Separated"}>Separated</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className="relative mt-6">
+                                <input type="text" id="fo_wife-religion" name='wife_religion' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                    onChange={e => {setWifeReligion(e.target.value)}}
+                                    value={
+                                        wifeReligion !== null ?
+                                            wifeReligion
+                                        :""
+                                    }
+                                />
+                                <label htmlFor="fo_wife-religion" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Religion</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_wife-baptism" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Baptized?</label>
+                            <div className="flex">
+                                <div className="flex items-center mr-4">
+                                <input id="pi_wife-baptism-yes" type="radio" value="Yes" name="wife_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setWifeBaptized(e.target.value)}}
+                                        checked={
+                                            wifeBaptized !== null & wifeBaptized === 'Yes' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_wife-baptism" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                <input id="pi_wife-baptism-no" type="radio" value="No" name="wife_baptism-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setWifeBaptized(e.target.value)}}
+                                        checked={
+                                            wifeBaptized !== null & wifeBaptized === 'No' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_wife-baptism-no" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="pi_wife-confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirmed?</label>
+                            <div className="flex">
+                                <div className="flex items-center mr-4">
+                                    <input id="pi_wife-confirmation" type="radio" value="Yes" name="wife_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+                                        onChange={e => {setWifeConfirmed(e.target.value)}}
+                                        checked={
+                                            wifeConfirmed !== null & wifeConfirmed === 'Yes' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_wife-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
+                                </div>
+                                <div className="flex items-center mr-4">
+                                    <input id="pi_wife-confirmation" type="radio" value="No" name="wife_confirmation-radio-group" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                        onChange={e => {setWifeConfirmed(e.target.value)}}
+                                        checked={
+                                            wifeConfirmed !== null & wifeConfirmed === 'No' ?
+                                                true
+                                            : null
+                                        }
+                                    />
+                                    <label htmlFor="pi_wife-confirmation" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mb-4'>
+                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Home Address</label>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_wife-addressLine1" name='wife_memberAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setWifeAddressLine1(e.target.value)}}
+                                        value={ wifeAddressLine1 !== "" & wifeAddressLine1 !== null & wifeAddressLine1 !== undefined ? wifeAddressLine1 : "" }
+                                    />
+                                    <label htmlFor="fo_wife-addressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_wife-addressLine2" name='wife_memberAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setWifeAddressLine2(e.target.value)}}
+                                        value={ wifeAddressLine2 !== "" & wifeAddressLine2 !== null & wifeAddressLine2 !== undefined ? wifeAddressLine2 : "" }    
+                                    />
+                                    <label htmlFor="fo_wife-addressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_wife-city" name='wife_memberCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setWifeCity(e.target.value)}}
+                                        value={ wifeCity !== "" & wifeCity !== null & wifeCity !== undefined ? wifeCity : "" }
+                                    />
+                                    <label htmlFor="fo_wife-city" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className='mb-4'>
+                        <label className="mb-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Work</label>
+                        <div className='grid mb-4 sm:grid-cols-2'>
+                        <div className="relative">
+                                <input type="text" id="fo_wife-occupation" name='wife_memberOccupation' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setWifeOccupation(e.target.value)}}
+                                    value={ wifeOccupation !== "" & wifeOccupation !== null & wifeOccupation !== undefined ? wifeOccupation : "" }
+                                />
+                                <label htmlFor="fo_wife-occupation" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Occupation</label>
+                            </div>
+                            <div className="relative">
+                                <input type="text" id="fo_wife-company" name='wife_memberCompany' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                    onChange={e => {setWifeCompany(e.target.value)}}
+                                    value={ wifeCompany !== "" & wifeCompany !== null & wifeCompany !== undefined ? wifeCompany : "" }
+                                />
+                                <label htmlFor="fo_wife-company" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company</label>
+                            </div>
+                        </div>
+                        <div className='grid gap-1 sm:grid-cols-3'>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_wife-WorkaddressLine1" name='wife_memberWorkAddressLine1' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " 
+                                        onChange={e => {setWifeCompanyAddressLine1(e.target.value)}}
+                                        value={ wifeCompanyAddressLine1 !== "" & wifeCompanyAddressLine1 !== null & wifeCompanyAddressLine1 !== undefined ? wifeCompanyAddressLine1 : "" }
+                                    />
+                                    <label htmlFor="fo_wife-WorkaddressLine1" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 1 (ex. PO-Box #)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_wife-WorkaddressLine2" name='wife_memberWorkAddressLine2' className="block text-sm px-2.5 pb-2.5 pt-4 w-[234px] text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setWifeCompanyAddressLine2(e.target.value)}}
+                                        value={ wifeCompanyAddressLine2 !== "" & wifeCompanyAddressLine2 !== null & wifeCompanyAddressLine2 !== undefined ? wifeCompanyAddressLine2 : "" }    
+                                    />
+                                    <label htmlFor="fo_wife-WorkaddressLine2" className="absolute text-xs text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Company Address Line 2 (House #, street, Brgy, Sbdivision, Disctrict)</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="relative">
+                                    <input type="text" id="fo_wife-Workcity" name='wife_memberWorkCity' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                        onChange={e => {setWifeCompanyCity(e.target.value)}}
+                                        value={ wifeCompanyCity !== "" & wifeCompanyCity !== null & wifeCompanyCity !== undefined ? wifeCompanyCity : "" }
+                                    />
+                                    <label htmlFor="fo_wife-Workcity" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">City</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onClick={() => Stepper('personal')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
+                        Go Back to: Husband Info
+                    </button>
+                    <button onClick={() => Stepper('emergency')} type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Next Step: Children
+                    </button>
+                </AddressInfo>
+
+                <EmergencyContacts show={showEmergencyContact}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Children Info</h3>
+                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
+                        {
+                            childrenList.length > 0 ?
+                                childrenList.map((x, i) => (
+                                    <>
+                                        <div className="relative">
+                                            <input type="text" id="fo_child_firstName" name='firstName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleChildrenChange(e,i)}
+                                                value={ childrenList[i].firstName !== "" & childrenList[i].firstName !== null & childrenList[i].firstName !== undefined ? childrenList[i].firstName : ""}
+                                            />
+                                            <label htmlFor="fo_child_firstName" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">First Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_child_middleName" name='middleName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleChildrenChange(e,i) }
+
+                                                value={ childrenList[i].middleName !== "" & childrenList[i].middleName !== null & childrenList[i].middleName !== undefined ? childrenList[i].middleName : ""}
+                                            />
+                                            <label htmlFor="fo_child_middleName" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Middle Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_child_lastName" name='lastName' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleChildrenChange(e,i) }
+                                                value={ childrenList[i].lastName !== "" & childrenList[i].lastName !== null & childrenList[i].lastName !== undefined ? childrenList[i].lastName : ""}
+                                            />
+                                            <label htmlFor="fo_child_lastName" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Last Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="date" id="fo_child_birthday" name='age' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleChildrenChange(e,i) }
+                                                value={ childrenList[i].birthday !== "" & childrenList[i].birthday !== null & childrenList[i].birthday !== undefined ? childrenList[i].birthday : ""}
+                                            />
+                                            <label htmlFor="fo_child_birthday" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Birthday</label>
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                childrenList.length > 1 &&
+                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ () => handleremove(i) }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                        <span className="sr-only">Remove Contact</span>
+                                                    </button>
+                                            }
+                                            {
+                                                childrenList.length-1 === i &&
+                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ handleadd }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                        <span className="sr-only">Add Contact</span>
+                                                    </button>
+                                            }
+                                        </div>
+                                    </>
+                                ))
+                            : null
+                        }
+                    </div>
+                    <button onClick={() => Stepper('address')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
+                        Go Back to: Wife Info
+                    </button>
+                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
+                        onClick={() => Stepper('invite')}
+                    >
+                        Next Step: Inviter Info
+                    </button>
+                </EmergencyContacts>
+
+                <Inviter show={showInvite}>
+                    <h3 className="mb-4 text-lg font-medium leading-none text-gray-900 dark:text-white">Inviter Info</h3>
+                    <div className="grid w-full gap-2 mb-4 sm:grid-cols-5">
+                        {
+                            inviteList.length > 0 ?
+                                inviteList.map((x, i) => (
+                                    <>
+                                        <div className="relative">
+                                            <input type="text" id="fo_inviter_name" name='name' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i)}
+                                                value={ inviteList[i].name !== "" & inviteList[i].name !== null & inviteList[i].name !== undefined ? inviteList[i].name : ""}
+                                            />
+                                            <label htmlFor="fo_inviter_name" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Name</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_inviter_mobile" name='mobile' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
+
+                                                value={ inviteList[i].mobile !== "" & inviteList[i].mobile !== null & inviteList[i].mobile !== undefined ? inviteList[i].mobile : ""}
+                                            />
+                                            <label htmlFor="fo_inviter_mobile" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Mobile</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_inviter_email" name='email' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
+                                                value={ inviteList[i].email !== "" & inviteList[i].email !== null & inviteList[i].email !== undefined ? inviteList[i].email : ""}
+                                            />
+                                            <label htmlFor="fo_inviter_email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Email</label>
+                                        </div>
+                                        <div className="relative">
+                                            <input type="text" id="fo_inviter_relationship" name='relationship' className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                onChange={ e => handleInviterChange(e,i) }
+                                                value={ inviteList[i].relationship !== "" & inviteList[i].relationship !== null & inviteList[i].relationship !== undefined ? inviteList[i].relationship : ""}
+                                            />
+                                            <label htmlFor="fo_inviter_relationship" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Relationship</label>
+                                        </div>
+                                        <div className="relative">
+                                            {
+                                                inviteList.length > 1 &&
+                                                    <button type="button" className="mx-1 text-red-700 border border-red-700 hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ () => handleInveterRemove(i) }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                        <span className="sr-only">Remove Contact</span>
+                                                    </button>
+                                            }
+                                            {
+                                                inviteList.length-1 === i &&
+                                                    <button type="button" className="mx-1 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+                                                    onClick={ handleInviterAdd }
+                                                    >
+                                                        <svg fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                        </svg>
+                                                        <span className="sr-only">Add Contact</span>
+                                                    </button>
+                                            }
+                                        </div>
+                                    </>
+                                ))
+                            : null
+                        }
+                    </div>
+                    <button onClick={() => Stepper('emergency')} type="submit" className="text-white bg-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center ">
+                        Go Back to: Children
+                    </button>
+                    <button type="submit" className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
+                        onClick={addParticipant}
+                    >
+                        Save
+                    </button>
+                </Inviter>
             </EditMEParticipant>
 
             <MEAttendanceWarning show={showAttendanceWarning} setShow={setShowAttendanceWarning}>
